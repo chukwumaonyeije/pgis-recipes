@@ -1,25 +1,85 @@
 # PGIS Recipes
 
-PGIS Recipes is a lightweight static website for browsing Marp-exported recipe slide decks through a polished landing page and searchable library.
+PGIS Recipes is a lightweight static website for browsing recipe slide decks built with Marp and published through GitHub Pages.
 
-The project is designed for:
+It is designed as a calm, presentation-oriented front door for recipe experimentation that sits inside the broader PGIS ecosystem: food, glucose awareness, practical behavior design, recovery, and performance-oriented metabolic thinking.
 
-- GitHub storage and version control
-- GitHub Pages publishing
-- plain HTML, CSS, and JavaScript only
-- easy addition of future recipe slide decks without a build step
+## Live project
 
-The design language intentionally echoes the PGIS Marp deck theme: restrained green accents, calm slate neutrals, strong typography, rounded cards, and a presentation-library feel rather than a generic food blog look.
+- Repository: [chukwumaonyeije/pgis-recipes](https://github.com/chukwumaonyeije/pgis-recipes)
+- Expected GitHub Pages URL: [https://chukwumaonyeije.github.io/pgis-recipes/](https://chukwumaonyeije.github.io/pgis-recipes/)
 
-## Canonical repository
+## What is PGIS?
 
-GitHub remote:
+PGIS stands for **Performance Glycemic Intelligence System**.
 
-```bash
-git clone https://github.com/chukwumaonyeije/pgis-recipes.git
-```
+In this project, PGIS is a practical framework for thinking about:
 
-## Recommended repository structure
+- how meals affect glucose response
+- how food supports recovery, satiety, and daily energy quality
+- how to make healthy eating more usable in real life
+- how to turn nutrition into repeatable, testable workflows rather than vague advice
+
+PGIS Recipes is not meant to be a generic recipe blog. It is meant to be a **curated presentation library** of recipes, meal ideas, and food protocols that can be explored through short teaching decks.
+
+## How this repo fits the PGIS ecosystem
+
+This repository is one part of a broader PGIS idea space on GitHub.
+
+Related PGIS work includes:
+
+- [PGIS-Breathe](https://github.com/chukwumaonyeije/PGIS-Breathe)  
+  A related PGIS project focused on breathing workflows, guided protocols, and product thinking around metabolic and physiologic self-regulation.
+
+This repo focuses specifically on the **nutrition and recipe-library side** of the ecosystem:
+
+- recipe slide decks
+- food experimentation
+- glucose-aware meal ideas
+- practical healthy eating
+- presentation-based knowledge organization
+
+## Why this project exists
+
+The goal is to take exported Marp recipe presentations and turn them into a polished static library website that:
+
+- lives in GitHub for storage and version control
+- publishes through GitHub Pages
+- remains easy to maintain without a build step
+- feels visually consistent with the PGIS Marp deck aesthetic
+- makes it easy to add future recipe decks over time
+
+## Design principles
+
+The site is intentionally:
+
+- static
+- lightweight
+- beginner-maintainable
+- GitHub Pages compatible
+- presentation-library oriented rather than blog oriented
+
+The visual language is meant to feel:
+
+- clean
+- calm
+- modern
+- slightly academic
+- physician-builder adjacent
+- thoughtful rather than flashy
+
+## Tech stack
+
+- HTML
+- CSS
+- vanilla JavaScript
+- GitHub
+- GitHub Pages
+- Marp-exported HTML slide decks
+
+No framework, build step, backend, or server-side runtime is required.
+
+## Repository structure
 
 ```text
 pgis-recipes/
@@ -48,29 +108,55 @@ pgis-recipes/
       └─ index.html
 ```
 
-## What lives where
+## What each part does
 
 - `index.html`
-  The homepage and front door for the recipe library.
+  The homepage and public front door for the recipe library.
 - `assets/css/styles.css`
-  Shared site styling for layout, typography, cards, hero, search, and footer.
+  Shared visual system for layout, typography, hero, cards, search, and footer.
 - `assets/js/app.js`
-  The recipe metadata array plus the JavaScript that renders cards and handles live search.
+  The recipe metadata array and rendering logic for featured recipes, recipe cards, tags, and live search.
 - `recipes/<slug>/index.html`
   Individual Marp-exported recipe slideshow files.
 
-## How to add a new recipe slide deck
+## How the homepage works
 
-### Recommended workflow
+The homepage is data-driven through a simple JavaScript array in `assets/js/app.js`.
 
-1. Create a folder under `recipes/` using a clean URL slug.
-2. Put the exported Marp HTML file inside that folder as `index.html`.
-3. Add a new recipe object to the `recipes` array in `assets/js/app.js`.
-4. Commit and push the changes.
+Each recipe object includes:
+
+- `title`
+- `subtitle`
+- `description`
+- `href`
+- `tags`
+- `featured`
+
+The homepage then uses that metadata to render:
+
+- the featured recipe section
+- the searchable recipe card library
+- tag pills
+- the empty state when search returns no matches
+
+## Clone the repository
+
+```bash
+git clone https://github.com/chukwumaonyeije/pgis-recipes.git
+cd pgis-recipes
+```
+
+## How to add a new recipe deck
+
+The cleanest maintenance pattern is:
+
+1. Export the Marp deck as HTML.
+2. Create a new folder inside `recipes/` using a clean URL slug.
+3. Save the exported HTML file into that folder as `index.html`.
+4. Add a new metadata object to the `recipes` array in `assets/js/app.js`.
+5. Commit and push the change.
 
 ### Example
-
-If you create a new deck called `Cinnamon Oat Recovery Bowl`, use a structure like:
 
 ```text
 recipes/
@@ -78,7 +164,7 @@ recipes/
    └─ index.html
 ```
 
-Then add an object like this in `assets/js/app.js`:
+Then add a matching object to `assets/js/app.js`:
 
 ```js
 {
@@ -92,77 +178,24 @@ Then add an object like this in `assets/js/app.js`:
 }
 ```
 
-## How to update the homepage library
+## Updating the recipe library safely
 
-All homepage cards are rendered from the `recipes` array in `assets/js/app.js`.
+To avoid breaking GitHub Pages links:
 
-Each recipe object supports:
+- keep homepage asset paths relative
+- keep each recipe `href` relative to `index.html`
+- avoid root-relative paths like `/assets/...`
+- keep recipe HTML pages inside `recipes/<slug>/index.html`
 
-- `title`
-- `subtitle`
-- `description`
-- `href`
-- `tags`
-- `featured`
+Examples used in this project:
 
-The search box filters recipes by:
-
-- title
-- subtitle
-- description
-- tags
-
-## GitHub Pages publishing
-
-This project is intended to publish directly from the `pgis-recipes` repository with no build step.
-
-### Basic setup
-
-1. Push the repository to GitHub.
-2. Open the repository on GitHub.
-3. Go to `Settings` -> `Pages`.
-4. Under `Build and deployment`, choose:
-   - `Source: Deploy from a branch`
-   - `Branch: main`
-   - `Folder: / (root)`
-5. Save the settings.
-6. Wait for GitHub Pages to publish the site.
-
-If the repository is named `pgis-recipes`, the published URL will typically be:
-
-```text
-https://chukwumaonyeije.github.io/pgis-recipes/
-```
-
-## Relative-link safety
-
-This site uses relative paths so it works both:
-
-- locally when opened from the repository
-- on GitHub Pages under the repository subpath
-
-Examples:
-
-- Homepage stylesheet: `./assets/css/styles.css`
-- Homepage script: `./assets/js/app.js`
-- Recipe links: `./recipes/red-lentil-pizza-crust/`
-
-To avoid breaking links:
-
-- keep homepage asset references relative
-- keep each recipe object `href` relative to the homepage
-- avoid leading slash paths like `/assets/...` because those can break on GitHub Pages project sites
+- `./assets/css/styles.css`
+- `./assets/js/app.js`
+- `./recipes/red-lentil-pizza-crust/`
 
 ## Git workflow
 
-### Clone the repository
-
-```bash
-git clone https://github.com/chukwumaonyeije/pgis-recipes.git
-cd pgis-recipes
-```
-
-### Add files
+### Stage changes
 
 ```bash
 git add .
@@ -171,7 +204,7 @@ git add .
 ### Commit changes
 
 ```bash
-git commit -m "Add PGIS Recipes homepage and recipe library"
+git commit -m "Update PGIS Recipes library"
 ```
 
 ### Push updates
@@ -180,14 +213,34 @@ git commit -m "Add PGIS Recipes homepage and recipe library"
 git push origin main
 ```
 
-## Suggested maintenance workflow
+## Publish with GitHub Pages
 
-For future recipes, the cleanest pattern is:
+This repository is intended to deploy directly from the `main` branch with no build step.
 
-1. export the Marp deck directly to `recipes/<slug>/index.html`
-2. open `assets/js/app.js`
-3. add one metadata object
-4. preview locally
-5. commit and push
+1. Open the repository on GitHub.
+2. Go to `Settings` -> `Pages`.
+3. Under `Build and deployment`, select:
+   - `Source: Deploy from a branch`
+   - `Branch: main`
+   - `Folder: / (root)`
+4. Save.
+5. Wait for GitHub Pages to publish the site.
 
-That keeps the project fully static, GitHub Pages compatible, and easy to manage for a beginner developer.
+## Recommended long-term workflow
+
+As the PGIS ecosystem grows, this repo can serve as the recipe and food-library surface while related repositories handle adjacent parts of the system.
+
+For example:
+
+- `pgis-recipes` for recipe decks and nutrition presentation assets
+- `PGIS-Breathe` for breathing workflows and product experimentation
+
+That separation keeps each repository focused while still making the ecosystem legible.
+
+## Project intent
+
+The broader tone of this project is:
+
+> practical, thoughtful, data-aware, presentation-based recipe experimentation for metabolic health and performance
+
+That tone should shape future additions to both the code and the content.
