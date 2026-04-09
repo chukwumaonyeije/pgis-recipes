@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="PGIS Recipes is a static presentation library for Marp-based recipe decks focused on metabolic health, glucose awareness, and practical performance nutrition."
+    />
+    <title>PGIS Recipes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Montserrat:wght@600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
+    <script src="./assets/js/app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header" id="top">
+      <div class="shell">
+        <nav class="navbar" aria-label="Primary">
+          <a class="brand" href="./">
+            <span class="brand-mark" aria-hidden="true">PGIS</span>
+            <span class="brand-text">
+              <strong>PGIS Recipes</strong>
+              <span>Metabolic-health recipe deck library</span>
+            </span>
+          </a>
+          <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#featured">Featured</a>
+            <a href="#library">Library</a>
+            <a
+              href="https://github.com/chukwumaonyeije/pgis-recipes"
+              target="_blank"
+              rel="noreferrer"
+              >GitHub</a
+            >
+          </div>
+        </nav>
+
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <p class="eyebrow">Performance Glycemic Intelligence System</p>
+            <h1 id="hero-title">PGIS Recipes</h1>
+            <p class="hero-lead">
+              Practical, thoughtful, data-aware, presentation-based recipe
+              experimentation for metabolic health and performance.
+            </p>
+            <p class="hero-body">
+              This library collects Marp-exported recipe slide decks connected
+              to PGIS thinking: food experimentation, glucose awareness,
+              performance fueling, and everyday healthy eating that stays usable
+              in real life.
+            </p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="#library">Browse Recipes</a>
+              <a class="button button-secondary" href="#about">What PGIS Means</a>
+            </div>
+          </div>
+
+          <aside class="hero-panel" aria-label="Library overview">
+            <div class="hero-panel-card">
+              <p class="panel-label">Library Snapshot</p>
+              <div class="hero-stats">
+                <article class="stat">
+                  <span class="stat-value" id="recipe-count">0</span>
+                  <span class="stat-label">Recipe decks</span>
+                </article>
+                <article class="stat">
+                  <span class="stat-value" id="featured-count">0</span>
+                  <span class="stat-label">Featured</span>
+                </article>
+                <article class="stat">
+                  <span class="stat-value">Static</span>
+                  <span class="stat-label">GitHub Pages ready</span>
+                </article>
+              </div>
+              <p class="panel-note">
+                Built to feel like a curated presentation archive rather than a
+                generic food blog.
+              </p>
+            </div>
+          </aside>
+        </section>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="section" id="about" aria-labelledby="about-title">
+        <div class="shell">
+          <div class="section-heading">
+            <p class="eyebrow">Project Context</p>
+            <h2 id="about-title">What PGIS Means Here</h2>
+          </div>
+          <div class="info-grid">
+            <article class="info-card">
+              <h3>Performance Glycemic Intelligence System</h3>
+              <p>
+                PGIS frames recipes as experiments in metabolic stability,
+                energy quality, recovery support, and practical food systems for
+                daily life.
+              </p>
+            </article>
+            <article class="info-card">
+              <h3>Presentation-first library</h3>
+              <p>
+                Each recipe is treated as a compact teaching deck: rationale,
+                ingredient structure, execution protocol, and glucose-aware
+                context in a slide-driven format.
+              </p>
+            </article>
+            <article class="info-card">
+              <h3>Easy to maintain</h3>
+              <p>
+                New recipes can be added by dropping a Marp export into a recipe
+                folder and updating one JavaScript data object on the homepage.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="section section-featured"
+        id="featured"
+        aria-labelledby="featured-title"
+      >
+        <div class="shell">
+          <div class="section-heading">
+            <p class="eyebrow">Featured Decks</p>
+            <h2 id="featured-title">Highlighted recipes</h2>
+            <p class="section-copy">
+              A quick entry point into the current library for recovery meals,
+              steady-energy bowls, and low-glycemic supporting recipes.
+            </p>
+          </div>
+          <div class="featured-grid" id="featured-grid"></div>
+        </div>
+      </section>
+
+      <section class="section" id="library" aria-labelledby="library-title">
+        <div class="shell">
+          <div class="section-heading section-heading-inline">
+            <div>
+              <p class="eyebrow">Recipe Library</p>
+              <h2 id="library-title">Browse the deck collection</h2>
+              <p class="section-copy">
+                Search by recipe name, context, ingredient pattern, or tag.
+              </p>
+            </div>
+            <form class="search-panel" role="search" aria-label="Search recipes">
+              <label class="search-label" for="recipe-search">Search recipes</label>
+              <div class="search-input-wrap">
+                <input
+                  id="recipe-search"
+                  name="recipe-search"
+                  type="search"
+                  placeholder="Search by title, tag, or description"
+                  autocomplete="off"
+                />
+              </div>
+              <p class="results-meta" id="results-meta" aria-live="polite"></p>
+            </form>
+          </div>
+
+          <div class="tag-summary" id="tag-summary" aria-label="Popular tags"></div>
+          <div class="recipe-grid" id="recipe-grid"></div>
+          <div class="empty-state" id="empty-state" hidden>
+            <h3>No recipes matched that search.</h3>
+            <p>
+              Try a broader term such as <strong>bowl</strong>,
+              <strong>recovery</strong>, <strong>smoothie</strong>, or
+              <strong>low glycemic</strong>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-layout">
+        <div>
+          <p class="footer-title">PGIS Recipes</p>
+          <p class="footer-copy">
+            A static GitHub Pages library for Marp-exported recipe
+            presentations focused on metabolic health, glucose awareness, and
+            practical performance nutrition.
+          </p>
+        </div>
+        <div class="footer-meta">
+          <p>
+            <strong>Repository:</strong>
+            <a
+              href="https://github.com/chukwumaonyeije/pgis-recipes"
+              target="_blank"
+              rel="noreferrer"
+              >pgis-recipes</a
+            >
+          </p>
+          <p><strong>Publishing:</strong> GitHub Pages from this repository</p>
+          <p><strong>Last updated:</strong> <span id="last-updated">Loading...</span></p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
