@@ -101,9 +101,7 @@ function normalize(value) {
 }
 
 function recipeMatches(recipe, query) {
-  if (!query) {
-    return true;
-  }
+  if (!query) return true;
 
   const haystack = [
     recipe.title,
@@ -183,7 +181,6 @@ function createFeaturedCard(recipe) {
 
 function renderFeatured() {
   if (!featuredGrid) return;
-
   const featuredRecipes = recipes.filter((recipe) => recipe.featured);
   featuredGrid.replaceChildren(...featuredRecipes.map(createFeaturedCard));
 }
