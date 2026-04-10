@@ -1,5 +1,5 @@
 const siteMetadata = {
-  libraryUpdated: "2026-04-09",
+  libraryUpdated: "2026-04-10",
 };
 
 const recipes = [
@@ -82,6 +82,186 @@ const recipes = [
       "A fruit-forward smoothie built from black cherries, cacao, banana, spinach, and flaxseed for convenience without junk.",
     href: "./recipes/sweet-black-cherry-chocolate-smoothie/",
     tags: ["Smoothie", "Breakfast", "Quick Option", "Fast Fuel"],
+    featured: false,
+  },
+
+  {
+    title: "Anti-Inflammatory Recovery Soup",
+    subtitle: "Post-Workout Recovery: heavy training weeks when inflammation is high",
+    description:
+      "This potent, anti-inflammatory soup is formulated to mitigate the systemic stress and tissue micro-trauma accumulated during high-volume training weeks.",
+    href: "./recipes/anti-inflammatory-recovery-soup/",
+    tags: ["Post Workout Recovery", "Vegan", "Plant Based", "Anti Inflammatory"],
+    featured: false,
+  },
+
+  {
+    title: "High-Iron Endurance Bowl",
+    subtitle: "Training Nutrition: support oxygen-carrying capacity during training block",
+    description:
+      "This iron-rich bowl is a foundational meal designed to maximize hemoglobin synthesis and oxygen-carrying capacity throughout the half marathon training bl…",
+    href: "./recipes/high-iron-endurance-bowl/",
+    tags: ["Training Nutrition", "Vegan", "Plant Based", "High Iron"],
+    featured: false,
+  },
+
+  {
+    title: "Hydration and Electrolyte Drink",
+    subtitle: "Intra-Workout Hydration: long runs in warm weather",
+    description:
+      "This all-natural, whole-food based electrolyte drink is specifically formulated to replace sweat losses during long runs in warm weather without the added…",
+    href: "./recipes/hydration-and-electrolyte-drink/",
+    tags: ["Intra Workout Hydration", "Vegan", "Plant Based", "Hydration"],
+    featured: false,
+  },
+
+  {
+    title: "Mid-Run Fuel",
+    subtitle: "Intra-Workout Fuel: portable natural carbs for runs over 75 minutes",
+    description:
+      "This whole-food, easily transportable alternative to commercial gels delivers a precise blend of natural sugars for immediate intra-run energy.",
+    href: "./recipes/mid-run-fuel/",
+    tags: ["Intra Workout Fuel", "Vegan", "Plant Based", "Intra Run"],
+    featured: false,
+  },
+
+  {
+    title: "Post-Long-Run Recovery Meal",
+    subtitle: "Post-Workout Recovery: within 60 min of finishing a long run",
+    description:
+      "This high-carbohydrate, moderate-protein meal is strategically designed to maximize the anabolic window immediately following a grueling long run.",
+    href: "./recipes/post-long-run-recovery-meal/",
+    tags: ["Post Workout Recovery", "Vegan", "Plant Based", "Post Run"],
+    featured: false,
+  },
+
+  {
+    title: "Post-Race Celebration Bowl",
+    subtitle: "Post-Race Recovery: the reward meal",
+    description:
+      "This nutrient-dense, satisfying bowl is the ultimate reward meal following the completion of your half marathon.",
+    href: "./recipes/post-race-celebration-bowl/",
+    tags: ["Post Race Recovery", "Vegan", "Plant Based", "Post Race"],
+    featured: false,
+  },
+
+  {
+    title: "Pre-Long-Run Breakfast",
+    subtitle: "Pre-Workout Fuel: 2-3 hours before a 10+ mile run",
+    description:
+      "This easily digestible pre-run meal is designed to top off liver and muscle glycogen stores without burdening the digestive tract.",
+    href: "./recipes/pre-long-run-breakfast/",
+    tags: ["Pre Workout Fuel", "Vegan", "Plant Based", "Pre Run"],
+    featured: false,
+  },
+
+  {
+    title: "Race-Morning Breakfast",
+    subtitle: "Pre-Race Fuel: 2-3 hours before the half marathon start",
+    description:
+      "This race-morning breakfast is the proven, reliable, and easily digestible foundation for your half marathon effort.",
+    href: "./recipes/race-morning-breakfast/",
+    tags: ["Pre Race Fuel", "Vegan", "Plant Based", "Pre Race"],
+    featured: false,
+  },
+
+  {
+    title: "Race-Week Carb-Loading Dinner",
+    subtitle: "Pre-Race Fuel: 3 days before race",
+    description:
+      "This carbohydrate-dense dinner is specifically formulated for the critical carb-loading phase 72 hours prior to the half marathon.",
+    href: "./recipes/race-week-carb-loading-dinner/",
+    tags: ["Pre Race Fuel", "Vegan", "Plant Based", "Carb Loading"],
+    featured: false,
+  },
+
+  {
+    title: "Balsamic Brussels Sprouts and Freekeh Bowl",
+    subtitle: "Main Dish / Bowl",
+    description:
+      "This Balsamic Brussels Sprouts and Freekeh Bowl provides a robust, fiber-dense alternative to the Roasted Veggie Quinoa Bowl, utilizing a deeply flavorful…",
+    href: "./recipes/balsamic-brussels-sprouts-and-freekeh-bowl/",
+    tags: ["Main Dish", "Bowl", "Vegan", "Plant Based"],
+    featured: false,
+  },
+
+  {
+    title: "Black Bean and Sweet Potato Enchilada Skillet",
+    subtitle: "Main Dish",
+    description:
+      "This Black Bean and Sweet Potato Enchilada Skillet is a hearty, one-pan alternative to the Red Lentil Pizza Crust, offering a robust, Mexican-inspired fla…",
+    href: "./recipes/black-bean-and-sweet-potato-enchilada-skillet/",
+    tags: ["Main Dish", "Vegan", "Plant Based", "Anti Inflammatory"],
+    featured: false,
+  },
+
+  {
+    title: "Broccoli Slaw and Edamame Endurance Salad",
+    subtitle: "Salad / Meal Prep",
+    description:
+      "This Broccoli Slaw and Edamame Endurance Salad provides a crunchy, nutrient-dense alternative to the Kale-Cabbage Power Salad, designed specifically for m…",
+    href: "./recipes/broccoli-slaw-and-edamame-endurance-salad/",
+    tags: ["Salad", "Meal Prep", "Vegan", "Plant Based"],
+    featured: false,
+  },
+
+  {
+    title: "Ginger-Turmeric Healing Kraut",
+    subtitle: "Condiment",
+    description:
+      "This Ginger-Turmeric Healing Kraut is a vibrant, deeply anti-inflammatory alternative to the Citrus Jalapeño Curtido, functioning as a daily condiment to…",
+    href: "./recipes/ginger-turmeric-healing-kraut/",
+    tags: ["Condiment", "Vegan", "Plant Based", "Anti Inflammatory"],
+    featured: false,
+  },
+
+  {
+    title: "Matcha Mango Recovery Smoothie",
+    subtitle: "Smoothie / Breakfast",
+    description:
+      "This Matcha Mango Recovery Smoothie provides a vibrant, tropical alternative to the Black Cherry and Chocolate Smoothie, designed specifically for pre- or…",
+    href: "./recipes/matcha-mango-recovery-smoothie/",
+    tags: ["Smoothie", "Breakfast", "Vegan", "Plant Based"],
+    featured: false,
+  },
+
+  {
+    title: "Miso-Glazed Eggplant and Sorghum Bowl",
+    subtitle: "Main Dish / Bowl",
+    description:
+      "This Miso-Glazed Eggplant and Sorghum Bowl offers a savory, umami-rich alternative to the Roasted Butternut Squash Bowl, utilizing a different roasted veg…",
+    href: "./recipes/miso-glazed-eggplant-and-sorghum-bowl/",
+    tags: ["Main Dish", "Bowl", "Vegan", "Plant Based"],
+    featured: false,
+  },
+
+  {
+    title: "Savory Chickpea Scramble Recovery Bowl",
+    subtitle: "Breakfast / Recovery Meal",
+    description:
+      "This Savory Chickpea Scramble Recovery Bowl offers a robust, protein-packed alternative to the Tofu-Oat Waffles, designed specifically for post-endurance…",
+    href: "./recipes/savory-chickpea-scramble-recovery-bowl/",
+    tags: ["Breakfast", "Recovery Meal", "Vegan", "Plant Based"],
+    featured: false,
+  },
+
+  {
+    title: "Smoky Mustard Roasted Radishes",
+    subtitle: "Snack / Side Dish",
+    description:
+      "These Smoky Mustard Roasted Radishes offer a surprisingly sweet, deeply savory alternative to Spicy Roasted Cauliflower Bites.",
+    href: "./recipes/smoky-mustard-roasted-radishes/",
+    tags: ["Snack", "Side Dish", "Vegan", "Plant Based"],
+    featured: false,
+  },
+
+  {
+    title: "Smoky Split Pea and Farro Soup",
+    subtitle: "Stew / Recovery Meal",
+    description:
+      "This Smoky Split Pea and Farro Soup serves as a hearty, nutrient-dense alternative to the Mushroom-Barley Stew, perfect for post-training recovery.",
+    href: "./recipes/smoky-split-pea-and-farro-soup/",
+    tags: ["Stew", "Recovery Meal", "Vegan", "Plant Based"],
     featured: false,
   },
 ];
