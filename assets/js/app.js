@@ -269,6 +269,7 @@ const recipes = [
 const recipeGrid = document.querySelector("#recipe-grid");
 const featuredGrid = document.querySelector("#featured-grid");
 const tagSummary = document.querySelector("#tag-summary");
+const searchForm = document.querySelector(".search-panel");
 const searchInput = document.querySelector("#recipe-search");
 const emptyState = document.querySelector("#empty-state");
 const resultsMeta = document.querySelector("#results-meta");
@@ -278,6 +279,29 @@ const lastUpdated = document.querySelector("#last-updated");
 
 function normalize(value) {
   return String(value).toLowerCase().trim();
+}
+
+function getSearchQueryFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("recipe-search") ?? "";
+}
+
+function syncSearchQueryToUrl(query) {
+  const params = new URLSearchParams(window.location.search);
+  const normalizedQuery = query.trim();
+
+  if (normalizedQuery) {
+    params.set("recipe-search", normalizedQuery);
+  } else {
+    params.delete("recipe-search");
+  }
+
+  const queryString = params.toString();
+  const nextUrl = `${window.location.pathname}${
+    queryString ? `?${queryString}` : ""
+  }${window.location.hash}`;
+
+  window.history.replaceState({}, "", nextUrl);
 }
 
 function recipeMatches(recipe, query) {
@@ -429,8 +453,26 @@ function updateSummary() {
 function initSearch() {
   if (!searchInput) return;
 
+  const initialQuery = getSearchQueryFromUrl();
+  if (initialQuery) {
+    searchInput.value = initialQuery;
+    renderRecipeGrid(initialQuery);
+  }
+
+  if (searchForm) {
+    searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      const query = searchInput.value;
+      syncSearchQueryToUrl(query);
+      renderRecipeGrid(query);
+    });
+  }
+
   searchInput.addEventListener("input", (event) => {
-    renderRecipeGrid(event.target.value);
+    const query = event.target.value;
+    syncSearchQueryToUrl(query);
+    renderRecipeGrid(query);
   });
 }
 
