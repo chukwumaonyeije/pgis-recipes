@@ -4,6 +4,24 @@ const siteMetadata = {
 
 const recipes = [
   {
+    title: "High-Protein Tofu–Oat Recovery Waffles",
+    subtitle: "Batch-friendly recovery waffles for steady glucose and practical fueling",
+    description:
+      "A tofu, oat, flax, and chia waffle deck built for meal prep, recovery support, and lower-fat glycemic stability.",
+    href: "./recipes/tofu-oat-waffles/",
+    tags: ["Recovery Meal", "Breakfast", "High Fiber", "Meal Prep"],
+    featured: true,
+  },
+  {
+    title: "5-Day Kale–Cabbage Power Salad",
+    subtitle: "Fiber-forward meal-prep salad for metabolic stability across the week",
+    description:
+      "A chopped kale and cabbage salad deck with legumes and oil-free peanut vinaigrette designed for low-fat, glucose-aware repeatability.",
+    href: "./recipes/kale-cabbage-salad/",
+    tags: ["Salad", "Meal Prep", "Low Fat", "Glycemic Stability"],
+    featured: true,
+  },
+  {
     title: "Red Lentil Pizza Crust",
     subtitle: "Plant-based recovery meal with spinach pesto and tomato",
     description:
@@ -79,7 +97,7 @@ const featuredCount = document.querySelector("#featured-count");
 const lastUpdated = document.querySelector("#last-updated");
 
 function normalize(value) {
-  return value.toLowerCase().trim();
+  return String(value).toLowerCase().trim();
 }
 
 function recipeMatches(recipe, query) {
@@ -130,7 +148,11 @@ function createRecipeCard(recipe) {
     </div>
   `;
 
-  article.insertBefore(createTagList(recipe.tags), article.querySelector(".card-footer"));
+  article.insertBefore(
+    createTagList(recipe.tags),
+    article.querySelector(".card-footer")
+  );
+
   return article;
 }
 
@@ -151,17 +173,26 @@ function createFeaturedCard(recipe) {
     </div>
   `;
 
-  article.insertBefore(createTagList(recipe.tags), article.querySelector(".card-footer"));
+  article.insertBefore(
+    createTagList(recipe.tags),
+    article.querySelector(".card-footer")
+  );
+
   return article;
 }
 
 function renderFeatured() {
+  if (!featuredGrid) return;
+
   const featuredRecipes = recipes.filter((recipe) => recipe.featured);
   featuredGrid.replaceChildren(...featuredRecipes.map(createFeaturedCard));
 }
 
 function renderTagSummary() {
+  if (!tagSummary) return;
+
   const tags = [...new Set(recipes.flatMap((recipe) => recipe.tags))].sort();
+
   tagSummary.replaceChildren(
     ...tags.map((tag) => {
       const pill = document.createElement("span");
@@ -173,32 +204,51 @@ function renderTagSummary() {
 }
 
 function renderRecipeGrid(query = "") {
+  if (!recipeGrid) return;
+
   const normalizedQuery = normalize(query);
   const filteredRecipes = recipes.filter((recipe) =>
     recipeMatches(recipe, normalizedQuery)
   );
 
   recipeGrid.replaceChildren(...filteredRecipes.map(createRecipeCard));
-  emptyState.hidden = filteredRecipes.length > 0;
-  resultsMeta.textContent = normalizedQuery
-    ? `${filteredRecipes.length} of ${recipes.length} recipes shown`
-    : `${recipes.length} recipes available`;
+
+  if (emptyState) {
+    emptyState.hidden = filteredRecipes.length > 0;
+  }
+
+  if (resultsMeta) {
+    resultsMeta.textContent = normalizedQuery
+      ? `${filteredRecipes.length} of ${recipes.length} recipes shown`
+      : `${recipes.length} recipes available`;
+  }
 }
 
 function updateSummary() {
-  recipeCount.textContent = String(recipes.length);
-  featuredCount.textContent = String(recipes.filter((recipe) => recipe.featured).length);
+  if (recipeCount) {
+    recipeCount.textContent = String(recipes.length);
+  }
 
-  const formattedDate = new Intl.DateTimeFormat("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(new Date(siteMetadata.libraryUpdated));
+  if (featuredCount) {
+    featuredCount.textContent = String(
+      recipes.filter((recipe) => recipe.featured).length
+    );
+  }
 
-  lastUpdated.textContent = formattedDate;
+  if (lastUpdated) {
+    const formattedDate = new Intl.DateTimeFormat("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    }).format(new Date(siteMetadata.libraryUpdated));
+
+    lastUpdated.textContent = formattedDate;
+  }
 }
 
 function initSearch() {
+  if (!searchInput) return;
+
   searchInput.addEventListener("input", (event) => {
     renderRecipeGrid(event.target.value);
   });
