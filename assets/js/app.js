@@ -1,5 +1,5 @@
 const siteMetadata = {
-  libraryUpdated: "2026-04-10",
+  libraryUpdated: "2026-04-11",
 };
 
 const recipes = [
@@ -262,6 +262,25 @@ const recipes = [
       "This Smoky Split Pea and Farro Soup serves as a hearty, nutrient-dense alternative to the Mushroom-Barley Stew, perfect for post-training recovery.",
     href: "./recipes/smoky-split-pea-and-farro-soup/",
     tags: ["Stew", "Recovery Meal", "Vegan", "Plant Based"],
+    featured: false,
+  },
+  {
+    title: "Cocoa Chickpea Protein Power Bar",
+    subtitle: "Portable lower-fat bar for training days and quick recovery",
+    description:
+      "A chickpea, oat, cocoa, and date deck built for steadier glucose, practical portability, and controlled pre- or post-workout support.",
+    href: "./recipes/cocoa-chickpea-protein-power-bar/",
+    tags: ["Portable Fuel", "Snack", "Lower Fat", "Workout Support"],
+    featured: false,
+  },
+
+  {
+    title: "Vegan Oil-Free Black Bean Protein Bars",
+    subtitle: "Dense meal-prep bars for clinic days and endurance blocks",
+    description:
+      "A black bean, oat, date, and chia bar deck designed for portable satiety, batch prep, and slower energy release than commercial bars.",
+    href: "./recipes/black-bean-protein-bars/",
+    tags: ["Portable Fuel", "Meal Prep", "Recovery Snack", "High Fiber"],
     featured: false,
   },
 ];
