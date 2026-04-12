@@ -1,5 +1,5 @@
 const siteMetadata = {
-  libraryUpdated: "2026-04-11",
+  libraryUpdated: "2026-04-12",
 };
 
 const recipes = [
@@ -281,6 +281,15 @@ const recipes = [
       "A black bean, oat, date, and chia bar deck designed for portable satiety, batch prep, and slower energy release than commercial bars.",
     href: "./recipes/black-bean-protein-bars/",
     tags: ["Portable Fuel", "Meal Prep", "Recovery Snack", "High Fiber"],
+    featured: false,
+  },
+  {
+    title: "High-Protein Cocoa Chickpea Waffles",
+    subtitle: "Chocolate-forward batch waffles for steadier breakfast fuel and recovery",
+    description:
+      "A chickpea, tofu, oat, and cocoa waffle deck built for meal prep, fiber-forward satiety, and a more glucose-aware alternative to conventional waffles.",
+    href: "./recipes/high-protein-cocoa-chickpea-waffles/",
+    tags: ["Breakfast", "Meal Prep", "High Protein", "High Fiber"],
     featured: false,
   },
 ];
