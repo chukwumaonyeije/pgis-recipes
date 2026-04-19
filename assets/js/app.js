@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-04-12",
+  libraryUpdated: "2026-04-19",
 };
 
 const recipes = [
+  {
+    title: "Savory Dill Chickpea Waffles",
+    subtitle: "Savory high-protein waffles for clinic mornings and batch-ready recovery meals",
+    description:
+      "A dill-forward chickpea, soy, flax, and optional tofu waffle deck designed for savory breakfast rotation, fiber-rich satiety, and PGIS-compatible meal prep.",
+    href: "./recipes/savory-dill-chickpea-waffles/",
+    tags: ["Breakfast", "Meal Prep", "High Protein", "Savory"],
+    featured: true,
+  },
   {
     title: "High-Protein Tofu–Oat Recovery Waffles",
     subtitle: "Batch-friendly recovery waffles for steady glucose and practical fueling",
