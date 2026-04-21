@@ -190,6 +190,20 @@ style: |
 
 ---
 
+![bg right:43% contain](./double-tofu-stuffed-flatbreads.png)
+
+## Finished Dish
+
+- Crisp pan-browned exterior with chili oil, sesame seeds, and spring onions gives the recipe a strong plated-main identity.
+- The image helps frame this as a deliberate savory meal rather than an open-ended snack food.
+- Best PGIS serving pattern: 1 flatbread with greens, slaw, or another high-volume vegetable side.
+
+<div class="card">
+The visual matters here because this recipe wins partly on adherence: it looks satisfying enough to earn a place in the rotation without abandoning portion discipline.
+</div>
+
+---
+
 ## Overview
 
 - Uses tofu twice: silken tofu gives the dough structure and super-firm tofu anchors the filling.
