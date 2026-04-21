@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-04-19",
+  libraryUpdated: "2026-04-21",
 };
 
 const recipes = [
+  {
+    title: "Double Tofu Stuffed Flatbreads",
+    subtitle: "Savory recovery flatbreads with dual-tofu structure and portion-aware comfort",
+    description:
+      "A silken-tofu dough wrapped around garlic, ginger, doubanjiang, and super-firm tofu filling for a more indulgent PGIS savory main that still keeps protein central.",
+    href: "./recipes/double-tofu-stuffed-flatbreads/",
+    tags: ["Main Dish", "Savory Meal", "Tofu", "Higher Protein"],
+    featured: true,
+  },
   {
     title: "Savory Dill Chickpea Waffles",
     subtitle: "Savory high-protein waffles for clinic mornings and batch-ready recovery meals",
