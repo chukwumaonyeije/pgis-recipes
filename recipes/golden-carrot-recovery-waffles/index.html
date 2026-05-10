@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golden Carrot Recovery Waffles – PGIS Recipes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: #111;
+    color: #f0e6c8;
+    overflow: hidden;
+  }
+
+  .deck { width: 100vw; height: 100vh; position: relative; }
+
+  .slide {
+    display: none;
+    position: absolute;
+    inset: 0;
+    padding: 52px 72px;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .slide.active { display: flex; }
+
+  /* ── Backgrounds ── */
+  .bg-dark   { background: #111810; }
+  .bg-earth  { background: #1a1508; }
+  .bg-deep   { background: #0f1408; }
+  .bg-warm   { background: #16120a; }
+
+  /* ── Top accent bar ── */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #c9841a, #e8b84b, #7aaa3a);
+  }
+
+  /* ── Typography ── */
+  .pgis-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #7aaa3a;
+    margin-bottom: 0.6rem;
+  }
+
+  h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #f5e4b0;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    font-weight: 700;
+    color: #e8b84b;
+    margin-bottom: 1.1rem;
+  }
+
+  .subtitle {
+    font-size: 1.05rem;
+    color: #8a9a70;
+    margin-top: 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* ── Tag pills ── */
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 1.4rem;
+  }
+  .tag {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+  .tag-green  { color: #7aaa3a; border-color: #7aaa3a; background: #1a2810; }
+  .tag-gold   { color: #e8b84b; border-color: #e8b84b; background: #261e08; }
+  .tag-orange { color: #d97706; border-color: #d97706; background: #201508; }
+
+  /* ── Cards ── */
+  .card {
+    background: #1e1c10;
+    border: 1px solid #2e2a18;
+    border-radius: 10px;
+    padding: 1.1rem 1.3rem;
+  }
+
+  .card-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #e8b84b;
+    margin-bottom: 0.65rem;
+  }
+
+  /* ── Grid layouts ── */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+
+  /* ── Lists ── */
+  ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+  ul li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.95rem; color: #d4c89a; line-height: 1.45; }
+  ul li::before { content: '›'; color: #7aaa3a; font-size: 1.1rem; flex-shrink: 0; line-height: 1.3; }
+  ul li strong { color: #f0e6c8; }
+
+  /* ── Ingredient blocks ── */
+  .ing-group { margin-bottom: 0.9rem; }
+  .ing-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #e8b84b;
+    margin-bottom: 0.4rem;
+  }
+  .ing-item {
+    font-size: 0.88rem;
+    color: #c8bca0;
+    padding: 0.22rem 0;
+    border-bottom: 1px solid #2a2518;
+    line-height: 1.4;
+  }
+  .ing-item:last-child { border-bottom: none; }
+  .ing-item strong { color: #f0e6c8; }
+
+  /* ── Steps ── */
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid #222018;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    background: #e8b84b;
+    color: #111;
+    font-size: 0.72rem;
+    font-weight: 800;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .step-text { font-size: 0.88rem; color: #c8bca0; line-height: 1.45; }
+  .step-text strong { color: #f0e6c8; }
+
+  /* ── Glucose table ── */
+  .glucose-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; }
+  .glucose-table th {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #7aaa3a;
+    text-align: left;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid #2e2a18;
+  }
+  .glucose-table td {
+    font-size: 0.88rem;
+    color: #c8bca0;
+    padding: 0.5rem 0.8rem;
+    border-bottom: 1px solid #1e1c10;
+    vertical-align: top;
+  }
+  .glucose-table tr:last-child td {
+    color: #7aaa3a;
+    font-weight: 700;
+    border-bottom: none;
+  }
+
+  /* ── Macro pills ── */
+  .macro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.8rem; margin-top: 0.8rem; }
+  .macro-card {
+    background: #1e1c10;
+    border: 1px solid #2e2a18;
+    border-radius: 8px;
+    padding: 0.8rem;
+    text-align: center;
+  }
+  .macro-num { font-size: 1.5rem; font-weight: 800; color: #e8b84b; line-height: 1; }
+  .macro-unit { font-size: 0.7rem; color: #7aaa3a; font-weight: 700; }
+  .macro-label { font-size: 0.7rem; color: #8a9a70; margin-top: 0.2rem; letter-spacing: 0.06em; text-transform: uppercase; }
+
+  /* ── Serving cards ── */
+  .serve-card {
+    background: #1e1c10;
+    border: 1px solid #2e2a18;
+    border-left: 3px solid #e8b84b;
+    border-radius: 0 8px 8px 0;
+    padding: 0.85rem 1rem;
+  }
+  .serve-title { font-size: 0.8rem; font-weight: 700; color: #e8b84b; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.35rem; }
+  .serve-combo { font-size: 0.9rem; color: #f0e6c8; margin-bottom: 0.2rem; }
+  .serve-intent { font-size: 0.78rem; color: #7aaa3a; font-style: italic; }
+
+  /* ── Pullquote ── */
+  .pullquote {
+    border-left: 3px solid #e8b84b;
+    padding: 0.8rem 1.2rem;
+    background: #1a1508;
+    border-radius: 0 8px 8px 0;
+    font-size: 1.05rem;
+    color: #e8d898;
+    font-style: italic;
+    line-height: 1.6;
+    margin: 0.8rem 0;
+  }
+
+  /* ── CGM bar ── */
+  .cgm-row { display: flex; align-items: center; gap: 1rem; margin: 0.5rem 0; }
+  .cgm-label { font-size: 0.78rem; color: #8a9a70; width: 130px; flex-shrink: 0; }
+  .cgm-bar-bg { flex: 1; height: 10px; background: #2a2518; border-radius: 5px; }
+  .cgm-bar { height: 10px; border-radius: 5px; }
+  .cgm-val { font-size: 0.78rem; color: #c8bca0; width: 70px; text-align: right; flex-shrink: 0; }
+  .bar-pgis { background: linear-gradient(90deg, #7aaa3a, #a8d060); width: 35%; }
+  .bar-conv  { background: linear-gradient(90deg, #d97706, #f59e0b); width: 75%; }
+
+  /* ── Footer ── */
+  .footer {
+    position: absolute;
+    bottom: 18px; left: 72px; right: 72px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.68rem;
+    color: #3a3520;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── Nav ── */
+  .nav {
+    position: fixed;
+    bottom: 18px; right: 24px;
+    display: flex; gap: 6px;
+    z-index: 100;
+  }
+  .nav button {
+    background: #1e1c10;
+    border: 1px solid #2e2a18;
+    color: #8a9a70;
+    width: 32px; height: 32px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.15s;
+  }
+  .nav button:hover { background: #2e2a18; color: #e8b84b; }
+
+  .slide-counter {
+    position: fixed;
+    bottom: 24px; right: 78px;
+    font-size: 0.68rem;
+    color: #3a3520;
+    z-index: 100;
+    letter-spacing: 0.08em;
+  }
+
+  .progress {
+    position: fixed;
+    bottom: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #c9841a, #e8b84b, #7aaa3a);
+    transition: width 0.3s ease;
+    z-index: 100;
+  }
+
+  .emoji { font-size: 1.4rem; line-height: 1; }
+</style>
+</head>
+<body>
+<div class="deck" id="deck">
+
+  <!-- ── SLIDE 1: Cover ── -->
+  <div class="slide bg-dark active">
+    <div class="pgis-label">PGIS Recipes · Breakfast · Recovery Meal</div>
+    <h1>Golden Carrot<br>Recovery Waffles</h1>
+    <p class="subtitle">Naturally sweet, fiber-forward waffles for steady glucose<br>and batch-ready fueling</p>
+    <div class="tags">
+      <span class="tag tag-green">Vegan</span>
+      <span class="tag tag-green">Whole Foods Plant-Based</span>
+      <span class="tag tag-green">Oil-Free</span>
+      <span class="tag tag-gold">High Fiber</span>
+      <span class="tag tag-gold">Glycemic Stability</span>
+      <span class="tag tag-gold">Meal Prep</span>
+      <span class="tag tag-orange">Recovery Meal</span>
+      <span class="tag tag-orange">Whole Grain</span>
+    </div>
+    <div class="footer">
+      <span>PGIS Recipes</span>
+      <span>Yields 6–8 waffles · May 2026</span>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 2: PGIS Rationale ── -->
+  <div class="slide bg-earth">
+    <div class="pgis-label">PGIS Rationale</div>
+    <h2>Why Carrots?</h2>
+    <div class="pullquote">
+      "Carrots are a misunderstood PGIS ingredient. Their GI (35–47) is lower than most grains — and when paired with oat fiber and chickpea protein, the glucose curve stays remarkably flat."
+    </div>
+    <ul style="margin-top: 0.8rem;">
+      <li><strong>Beta-carotene</strong> — Vitamin A precursor, anti-inflammatory during heavy training blocks</li>
+      <li><strong>Insoluble fiber</strong> — slows digestion, blunts postprandial glucose spike</li>
+      <li><strong>Natural sugars + fiber</strong> — sustained energy, not a spike</li>
+      <li><strong>High water content</strong> — lighter texture without added oil</li>
+      <li><strong>No refined sugar</strong> — date paste only (fiber-buffered fructose)</li>
+    </ul>
+    <div class="footer">
+      <span>PGIS Recipes</span><span>2 / 9</span>
+    </div>
+  </div>
+
+  <!-- ── SLIDE 3: Glucose Profile ── -->
+  <div class="slide bg-deep">
+    <div class="pgis-label">Glucose Intelligence</div>
+    <h2>CGM Profile</h2>
+    <table class="glucose-table">
+      <thead>
+        <tr><th>Factor</th><th>Assessment</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Carrot GI</td><td>~35–47 (raw → cooked, still low-moderate)</td></tr>
+        <tr><td>Oat beta-glucan</td><td>Blunts postprandial glucose — validated in literature</td></tr>
+        <tr><td>Chickpea flour</td><td>Lowers net carb availability vs. wheat flour</td></tr>
+        <tr><td>Flaxseed</td><td>Fat + fiber = further glucose dampening</td></tr>
+        <tr><td>Sweetener</td><td>Date paste only — no refined sugar</td></tr>
+        <tr><td>Overall impact</td><td>✓ Low-moderate / flat curve — PGIS compatible</td></tr>
+      </tbody>
+    </table>
+    <div style="margin-top: 1.2rem;">
+      <div class="cgm-label" style="font-size:0.75rem; color:#8a9a70; margin-bottom:0.5rem; letter-spacing:0.06em; text-transform:uppercase;">Expected postprandial rise above fasting</div>
+      <div class="cgm-row">
+        <div class="cgm-label">These waffles</div>
+        <div class="cgm-bar-bg"><div class="cgm-bar bar-pgis"></div></div>
+        <div class="cgm-val">~20–30 mg/dL</div>
+      </div>
+      <div class="cgm-row">
+        <div class="cgm-label">Conventional waffles</div>
+        <div class="cgm-bar-bg"><div class="cgm-bar bar-conv"></div></div>
+        <div class="cgm-val">~50–80 mg/dL</div>
+      </div>
+    </div>
+    <div class="footer"><span>PGIS Recipes</span><span>3 / 9</span></div>
+  </div>
+
+  <!-- ── SLIDE 4: Wet Ingredients ── -->
+  <div class="slide bg-warm">
+    <div class="pgis-label">Ingredients · Wet Base</div>
+    <h2>Wet Base</h2>
+    <p style="font-size:0.8rem; color:#7aaa3a; margin-bottom:0.9rem; font-style:italic;">Yields 6–8 waffles · batch prep for 3–4 days</p>
+    <div class="ing-item"><strong>1.5 cups grated carrot</strong> — about 3 medium carrots, packed</div>
+    <div class="ing-item"><strong>1 cup unsweetened oat milk</strong> — or soy milk for more protein</div>
+    <div class="ing-item"><strong>2 flax eggs</strong> — 2 tbsp ground flaxseed + 6 tbsp water, rested 5 min</div>
+    <div class="ing-item"><strong>2 tbsp date paste</strong> — 3 medjool dates + 2 tbsp warm water, blended</div>
+    <div class="ing-item"><strong>1 tsp vanilla extract</strong> — pure, not artificial</div>
+    <div class="ing-item"><strong>1 tsp apple cider vinegar</strong> — activates leavening, no residual taste</div>
+    <div class="footer"><span>PGIS Recipes</span><span>4 / 9</span></div>
+  </div>
+
+  <!-- ── SLIDE 5: Dry Ingredients ── -->
+  <div class="slide bg-dark">
+    <div class="pgis-label">Ingredients · Dry Base</div>
+    <h2>Dry Base + Optional Add-ins</h2>
+    <div class="two-col">
+      <div>
+        <div class="card-title">Dry Base</div>
+        <div class="ing-item"><strong>1 cup rolled oats</strong> — blended to flour</div>
+        <div class="ing-item"><strong>¾ cup chickpea flour</strong> — protein anchor, low GI</div>
+        <div class="ing-item"><strong>2 tbsp ground flaxseed</strong></div>
+        <div class="ing-item"><strong>1.5 tsp baking powder</strong></div>
+        <div class="ing-item"><strong>½ tsp baking soda</strong></div>
+        <div class="ing-item"><strong>1 tsp cinnamon</strong></div>
+        <div class="ing-item"><strong>½ tsp ground ginger</strong></div>
+        <div class="ing-item"><strong>¼ tsp turmeric</strong> — anti-inflammatory</div>
+        <div class="ing-item"><strong>¼ tsp fine sea salt</strong></div>
+      </div>
+      <div>
+        <div class="card-title" style="color:#8a9a70;">Optional Add-ins</div>
+        <div class="ing-item"><strong>2 tbsp walnuts</strong> — omega-3, fat-buffering</div>
+        <div class="ing-item"><strong>1 tbsp hemp seeds</strong> — complete protein boost</div>
+        <div class="ing-item"><strong>¼ cup raisins</strong> — sweeter profile, use on rest days only</div>
+        <div style="margin-top: 1rem; background: #1a2810; border: 1px solid #2a3818; border-radius: 8px; padding: 0.8rem;">
+          <div style="font-size:0.72rem; color:#7aaa3a; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.3rem;">Chickpea flour note</div>
+          <div style="font-size:0.82rem; color:#8a9a70;">If unavailable, sub oat flour — but protein and GI benefits are reduced.</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>PGIS Recipes</span><span>5 / 9</span></div>
+  </div>
+
+  <!-- ── SLIDE 6: Method ── -->
+  <div class="slide bg-earth">
+    <div class="pgis-label">Execution Protocol</div>
+    <h2>Method — 8 Steps</h2>
+    <div class="two-col">
+      <div>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Flax eggs</strong> — 2 tbsp flaxseed + 6 tbsp water. Rest 5 min until gel forms.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Date paste</strong> — blend 3 medjool dates + 2 tbsp warm water until smooth.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Oat flour</strong> — pulse rolled oats 30–45 sec. Do not over-blend.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Combine dry</strong> — whisk all dry ingredients together in large bowl.</div>
+        </div>
+      </div>
+      <div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>Combine wet</strong> — whisk oat milk, flax eggs, date paste, vanilla, ACV.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-text"><strong>Fold together</strong> — wet into dry, do not overmix. Fold in carrot. Rest 3–5 min.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-text"><strong>Cook</strong> — ½ cup batter per waffle, 5–6 min. Do not lift lid early.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">8</div>
+          <div class="step-text"><strong>Batch &amp; store</strong> — fridge 4 days · freezer 6 weeks · reheat in toaster.</div>
+        </div>
+      </div>
+    </div>
+    <div class="footer"><span>PGIS Recipes</span><span>6 / 9</span></div>
+  </div>
+
+  <!-- ── SLIDE 7: Serving Protocol ── -->
+  <div class="slide bg-deep">
+    <div class="pgis-label">PGIS Serving Protocol</div>
+    <h2>Context-Based Serving</h2>
+    <div style="display: flex; flex-direction: column; gap: 0.7rem; margin-top: 0.3rem;">
+      <div class="serve-card">
+        <div class="serve-title">Pre-Workout — 2–3 hrs before training</div>
+        <div class="serve-combo">2 waffles + almond butter + banana slices</div>
+        <div class="serve-intent">Glucose intent: sustained carb release, fat-buffered</div>
+      </div>
+      <div class="serve-card" style="border-left-color: #7aaa3a;">
+        <div class="serve-title" style="color:#7aaa3a;">Recovery — within 60 min post-run</div>
+        <div class="serve-combo">2 waffles + tahini drizzle + blueberries</div>
+        <div class="serve-intent">Glucose intent: moderate carb replenishment, anti-inflammatory</div>
+      </div>
+      <div class="serve-card" style="border-left-color: #c9841a;">
+        <div class="serve-title" style="color:#c9841a;">Clinic Morning — sustained focus fuel</div>
+        <div class="serve-combo">2 waffles + peanut butter + sliced apple</div>
+        <div class="serve-intent">Glucose intent: flat curve, 3–4 hr satiety window</div>
+      </div>
+      <div class="serve-card" style="border-left-color: #8b6914;">
+        <div class="serve-title" style="color:#a88030;">Sabbath Breakfast — rest day, higher enjoyment</div>
+        <div class="serve-combo">2 waffles + coconut yogurt + date syrup + walnuts</div>
+        <div class="serve-intent">Glucose intent: slightly higher — acceptable for rest day</div>
+      </div>
+    </div>
+    <div class="footer"><span>PGIS Recipes</span><span>7 / 9</span></div>
+  </div>
+
+  <!-- ── SLIDE 8: Macros ── -->
+  <div class="slide bg-warm">
+    <div class="pgis-label">Macronutrient Profile</div>
+    <h2>Per 2 Waffles — Approximate</h2>
+    <div class="macro-grid">
+      <div class="macro-card">
+        <div class="macro-num">300</div>
+        <div class="macro-unit">kcal</div>
+        <div class="macro-label">Calories</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-num">11<span style="font-size:1rem;">g</span></div>
+        <div class="macro-unit">protein</div>
+        <div class="macro-label">10–12g range</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-num">44<span style="font-size:1rem;">g</span></div>
+        <div class="macro-unit">carbohydrate</div>
+        <div class="macro-label">42–46g range</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-num">8<span style="font-size:1rem;">g</span></div>
+        <div class="macro-unit">fiber</div>
+        <div class="macro-label">7–9g range</div>
+      </div>
+      <div class="macro-card">
+        <div class="macro-num">7<span style="font-size:1rem;">g</span></div>
+        <div class="macro-unit">fat</div>
+        <div class="macro-label">6–8g range</div>
+      </div>
+      <div class="macro-card" style="border-color: #7aaa3a;">
+        <div class="macro-num" style="color:#7aaa3a;">36<span style="font-size:1rem;">g</span></div>
+        <div class="macro-unit" style="color:#7aaa3a;">net carbs</div>
+        <div class="macro-label">34–38g range</div>
+      </div>
+    </div>
+    <div style="margin-top: 1rem; background: #1a2810; border: 1px solid #2a3818; border-radius: 8px; padding: 0.8rem 1rem;">
+      <div style="font-size:0.85rem; color:#8a9a70; font-style: italic;">Net carb load is moderate — well within PGIS daily targets when paired with protein/fat at serving. Pair with almond or peanut butter to further dampen the curve.</div>
+    </div>
+    <div class="footer"><span>PGIS Recipes</span><span>8 / 9</span></div>
+  </div>
+
+  <!-- ── SLIDE 9: PGIS Notes + Close ── -->
+  <div class="slide bg-dark">
+    <div class="pgis-label">PGIS Notes</div>
+    <h2>Practitioner Notes</h2>
+    <div class="two-col" style="margin-top:0.3rem;">
+      <div>
+        <ul>
+          <li><strong>Carrot grating:</strong> Fine grate = invisible in waffle. Medium grate = visible texture, more moisture. Both work.</li>
+          <li><strong>No oil needed:</strong> Carrot moisture + oat milk produce satisfying texture without added fat.</li>
+          <li><strong>Batch priority:</strong> Holds post-freeze better than most WFPB waffles. Ideal for clinic weeks.</li>
+        </ul>
+      </div>
+      <div>
+        <ul>
+          <li><strong>CGM context:</strong> ~20–30 mg/dL rise vs. ~50–80 mg/dL conventional. Fat pairing further dampens.</li>
+          <li><strong>Chickpea sub:</strong> Replace with oat flour if needed — protein and GI benefits are reduced.</li>
+          <li><strong>Related recipes:</strong> Savory Dill Chickpea Waffles · Tofu–Oat Recovery Waffles · Cocoa Chickpea Waffles</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top: 1.2rem; border-top: 1px solid #2e2a18; padding-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+      <div>
+        <div style="font-size:0.68rem; color:#3a3520; text-transform:uppercase; letter-spacing:0.1em;">PGIS Recipes</div>
+        <div style="font-size:0.72rem; color:#8a9a70; margin-top:0.2rem;">Vegan · Whole Foods Plant-Based · Oil-Free · Batch-Ready</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-size:0.68rem; color:#3a3520; text-transform:uppercase; letter-spacing:0.1em;">Created May 2026</div>
+        <div style="font-size:0.72rem; color:#8a9a70; margin-top:0.2rem;">chukwumaonyeije.github.io/pgis-recipes</div>
+      </div>
+    </div>
+    <div class="footer"><span>PGIS Recipes</span><span>9 / 9</span></div>
+  </div>
+
+</div>
+
+<!-- Progress -->
+<div class="progress" id="progress"></div>
+
+<!-- Nav -->
+<div class="nav">
+  <button onclick="changeSlide(-1)">&#8592;</button>
+  <button onclick="changeSlide(1)">&#8594;</button>
+</div>
+<div class="slide-counter" id="counter">1 / 9</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function showSlide(n) {
+    slides[current].classList.remove('active');
+    current = (n + total) % total;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = (current + 1) + ' / ' + total;
+    document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+  }
+
+  function changeSlide(dir) { showSlide(current + dir); }
+
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight','ArrowDown',' '].includes(e.key)) changeSlide(1);
+    if (['ArrowLeft','ArrowUp'].includes(e.key)) changeSlide(-1);
+  });
+
+  document.getElementById('progress').style.width = (1 / total * 100) + '%';
+</script>
+</body>
+</html>

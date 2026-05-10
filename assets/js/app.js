@@ -1,5 +1,5 @@
 const siteMetadata = {
-  libraryUpdated: "2026-04-21",
+  libraryUpdated: "2026-05-10",
 };
 
 const recipes = [
@@ -309,6 +309,15 @@ const recipes = [
     href: "./recipes/high-protein-cocoa-chickpea-waffles/",
     tags: ["Breakfast", "Meal Prep", "High Protein", "High Fiber"],
     featured: false,
+  },
+  {
+    title: "Golden Carrot Recovery Waffles",
+    subtitle: "Naturally sweet, fiber-forward waffles for steady glucose and batch-ready fueling",
+    description:
+      "A carrot, oat, chickpea, and flax waffle deck built for meal prep, glycemic stability, and anti-inflammatory recovery support — sweetened only with date paste.",
+    href: "./recipes/golden-carrot-recovery-waffles/",
+    tags: ["Breakfast", "Recovery Meal", "Meal Prep", "High Fiber", "Glycemic Stability"],
+    featured: true,
   },
 ];
 
