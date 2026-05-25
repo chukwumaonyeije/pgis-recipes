@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PGIS Meal Prep Pearl Onions – PGIS Recipes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --amber:        #c17f24;
+    --amber-light:  #e8a94a;
+    --amber-pale:   #fdf3e3;
+    --amber-mist:   #fef9f0;
+    --brown-deep:   #3d2008;
+    --brown-mid:    #6b3a16;
+    --brown-warm:   #8b4f1e;
+    --cream:        #faf6f0;
+    --teal:         #00796b;
+    --teal-light:   #b2dfdb;
+    --sage:         #5a7a5a;
+    --sage-light:   #d4e8d4;
+    --text-dark:    #1c1008;
+    --text-mid:     #4a2e10;
+    --text-muted:   #8a6a4a;
+    --white:        #ffffff;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1c1008;
+    font-family: 'Source Sans 3', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 80px;
+    min-height: 100vh;
+  }
+
+  /* ── CONTROLS ── */
+  .controls {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    padding: 10px 24px;
+    z-index: 100;
+  }
+  .controls button {
+    background: none; border: none;
+    color: #e8c98a; font-size: 20px; cursor: pointer;
+    width: 36px; height: 36px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .controls button:hover { background: rgba(255,255,255,0.1); }
+  .controls .counter {
+    color: #e8c98a;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px; min-width: 52px; text-align: center;
+  }
+
+  /* ── SLIDE WRAPPER ── */
+  .slide-viewport {
+    width: 100%; max-width: 900px; position: relative;
+  }
+  .slide {
+    width: 900px; height: 506px;
+    border-radius: 12px; overflow: hidden;
+    display: none; position: relative;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    transform-origin: top left;
+  }
+  .slide.active { display: block; }
+
+  /* ── SHARED CHROME ── */
+  .slide-header {
+    position: absolute; top: 0; left: 0; right: 0; height: 36px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.08em; text-transform: uppercase; z-index: 10;
+  }
+  .slide-footer {
+    position: absolute; bottom: 0; left: 0; right: 0; height: 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 28px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    letter-spacing: 0.06em; z-index: 10;
+  }
+
+  /* ══ SLIDE 1: COVER ══ */
+  #s1 {
+    background: linear-gradient(145deg, #1c0f05 0%, #3d2008 45%, #6b3a16 100%);
+  }
+  #s1 .orb {
+    position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.3;
+  }
+  #s1 .orb-1 { width: 320px; height: 320px; background: #c17f24; top: -80px; right: -60px; }
+  #s1 .orb-2 { width: 200px; height: 200px; background: #00796b; bottom: -50px; left: 80px; }
+  #s1 .orb-3 { width: 160px; height: 160px; background: #e8a94a; top: 200px; right: 220px; opacity: 0.2; }
+
+  #s1 .slide-header { color: rgba(255,255,255,0.4); }
+  #s1 .slide-footer { color: rgba(255,255,255,0.3); }
+
+  #s1 .badge-row {
+    position: absolute; top: 44px; left: 28px;
+    display: flex; gap: 7px; flex-wrap: wrap; max-width: 580px;
+  }
+  #s1 .badge {
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 20px; padding: 3px 10px;
+    font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.7);
+    letter-spacing: 0.04em;
+  }
+
+  #s1 .cover-content {
+    position: absolute; top: 50%; left: 28px;
+    transform: translateY(-54%); max-width: 580px;
+  }
+  #s1 .eyebrow {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--amber-light); letter-spacing: 0.14em;
+    text-transform: uppercase; margin-bottom: 10px;
+  }
+  #s1 h1 {
+    font-family: 'Playfair Display', serif; font-size: 44px;
+    line-height: 1.08; color: #fff; margin-bottom: 12px;
+  }
+  #s1 h1 em { color: var(--amber-light); font-style: italic; }
+  #s1 .subtitle {
+    font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.6;
+    max-width: 460px;
+  }
+
+  #s1 .meta-pill {
+    position: absolute; bottom: 40px; right: 28px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 8px; padding: 10px 18px; text-align: right;
+  }
+  #s1 .meta-pill .brand {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--amber-light); letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  #s1 .meta-pill .yield { font-size: 12px; color: rgba(255,255,255,0.45); margin-top: 3px; }
+
+  /* ══ SLIDE 2: PGIS RATIONALE ══ */
+  #s2 { background: var(--cream); }
+  #s2 .slide-header { color: var(--text-muted); border-bottom: 1px solid #ede3d6; }
+  #s2 .slide-footer { color: var(--text-muted); border-top: 1px solid #ede3d6; }
+  #s2 .accent-bar {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 6px;
+    background: linear-gradient(to bottom, var(--amber), var(--teal));
+  }
+  #s2 .content {
+    position: absolute; top: 44px; left: 28px; right: 28px; bottom: 40px;
+    padding-left: 18px;
+  }
+  #s2 .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  #s2 h2 {
+    font-family: 'Playfair Display', serif; font-size: 27px;
+    color: var(--brown-deep); margin-bottom: 12px;
+  }
+  #s2 .pullquote {
+    background: var(--amber-pale); border-left: 3px solid var(--amber);
+    border-radius: 0 6px 6px 0; padding: 11px 16px;
+    font-size: 12.5px; color: var(--text-mid); font-style: italic;
+    line-height: 1.55; margin-bottom: 16px;
+  }
+  #s2 .bullets { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 7px 24px; }
+  #s2 .bullets li {
+    font-size: 12px; color: var(--text-dark); line-height: 1.45;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  #s2 .bullets li::before {
+    content: '◆'; color: var(--amber); font-size: 8px; margin-top: 4px; flex-shrink: 0;
+  }
+  #s2 .bullets strong { color: var(--brown-deep); }
+
+  /* ══ SLIDE 3: CGM PROFILE ══ */
+  #s3 { background: linear-gradient(160deg, #0d2420 0%, #00352e 100%); }
+  #s3 .slide-header { color: rgba(255,255,255,0.4); }
+  #s3 .slide-footer { color: rgba(255,255,255,0.3); }
+  #s3 .content {
+    position: absolute; top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid; grid-template-columns: 1fr 200px; gap: 24px;
+  }
+  #s3 .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--teal-light); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  #s3 h2 { font-family: 'Playfair Display', serif; font-size: 26px; color: #fff; margin-bottom: 16px; }
+  #s3 table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  #s3 thead tr { background: rgba(255,255,255,0.06); }
+  #s3 th {
+    padding: 7px 10px; text-align: left;
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    color: var(--teal-light); letter-spacing: 0.08em; text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  #s3 td {
+    padding: 7px 10px; color: rgba(255,255,255,0.82);
+    border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; line-height: 1.4;
+  }
+  #s3 td:first-child {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    color: #a5d6a7; white-space: nowrap;
+  }
+  #s3 tr:last-child td { border-bottom: none; }
+  #s3 .check { color: #69f0ae; }
+  #s3 .right-panel { display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+  #s3 .cgm-card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px; padding: 12px 14px;
+  }
+  #s3 .cgm-card .label { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 6px; line-height: 1.3; }
+  #s3 .cgm-card .value { font-family: 'Playfair Display', serif; font-size: 22px; }
+  #s3 .cgm-card.good .value { color: #69f0ae; }
+  #s3 .cgm-card.bad .value { color: #ff8a80; }
+  #s3 .cgm-card .sublabel { font-family: 'JetBrains Mono', monospace; font-size: 9px; margin-top: 2px; opacity: 0.5; }
+
+  /* ══ SLIDE 4: INGREDIENTS ══ */
+  #s4 { background: #fff; }
+  #s4 .slide-header { color: var(--text-muted); border-bottom: 1px solid #ede3d6; }
+  #s4 .slide-footer { color: var(--text-muted); border-top: 1px solid #ede3d6; }
+  #s4 .top-band {
+    position: absolute; top: 36px; left: 0; right: 0; height: 4px;
+    background: linear-gradient(to right, var(--amber), var(--teal));
+  }
+  #s4 .content {
+    position: absolute; top: 48px; left: 28px; right: 28px; bottom: 38px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  #s4 .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  #s4 h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--brown-deep); margin-bottom: 10px; }
+  #s4 .yield-note {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    color: var(--text-muted); margin-bottom: 10px;
+  }
+  #s4 .ing-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  #s4 .ing-list li {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 11.5px; line-height: 1.4; color: var(--text-dark);
+  }
+  #s4 .ing-list li .qty {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    color: var(--amber); font-weight: 600; min-width: 80px; flex-shrink: 0; padding-top: 1px;
+  }
+  #s4 .ing-list li strong { color: var(--brown-deep); }
+  #s4 .ing-list li .note { color: var(--text-muted); font-size: 10.5px; }
+
+  /* ══ SLIDE 5: METHOD PART 1 ══ */
+  #s5 { background: linear-gradient(160deg, #1c0f05 0%, #3d2008 100%); }
+  #s5 .slide-header { color: rgba(255,255,255,0.4); }
+  #s5 .slide-footer { color: rgba(255,255,255,0.3); }
+  #s5 .content { position: absolute; top: 44px; left: 28px; right: 28px; bottom: 38px; }
+  #s5 .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--amber-light); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  #s5 h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: #fff; margin-bottom: 16px; }
+  #s5 .steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  #s5 .step {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 12px 13px; position: relative;
+  }
+  #s5 .step-num {
+    font-family: 'Playfair Display', serif; font-size: 32px;
+    color: rgba(255,255,255,0.1); position: absolute; top: 4px; right: 10px; line-height: 1;
+  }
+  #s5 .step-title {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    color: var(--amber-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
+  }
+  #s5 .step-body { font-size: 11px; color: rgba(255,255,255,0.75); line-height: 1.5; }
+  #s5 .step-body strong { color: #ffd47a; }
+
+  /* ══ SLIDE 6: METHOD PART 2 ══ */
+  #s6 { background: var(--cream); }
+  #s6 .slide-header { color: var(--text-muted); border-bottom: 1px solid #ede3d6; }
+  #s6 .slide-footer { color: var(--text-muted); border-top: 1px solid #ede3d6; }
+  #s6 .content { position: absolute; top: 44px; left: 28px; right: 28px; bottom: 38px; }
+  #s6 .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  #s6 h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--brown-deep); margin-bottom: 14px; }
+  #s6 .steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  #s6 .step {
+    background: var(--amber-pale); border: 1px solid #e8d0b0;
+    border-radius: 8px; padding: 12px 13px; position: relative;
+  }
+  #s6 .step-num {
+    font-family: 'Playfair Display', serif; font-size: 32px;
+    color: rgba(0,0,0,0.06); position: absolute; top: 4px; right: 10px; line-height: 1;
+  }
+  #s6 .step-title {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    color: var(--amber); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px;
+  }
+  #s6 .step-body { font-size: 11px; color: var(--text-dark); line-height: 1.5; }
+  #s6 .step-body strong { color: var(--brown-deep); }
+
+  /* ══ SLIDE 7: BATCH LOGISTICS ══ */
+  #s7 { background: linear-gradient(160deg, #0d2420 0%, #004d40 100%); }
+  #s7 .slide-header { color: rgba(255,255,255,0.4); }
+  #s7 .slide-footer { color: rgba(255,255,255,0.3); }
+  #s7 .content {
+    position: absolute; top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  #s7 .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--teal-light); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  #s7 h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: #fff; margin-bottom: 14px; }
+  #s7 .logistics-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  #s7 .logistics-list li {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 12px; color: rgba(255,255,255,0.8); line-height: 1.5;
+  }
+  #s7 .logistics-list li .icon {
+    font-size: 14px; flex-shrink: 0; margin-top: 1px;
+  }
+  #s7 .logistics-list strong { color: #a5d6a7; }
+
+  #s7 .storage-grid { display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+  #s7 .storage-card {
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 11px 14px; display: flex; align-items: center; gap: 12px;
+  }
+  #s7 .storage-card .icon { font-size: 20px; }
+  #s7 .storage-card .info { }
+  #s7 .storage-card .info .lbl {
+    font-family: 'JetBrains Mono', monospace; font-size: 9px;
+    color: var(--teal-light); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px;
+  }
+  #s7 .storage-card .info .val { font-size: 13px; font-weight: 600; color: #fff; }
+  #s7 .storage-card .info .sub { font-size: 10.5px; color: rgba(255,255,255,0.45); margin-top: 1px; }
+
+  /* ══ SLIDE 8: MACROS ══ */
+  #s8 { background: #fff; }
+  #s8 .slide-header { color: var(--text-muted); border-bottom: 1px solid #ede3d6; }
+  #s8 .slide-footer { color: var(--text-muted); border-top: 1px solid #ede3d6; }
+  #s8 .top-band {
+    position: absolute; top: 36px; left: 0; right: 0; height: 4px;
+    background: linear-gradient(to right, var(--teal), var(--amber));
+  }
+  #s8 .content { position: absolute; top: 48px; left: 28px; right: 28px; bottom: 38px; }
+  #s8 .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--teal); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  #s8 h2 { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--brown-deep); margin-bottom: 14px; }
+  #s8 .macro-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 16px; }
+  #s8 .macro-card {
+    background: var(--amber-mist); border: 1px solid #e8d8c0;
+    border-radius: 8px; padding: 12px 8px; text-align: center;
+  }
+  #s8 .macro-card .val { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--brown-deep); line-height: 1; margin-bottom: 3px; }
+  #s8 .macro-card .unit { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+  #s8 .macro-card .label { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--amber); text-transform: uppercase; letter-spacing: 0.06em; }
+  #s8 .macro-card .range { font-size: 9.5px; color: var(--text-muted); margin-top: 3px; }
+  #s8 .macro-card.teal .val { color: var(--teal); }
+
+  #s8 .cgm-bar {
+    background: var(--sage-light); border-radius: 8px;
+    padding: 10px 16px; display: flex; align-items: center; gap: 16px;
+  }
+  #s8 .cgm-bar .lbl { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--sage); text-transform: uppercase; letter-spacing: 0.08em; flex-shrink: 0; }
+  #s8 .cgm-bar .text { font-size: 12px; color: var(--text-dark); line-height: 1.5; }
+  #s8 .cgm-bar .text strong { color: var(--teal); }
+
+  /* ══ SLIDE 9: NOTES + FOOTER ══ */
+  #s9 { background: var(--cream); }
+  #s9 .slide-header { color: var(--text-muted); border-bottom: 1px solid #ede3d6; }
+  #s9 .slide-footer { color: var(--text-muted); border-top: 1px solid #ede3d6; }
+  #s9 .content {
+    position: absolute; top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  #s9 .section-label {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--amber); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 6px;
+  }
+  #s9 h2 { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--brown-deep); margin-bottom: 12px; }
+  #s9 .note-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  #s9 .note-list li {
+    font-size: 11.5px; color: var(--text-dark); line-height: 1.5;
+    padding-left: 12px; border-left: 2px solid var(--amber-light);
+  }
+  #s9 .note-list li strong { color: var(--brown-deep); }
+
+  #s9 .right-col { display: flex; flex-direction: column; gap: 12px; justify-content: center; }
+  #s9 .brand-block {
+    background: linear-gradient(135deg, var(--brown-deep), var(--brown-mid));
+    border-radius: 10px; padding: 16px 18px; text-align: center;
+  }
+  #s9 .brand-block .brand-name {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--amber-light); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px;
+  }
+  #s9 .brand-block .tags { font-size: 11px; color: rgba(255,255,255,0.6); line-height: 1.8; }
+  #s9 .brand-block .url { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; color: rgba(255,255,255,0.3); margin-top: 8px; }
+
+  #s9 .related-box {
+    background: #fff; border: 1px solid #e8d8c0; border-radius: 8px; padding: 12px 14px;
+  }
+  #s9 .related-box .rel-head {
+    font-family: 'JetBrains Mono', monospace; font-size: 9.5px;
+    color: var(--amber); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px;
+  }
+  #s9 .related-box .links { font-size: 11.5px; color: var(--brown-mid); line-height: 1.8; }
+  #s9 .related-box .links span { opacity: 0.4; margin: 0 4px; }
+</style>
+</head>
+<body>
+
+<div class="slide-viewport">
+
+  <!-- ══ SLIDE 1: COVER ══ -->
+  <div class="slide active" id="s1">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    <div class="slide-header">
+      <span>PGIS Recipes · Meal Prep · Sides &amp; Supporting Recipes</span>
+      <span></span>
+    </div>
+    <div class="badge-row">
+      <span class="badge">Vegan</span>
+      <span class="badge">Whole Foods Plant-Based</span>
+      <span class="badge">Oil-Free</span>
+      <span class="badge">Mastering Diabetes</span>
+      <span class="badge">28-Serving Batch</span>
+      <span class="badge">Meal Prep</span>
+      <span class="badge">Glycemic Stability</span>
+      <span class="badge">No Added Sugar</span>
+    </div>
+    <div class="cover-content">
+      <div class="eyebrow">PGIS Recipes</div>
+      <h1>PGIS Meal Prep<br><em>Pearl Onions</em></h1>
+      <div class="subtitle">
+        Whole-food glazed pearl onions — scaled to 28 servings for a full month<br>
+        of oil-free, glucose-stable meal prep. Mastering Diabetes aligned.
+      </div>
+    </div>
+    <div class="meta-pill">
+      <div class="brand">PGIS Recipes</div>
+      <div class="yield">28 Servings · Batch Prep · May 2026</div>
+    </div>
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>1 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: RATIONALE ══ -->
+  <div class="slide" id="s2">
+    <div class="accent-bar"></div>
+    <div class="slide-header"><span>PGIS Rationale</span><span></span></div>
+    <div class="content">
+      <div class="section-label">PGIS Rationale</div>
+      <h2>Why Pearl Onions?</h2>
+      <div class="pullquote">
+        "Pearl onions are one of the most underused PGIS supporting ingredients. Low GI (~10–15),
+        rich in quercetin and prebiotic inulin, and their natural sweetness intensifies during
+        braising — eliminating the need for added sugar or oil."
+      </div>
+      <ul class="bullets">
+        <li><div><strong>Ultra-low GI (~10–15)</strong> — minimal direct glucose impact; acts as a glycemic anchor in any meal</div></li>
+        <li><div><strong>Quercetin</strong> — flavonoid with validated insulin-sensitizing and anti-inflammatory properties</div></li>
+        <li><div><strong>Prebiotic inulin</strong> — feeds beneficial gut bacteria; improves insulin sensitivity via microbiome axis</div></li>
+        <li><div><strong>Balsamic + date glaze</strong> — whole-fruit fructose only; no refined sugar, fiber-buffered sweetness</div></li>
+        <li><div><strong>Oil-free braising</strong> — broth-based technique; fully Mastering Diabetes compliant</div></li>
+        <li><div><strong>Batch architecture</strong> — 28 servings enables consistent meal assembly without daily prep friction</div></li>
+      </ul>
+    </div>
+    <div class="slide-footer"><span>PGIS Recipes</span><span>2 / 9</span></div>
+  </div>
+
+  <!-- ══ SLIDE 3: CGM PROFILE ══ -->
+  <div class="slide" id="s3">
+    <div class="slide-header"><span>Glucose Intelligence</span><span></span></div>
+    <div class="content">
+      <div>
+        <div class="section-label">Glucose Intelligence</div>
+        <h2>CGM Profile</h2>
+        <table>
+          <thead><tr><th>Factor</th><th>Assessment</th></tr></thead>
+          <tbody>
+            <tr><td>Pearl Onion GI</td><td>~10–15 — one of the lowest GI vegetables available</td></tr>
+            <tr><td>Quercetin</td><td>Inhibits glucose transporters; reduces postprandial absorption</td></tr>
+            <tr><td>Inulin (prebiotic)</td><td>Fermented in colon; improves insulin sensitivity over time</td></tr>
+            <tr><td>Balsamic vinegar</td><td>Acetic acid component blunts postprandial glucose response</td></tr>
+            <tr><td>Date sweetener</td><td>4 dates across 28 servings = trace fructose load per serving</td></tr>
+            <tr><td>Serving context</td><td>Side dish role; overall meal GI determined by protein/carb pairing</td></tr>
+            <tr><td>Overall impact</td><td><span class="check">✓</span> Glycemic anchor — actively lowers meal GI when paired</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="right-panel">
+        <div class="section-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#a5d6a7;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Expected postprandial rise</div>
+        <div class="cgm-card good">
+          <div class="label">These onions (as side)</div>
+          <div class="value">~5–10</div>
+          <div class="sublabel">mg/dL isolated</div>
+        </div>
+        <div class="cgm-card good" style="border-color:rgba(165,214,167,0.3);">
+          <div class="label">Paired meal effect</div>
+          <div class="value">↓ 10–20%</div>
+          <div class="sublabel" style="color:#a5d6a7;">vs. same meal without</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>PGIS Recipes</span><span>3 / 9</span></div>
+  </div>
+
+  <!-- ══ SLIDE 4: INGREDIENTS ══ -->
+  <div class="slide" id="s4">
+    <div class="top-band"></div>
+    <div class="slide-header"><span>Ingredients · 28-Serving Batch</span><span></span></div>
+    <div class="content">
+      <div>
+        <div class="section-label">Ingredients</div>
+        <h2>The Full Batch</h2>
+        <div class="yield-note">28 servings · ~1 month prep · freeze in 7-serving blocks</div>
+        <ul class="ing-list">
+          <li><div class="qty">4 lbs</div><div><strong>pearl onions</strong> <span class="note">— fresh or frozen (thawed); skip blanching if frozen</span></div></li>
+          <li><div class="qty">1 cup</div><div><strong>low-sodium vegetable broth</strong> <span class="note">— braising base; oil-free technique</span></div></li>
+          <li><div class="qty">4 tbsp</div><div><strong>aged balsamic vinegar</strong> <span class="note">— no added sugar; acetic acid aids glucose response</span></div></li>
+          <li><div class="qty">4 dates</div><div><strong>medjool dates, pitted + minced</strong> <span class="note">— whole-fruit sweetener; trace load across 28 servings</span></div></li>
+          <li><div class="qty">8 cloves</div><div><strong>garlic, thinly sliced</strong> <span class="note">— anti-inflammatory; builds braise aromatic base</span></div></li>
+          <li><div class="qty">8 sprigs</div><div><strong>fresh thyme</strong> <span class="note">— remove before portioning</span></div></li>
+        </ul>
+      </div>
+      <div>
+        <div class="section-label" style="margin-top:4px;">Aromatics + Finish</div>
+        <div style="height:40px;"></div>
+        <ul class="ing-list">
+          <li><div class="qty">2 tsp</div><div><strong>fresh rosemary, finely chopped</strong></div></li>
+          <li><div class="qty">1 tsp</div><div><strong>black pepper, freshly ground</strong></div></li>
+          <li><div class="qty">½ tsp</div><div><strong>sea salt</strong></div></li>
+          <li><div class="qty">2 tsp</div><div><strong>lemon zest</strong> <span class="note">— finish; brightens glaze</span></div></li>
+          <li><div class="qty">4 tbsp</div><div><strong>flat-leaf parsley, chopped</strong> <span class="note">— add just before sealing containers</span></div></li>
+        </ul>
+      </div>
+    </div>
+    <div class="slide-footer"><span>PGIS Recipes</span><span>4 / 9</span></div>
+  </div>
+
+  <!-- ══ SLIDE 5: METHOD STEPS 1–3 ══ -->
+  <div class="slide" id="s5">
+    <div class="slide-header"><span>Execution Protocol · Steps 1–3</span><span></span></div>
+    <div class="content">
+      <div class="section-label">Execution Protocol</div>
+      <h2>Method — Steps 1 to 3</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Blanch + Peel</div>
+          <div class="step-body">Score an X on root end of each fresh onion. Blanch in <strong>3–4 lb batches for 60 seconds</strong>. Transfer to ice bath. Peel — skins slip off easily. <strong>Skip entirely if using frozen.</strong></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Build Braise Base</div>
+          <div class="step-body">Use largest skillet, Dutch oven, or roasting pan available — <strong>7–8 qt minimum</strong> for this volume. Over medium heat, add broth + sliced garlic. Cook <strong>2–3 min</strong> until fragrant and softened.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Add Onions + Aromatics</div>
+          <div class="step-body">Add all peeled onions, thyme sprigs, rosemary, pepper, and salt. Toss to coat. <strong>Layering is fine at this volume.</strong> Cover tightly. At this scale, consider running <strong>2 skillets simultaneously.</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>PGIS Recipes</span><span>5 / 9</span></div>
+  </div>
+
+  <!-- ══ SLIDE 6: METHOD STEPS 4–6 ══ -->
+  <div class="slide" id="s6">
+    <div class="slide-header"><span>Execution Protocol · Steps 4–6</span><span></span></div>
+    <div class="content">
+      <div class="section-label">Execution Protocol</div>
+      <h2>Method — Steps 4 to 6</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Braise Low + Slow</div>
+          <div class="step-body">Cover and cook over medium-low heat, stirring every 5 minutes. At batch scale, allow <strong>25–30 minutes</strong> (vs. 15 for single batch) until all onions are fork-tender throughout.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Glaze + Reduce</div>
+          <div class="step-body">Uncover. Add balsamic vinegar and minced dates. Raise heat to <strong>medium-high</strong>. Cook uncovered, stirring frequently, until liquid reduces to a <strong>glossy glaze — 12–15 min</strong> at this volume.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-title">Finish + Portion</div>
+          <div class="step-body">Remove all thyme sprigs. Stir in lemon zest. <strong>Cool fully</strong> on sheet pans before containerizing. Portion into 28 individual or 7 quad-portion containers. Top with parsley just before sealing.</div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>PGIS Recipes</span><span>6 / 9</span></div>
+  </div>
+
+  <!-- ══ SLIDE 7: BATCH LOGISTICS ══ -->
+  <div class="slide" id="s7">
+    <div class="slide-header"><span>Batch Logistics · 28-Serving Scale</span><span></span></div>
+    <div class="content">
+      <div>
+        <div class="section-label">Batch Logistics</div>
+        <h2>28-Serving Scale Notes</h2>
+        <ul class="logistics-list">
+          <li>
+            <div class="icon">🍳</div>
+            <div>You'll need <strong>2 large skillets running simultaneously</strong> or a 7–8 qt Dutch oven plus a wide sauté pan to manage this volume efficiently without extending cook time excessively.</div>
+          </li>
+          <li>
+            <div class="icon">⏱️</div>
+            <div><strong>Total active cook time: 60–75 minutes</strong> from first blanch to final glaze. Passive time (braising with lid on) allows parallel prep of other batch items.</div>
+          </li>
+          <li>
+            <div class="icon">❄️</div>
+            <div><strong>Cool in a single layer</strong> on sheet pans before containerizing. This speeds safe cooling and prevents steam condensation in containers that degrades texture.</div>
+          </li>
+          <li>
+            <div class="icon">📦</div>
+            <div>Freeze in <strong>weekly 7-serving blocks</strong> for controlled thaw cadence. Individual portions allow flexibility for varied meal contexts across the week.</div>
+          </li>
+        </ul>
+      </div>
+      <div class="storage-grid">
+        <div class="section-label" style="font-family:'JetBrains Mono',monospace;font-size:10px;color:#a5d6a7;letter-spacing:0.12em;text-transform:uppercase;">Storage Protocol</div>
+        <div class="storage-card">
+          <div class="icon">🧊</div>
+          <div class="info">
+            <div class="lbl">Refrigerator</div>
+            <div class="val">5–6 days</div>
+            <div class="sub">Keep current week's batch</div>
+          </div>
+        </div>
+        <div class="storage-card">
+          <div class="icon">🧊</div>
+          <div class="info">
+            <div class="lbl">Freezer</div>
+            <div class="val">3 months</div>
+            <div class="sub">In 7-serving weekly blocks</div>
+          </div>
+        </div>
+        <div class="storage-card">
+          <div class="icon">🫙</div>
+          <div class="info">
+            <div class="lbl">Containers</div>
+            <div class="val">28 individual</div>
+            <div class="sub">or 7 quad-portion containers</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>PGIS Recipes</span><span>7 / 9</span></div>
+  </div>
+
+  <!-- ══ SLIDE 8: MACROS ══ -->
+  <div class="slide" id="s8">
+    <div class="top-band"></div>
+    <div class="slide-header"><span>Macronutrient Profile</span><span></span></div>
+    <div class="content">
+      <div class="section-label">Macronutrient Profile</div>
+      <h2>Per Serving — Approximate</h2>
+      <div class="macro-grid">
+        <div class="macro-card">
+          <div class="val">45</div>
+          <div class="unit">kcal</div>
+          <div class="label">Calories</div>
+          <div class="range">40–50 range</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">1.5g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Protein</div>
+          <div class="range">1–2g range</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">10g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Total Carbs</div>
+          <div class="range">9–11g range</div>
+        </div>
+        <div class="macro-card teal">
+          <div class="val">2g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Fiber</div>
+          <div class="range">1.5–2.5g</div>
+        </div>
+        <div class="macro-card teal">
+          <div class="val">8g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Net Carbs</div>
+          <div class="range">7–9g range</div>
+        </div>
+      </div>
+      <div class="cgm-bar">
+        <div class="lbl">CGM Context</div>
+        <div class="text">
+          ~<strong>15–18g net carbs per serving</strong> noted in PGIS protocol. As a side dish, these onions function as a <strong>glycemic anchor</strong> — quercetin and acetic acid (from balsamic) actively lower the effective GI of the overall meal. Test CGM response at <strong>60 and 90 min post-meal.</strong>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>PGIS Recipes</span><span>8 / 9</span></div>
+  </div>
+
+  <!-- ══ SLIDE 9: NOTES + FOOTER ══ -->
+  <div class="slide" id="s9">
+    <div class="slide-header"><span>PGIS Notes</span><span></span></div>
+    <div class="content">
+      <div class="left-col">
+        <div class="section-label">Practitioner Notes</div>
+        <h2>Practitioner Notes</h2>
+        <ul class="note-list">
+          <li><strong>Frozen vs. fresh:</strong> Frozen pearl onions are a legitimate shortcut — skip blanching entirely. Quality impact is minimal; time saving is significant at 28-serving scale.</li>
+          <li><strong>Two-pan approach:</strong> Running two skillets simultaneously cuts total time by ~25%. Synchronize the glaze-and-reduce phase — combine both pans at this stage if possible.</li>
+          <li><strong>Glaze consistency:</strong> Reduce until onions are shiny and liquid coats a spoon. Too dry = tough texture after refrigeration. Too wet = diluted flavor.</li>
+          <li><strong>Parsley timing:</strong> Add parsley only at sealing, not during cooling. Pre-mixing dulls color and degrades chlorophyll; each container should have fresh green on top.</li>
+          <li><strong>Pairing logic:</strong> Pair with legume-based proteins (lentils, chickpeas) for maximum glycemic stability. The quercetin + inulin stack synergizes with high-fiber protein sources.</li>
+          <li><strong>CGM protocol:</strong> Test at 60 and 90 min post-meal on first use. Expected individual variance: low responders may see near-zero isolated impact.</li>
+        </ul>
+      </div>
+      <div class="right-col">
+        <div class="brand-block">
+          <div class="brand-name">PGIS Recipes</div>
+          <div class="tags">Vegan · Whole Foods Plant-Based · Oil-Free<br>Mastering Diabetes · Batch-Ready · No Added Oil</div>
+          <div class="url">Created May 2026</div>
+          <div class="url">chukwumaonyeije.github.io/pgis-recipes</div>
+        </div>
+        <div class="related-box">
+          <div class="rel-head">Related Recipes</div>
+          <div class="links">
+            Golden Carrot Recovery Waffles
+            <span>·</span>
+            Purple Sweet Potato Power Waffles
+            <span>·</span>
+            Savory Dill Chickpea Waffles
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="slide-footer"><span>PGIS Recipes</span><span>9 / 9</span></div>
+  </div>
+
+</div><!-- end slide-viewport -->
+
+<div class="controls">
+  <button onclick="navigate(-1)">&#8592;</button>
+  <span class="counter" id="counter">1 / 9</span>
+  <button onclick="navigate(1)">&#8594;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function scaleSlides() {
+    const vw = document.querySelector('.slide-viewport').clientWidth;
+    const scale = Math.min(vw / 900, 1);
+    slides.forEach(s => {
+      s.style.transform = `scale(${scale})`;
+      s.style.marginBottom = `${(506 * scale) - 506}px`;
+    });
+    document.querySelector('.slide-viewport').style.height = `${506 * scale}px`;
+  }
+
+  function navigate(dir) {
+    slides[current].classList.remove('active');
+    current = (current + dir + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+
+  window.addEventListener('resize', scaleSlides);
+  scaleSlides();
+</script>
+</body>
+</html>

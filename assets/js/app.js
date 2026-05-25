@@ -4,6 +4,15 @@ const siteMetadata = {
 
 const recipes = [
   {
+    title: "PGIS Meal Prep Pearl Onions",
+    subtitle: "Oil-free batch-prep onions for glycemic stability and easy meal assembly",
+    description:
+      "A broth-braised pearl onion deck designed as a low-impact, 28-serving supporting recipe for repeatable meal prep and glucose-aware plate building.",
+    href: "./recipes/pearl-onions-meal-prep/",
+    tags: ["Meal Prep", "Side Dish", "Glycemic Stability", "Oil-Free", "Vegan"],
+    featured: true,
+  },
+  {
     title: "Purple Sweet Potato Power Waffles",
     subtitle: "Anthocyanin-rich breakfast waffles for steady glucose and endurance fueling",
     description:
