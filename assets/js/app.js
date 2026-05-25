@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-04-21",
+  libraryUpdated: "2026-05-24",
 };
 
 const recipes = [
+  {
+    title: "Purple Sweet Potato Power Waffles",
+    subtitle: "Anthocyanin-rich breakfast waffles for steady glucose and endurance fueling",
+    description:
+      "A purple sweet potato, oat, chickpea, and flax waffle deck designed for fiber-forward meal prep, glucose-aware fueling, and recovery support.",
+    href: "./recipes/purple-sweet-potato-power-waffles/",
+    tags: ["Breakfast", "Meal Prep", "High Fiber", "Glycemic Stability", "Vegan"],
+    featured: true,
+  },
   {
     title: "Double Tofu Stuffed Flatbreads",
     subtitle: "Savory recovery flatbreads with dual-tofu structure and portion-aware comfort",
@@ -490,7 +499,7 @@ function updateSummary() {
       year: "numeric",
       month: "long",
       day: "numeric",
-    }).format(new Date(siteMetadata.libraryUpdated));
+    }).format(new Date(`${siteMetadata.libraryUpdated}T00:00:00`));
 
     lastUpdated.textContent = formattedDate;
   }

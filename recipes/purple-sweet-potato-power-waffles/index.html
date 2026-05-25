@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Purple Sweet Potato Power Waffles – PGIS Recipes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --purple-deep:   #3b1f6e;
+    --purple-mid:    #5e35b1;
+    --purple-light:  #7c4dbe;
+    --purple-pale:   #ede7f6;
+    --purple-mist:   #f3effe;
+    --gold:          #f5a623;
+    --gold-light:    #ffd47a;
+    --teal:          #00897b;
+    --teal-light:    #b2dfdb;
+    --text-dark:     #1a1230;
+    --text-mid:      #3d2e5e;
+    --text-muted:    #7b6a9a;
+    --white:         #ffffff;
+    --slide-w:       900px;
+    --slide-h:       506px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1a1230;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 80px;
+    min-height: 100vh;
+  }
+
+  /* ── CONTROLS ─────────────────────────────────── */
+  .controls {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    padding: 10px 24px;
+    z-index: 100;
+  }
+  .controls button {
+    background: none;
+    border: none;
+    color: #d4b8ff;
+    font-size: 20px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .controls button:hover { background: rgba(255,255,255,0.1); }
+  .controls .counter {
+    color: #d4b8ff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    min-width: 52px;
+    text-align: center;
+  }
+
+  /* ── SLIDE WRAPPER ────────────────────────────── */
+  .slide-viewport {
+    width: 100%;
+    max-width: var(--slide-w);
+    position: relative;
+  }
+  .slide {
+    width: var(--slide-w);
+    height: var(--slide-h);
+    border-radius: 12px;
+    overflow: hidden;
+    display: none;
+    position: relative;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    transform-origin: top left;
+  }
+  .slide.active { display: block; }
+
+  /* responsive scale */
+  @media (max-width: 940px) {
+    .slide-viewport { overflow: hidden; }
+  }
+
+  /* ── SHARED SLIDE CHROME ──────────────────────── */
+  .slide-header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 10;
+  }
+  .slide-footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    z-index: 10;
+  }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 1 — COVER
+  ══════════════════════════════════════════════ */
+  #s1 {
+    background: linear-gradient(145deg, #1a0933 0%, #3b1f6e 50%, #5e35b1 100%);
+  }
+  #s1 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+  }
+  #s1 .orb-1 { width: 300px; height: 300px; background: #7c4dbe; top: -80px; right: -60px; }
+  #s1 .orb-2 { width: 200px; height: 200px; background: #f5a623; bottom: -40px; left: 60px; }
+  #s1 .orb-3 { width: 150px; height: 150px; background: #00897b; top: 180px; right: 200px; }
+
+  #s1 .slide-header { color: rgba(255,255,255,0.45); }
+  #s1 .slide-footer { color: rgba(255,255,255,0.35); }
+
+  #s1 .badge-row {
+    position: absolute;
+    top: 44px;
+    left: 28px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  #s1 .badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.04em;
+  }
+
+  #s1 .cover-content {
+    position: absolute;
+    top: 50%;
+    left: 28px;
+    transform: translateY(-56%);
+    max-width: 560px;
+  }
+  #s1 .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  #s1 h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 46px;
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  #s1 h1 span { color: var(--gold-light); }
+  #s1 .subtitle {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    max-width: 420px;
+  }
+
+  #s1 .meta-pill {
+    position: absolute;
+    bottom: 40px;
+    right: 28px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 18px;
+    text-align: right;
+  }
+  #s1 .meta-pill .brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  #s1 .meta-pill .yield {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 3px;
+  }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 2 — RATIONALE
+  ══════════════════════════════════════════════ */
+  #s2 { background: #f7f4fe; }
+  #s2 .slide-header { color: var(--text-muted); border-bottom: 1px solid #e0d6f7; }
+  #s2 .slide-footer { color: var(--text-muted); border-top: 1px solid #e0d6f7; }
+
+  #s2 .accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(to bottom, var(--purple-mid), var(--gold));
+  }
+  #s2 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 40px;
+    padding-left: 18px;
+  }
+  #s2 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--purple-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s2 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: var(--purple-deep);
+    margin-bottom: 14px;
+  }
+  #s2 .pullquote {
+    background: var(--purple-pale);
+    border-left: 3px solid var(--purple-mid);
+    border-radius: 0 6px 6px 0;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    color: var(--text-mid);
+    font-style: italic;
+    line-height: 1.55;
+    margin-bottom: 16px;
+  }
+  #s2 .bullets { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 7px 24px; }
+  #s2 .bullets li {
+    font-size: 12px;
+    color: var(--text-dark);
+    line-height: 1.45;
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+  }
+  #s2 .bullets li::before {
+    content: '◆';
+    color: var(--purple-light);
+    font-size: 8px;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+  #s2 .bullets strong { color: var(--purple-deep); }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 3 — CGM PROFILE
+  ══════════════════════════════════════════════ */
+  #s3 {
+    background: linear-gradient(160deg, #1a0933 0%, #2d1a52 100%);
+  }
+  #s3 .slide-header { color: rgba(255,255,255,0.4); }
+  #s3 .slide-footer { color: rgba(255,255,255,0.3); }
+
+  #s3 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 24px;
+  }
+  #s3 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #s3 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  #s3 table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+  #s3 thead tr {
+    background: rgba(255,255,255,0.06);
+  }
+  #s3 th {
+    padding: 7px 10px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  #s3 td {
+    padding: 7px 10px;
+    color: rgba(255,255,255,0.82);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  #s3 td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: #d4b8ff;
+    white-space: nowrap;
+  }
+  #s3 tr:last-child td { border-bottom: none; }
+  #s3 .check { color: #69f0ae; }
+
+  #s3 .right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    justify-content: center;
+  }
+  #s3 .cgm-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  #s3 .cgm-card .label {
+    font-size: 10px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+  #s3 .cgm-card .value {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+  }
+  #s3 .cgm-card.good .value { color: #69f0ae; }
+  #s3 .cgm-card.bad .value { color: #ff8a80; }
+  #s3 .cgm-card .sublabel {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    margin-top: 2px;
+    opacity: 0.5;
+  }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 4 — WET BASE
+  ══════════════════════════════════════════════ */
+  #s4 { background: #fff; }
+  #s4 .slide-header { color: var(--text-muted); border-bottom: 1px solid #ede9f6; }
+  #s4 .slide-footer { color: var(--text-muted); border-top: 1px solid #ede9f6; }
+
+  #s4 .top-band {
+    position: absolute;
+    top: 36px; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(to right, var(--purple-mid), var(--gold));
+  }
+  #s4 .content {
+    position: absolute;
+    top: 52px; left: 28px; right: 28px; bottom: 38px;
+  }
+  #s4 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--purple-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s4 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--purple-deep);
+    margin-bottom: 4px;
+  }
+  #s4 .yield-note {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  #s4 .ingredient-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  #s4 .ingredient-list li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    font-size: 12.5px;
+    line-height: 1.4;
+    color: var(--text-dark);
+  }
+  #s4 .ingredient-list li .qty {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--purple-mid);
+    font-weight: 600;
+    min-width: 110px;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  #s4 .ingredient-list li .desc strong { color: var(--purple-deep); }
+  #s4 .ingredient-list li .desc .note {
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 5 — DRY BASE
+  ══════════════════════════════════════════════ */
+  #s5 { background: #f7f4fe; }
+  #s5 .slide-header { color: var(--text-muted); border-bottom: 1px solid #e0d6f7; }
+  #s5 .slide-footer { color: var(--text-muted); border-top: 1px solid #e0d6f7; }
+
+  #s5 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  #s5 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--purple-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s5 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--purple-deep);
+    margin-bottom: 12px;
+  }
+  #s5 .ing-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  #s5 .ing-list li {
+    font-size: 12px;
+    color: var(--text-dark);
+    line-height: 1.4;
+    border-left: 2px solid var(--purple-pale);
+    padding-left: 10px;
+  }
+  #s5 .ing-list li strong { color: var(--purple-deep); }
+  #s5 .ing-list li .note { color: var(--text-muted); font-size: 10.5px; }
+
+  #s5 .right-col { display: flex; flex-direction: column; gap: 14px; }
+  #s5 .addin-box {
+    background: var(--purple-pale);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  #s5 .addin-box h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--purple-mid);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #s5 .addin-box ul { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+  #s5 .addin-box ul li {
+    font-size: 11.5px;
+    color: var(--text-mid);
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+  #s5 .addin-box ul li::before { content: '·'; color: var(--purple-light); font-size: 16px; line-height: 1; margin-top: -2px; }
+  #s5 .note-box {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #5d4037;
+    line-height: 1.5;
+  }
+  #s5 .note-box .note-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: #f57c00;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 6 — METHOD
+  ══════════════════════════════════════════════ */
+  #s6 {
+    background: linear-gradient(160deg, #1e0940 0%, #3b1f6e 100%);
+  }
+  #s6 .slide-header { color: rgba(255,255,255,0.4); }
+  #s6 .slide-footer { color: rgba(255,255,255,0.3); }
+
+  #s6 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+  }
+  #s6 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s6 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  #s6 .steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  #s6 .step {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px 12px;
+    position: relative;
+  }
+  #s6 .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 28px;
+    color: rgba(255,255,255,0.12);
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    line-height: 1;
+  }
+  #s6 .step-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+  }
+  #s6 .step-body {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.45;
+  }
+  #s6 .step-body strong { color: #d4b8ff; }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 7 — SERVING PROTOCOL
+  ══════════════════════════════════════════════ */
+  #s7 { background: #fff; }
+  #s7 .slide-header { color: var(--text-muted); border-bottom: 1px solid #ede9f6; }
+  #s7 .slide-footer { color: var(--text-muted); border-top: 1px solid #ede9f6; }
+
+  #s7 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+  }
+  #s7 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--purple-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s7 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: var(--purple-deep);
+    margin-bottom: 14px;
+  }
+  #s7 .serving-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+  #s7 .serving-card {
+    background: var(--purple-mist);
+    border-radius: 10px;
+    padding: 12px 13px;
+    border-top: 3px solid var(--purple-mid);
+  }
+  #s7 .serving-card.gold-top { border-top-color: var(--gold); }
+  #s7 .serving-card.teal-top { border-top-color: var(--teal); }
+  #s7 .serving-card.rose-top { border-top-color: #e91e8c; }
+
+  #s7 .serving-card .ctx {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--purple-mid);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 5px;
+  }
+  #s7 .serving-card .ctx-time {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-style: italic;
+  }
+  #s7 .serving-card .meal {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-dark);
+    line-height: 1.4;
+    margin-bottom: 7px;
+  }
+  #s7 .serving-card .intent {
+    font-size: 10.5px;
+    color: var(--text-muted);
+    line-height: 1.4;
+    border-top: 1px solid #e0d6f7;
+    padding-top: 6px;
+    margin-top: 4px;
+  }
+  #s7 .serving-card .intent strong { color: var(--purple-mid); }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 8 — MACROS
+  ══════════════════════════════════════════════ */
+  #s8 {
+    background: linear-gradient(145deg, #0d1f1e 0%, #00352e 60%, #004d40 100%);
+  }
+  #s8 .slide-header { color: rgba(255,255,255,0.4); }
+  #s8 .slide-footer { color: rgba(255,255,255,0.3); }
+
+  #s8 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+  }
+  #s8 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--teal-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s8 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  #s8 .macro-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  #s8 .macro-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  #s8 .macro-card .val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: #69f0ae;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  #s8 .macro-card .unit {
+    font-size: 11px;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 4px;
+  }
+  #s8 .macro-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  #s8 .macro-card .range {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.3);
+    margin-top: 3px;
+  }
+  #s8 .macro-card.highlight .val { color: #fff176; }
+
+  #s8 .note {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.55;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 12px;
+  }
+
+  /* ══════════════════════════════════════════════
+     SLIDE 9 — NOTES + FOOTER
+  ══════════════════════════════════════════════ */
+  #s9 { background: #f7f4fe; }
+  #s9 .slide-header { color: var(--text-muted); border-bottom: 1px solid #e0d6f7; }
+  #s9 .slide-footer { color: var(--text-muted); border-top: 1px solid #e0d6f7; }
+
+  #s9 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  #s9 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--purple-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s9 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--purple-deep);
+    margin-bottom: 14px;
+  }
+  #s9 .note-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  #s9 .note-list li {
+    font-size: 11.5px;
+    color: var(--text-dark);
+    line-height: 1.5;
+    padding-left: 14px;
+    border-left: 2px solid var(--purple-light);
+  }
+  #s9 .note-list li strong { color: var(--purple-deep); }
+
+  #s9 .right-col { display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+
+  #s9 .brand-block {
+    background: linear-gradient(135deg, var(--purple-deep), var(--purple-mid));
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+  }
+  #s9 .brand-block .brand-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #s9 .brand-block .tags {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+  }
+  #s9 .brand-block .url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 8px;
+  }
+
+  #s9 .related-box {
+    background: #fff;
+    border: 1px solid #e0d6f7;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  #s9 .related-box .rel-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--purple-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 7px;
+  }
+  #s9 .related-box .links {
+    font-size: 11.5px;
+    color: var(--purple-mid);
+    line-height: 1.8;
+  }
+  #s9 .related-box .links span { opacity: 0.4; margin: 0 4px; }
+</style>
+</head>
+<body>
+
+<div class="slide-viewport">
+
+  <!-- ══ SLIDE 1: COVER ══ -->
+  <div class="slide active" id="s1">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="slide-header">
+      <span>PGIS Recipes · Breakfast · Power Meal</span>
+      <span></span>
+    </div>
+
+    <div class="badge-row">
+      <span class="badge">Vegan</span>
+      <span class="badge">Whole Foods Plant-Based</span>
+      <span class="badge">Oil-Free</span>
+      <span class="badge">High Fiber</span>
+      <span class="badge">Glycemic Stability</span>
+      <span class="badge">Meal Prep</span>
+      <span class="badge">Anthocyanin-Rich</span>
+      <span class="badge">Whole Grain</span>
+    </div>
+
+    <div class="cover-content">
+      <div class="eyebrow">PGIS Recipes</div>
+      <h1><span>Purple Sweet Potato</span><br>Power Waffles</h1>
+      <div class="subtitle">
+        Anthocyanin-loaded, fiber-forward waffles for superior glucose control<br>
+        and batch-ready endurance fueling
+      </div>
+    </div>
+
+    <div class="meta-pill">
+      <div class="brand">PGIS Recipes</div>
+      <div class="yield">Yields 6–8 waffles · May 2026</div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>1 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: RATIONALE ══ -->
+  <div class="slide" id="s2">
+    <div class="accent-bar"></div>
+    <div class="slide-header">
+      <span>PGIS Rationale</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label">Why Purple Sweet Potato?</div>
+      <h2>Why Purple Sweet Potato?</h2>
+      <div class="pullquote">
+        "Purple sweet potato's GI (~44–50) rivals the carrot baseline — but adds a second weapon:
+        anthocyanins that independently modulate postprandial glucose. This is PGIS ingredient
+        selection at its most deliberate."
+      </div>
+      <ul class="bullets">
+        <li><div><strong>Anthocyanins</strong> — inhibit α-glucosidase, directly slowing glucose absorption</div></li>
+        <li><div><strong>Resistant starch</strong> — partial undercooking preserves RS3, lowering net carb availability</div></li>
+        <li><div><strong>Fiber density</strong> — ~4g per cup mashed, blunts postprandial spike synergistically</div></li>
+        <li><div><strong>Natural sweetness</strong> — reduces date paste requirement vs. carrot base</div></li>
+        <li><div><strong>Anti-inflammatory</strong> — polyphenol load supports recovery from training stress</div></li>
+        <li><div><strong>No refined sugar</strong> — date paste only (fiber-buffered fructose)</div></li>
+      </ul>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>2 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: CGM PROFILE ══ -->
+  <div class="slide" id="s3">
+    <div class="slide-header">
+      <span>Glucose Intelligence</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div>
+        <div class="section-label">Glucose Intelligence</div>
+        <h2>CGM Profile</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Factor</th>
+              <th>Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Purple Sweet Potato GI</td><td>~44–50 (mashed, cooked — low-moderate)</td></tr>
+            <tr><td>Anthocyanins</td><td>α-glucosidase inhibition → blunted absorption</td></tr>
+            <tr><td>Oat beta-glucan</td><td>Validated postprandial dampening — additive effect</td></tr>
+            <tr><td>Chickpea flour</td><td>Lowers net carb availability vs. wheat flour</td></tr>
+            <tr><td>Resistant starch</td><td>RS3 preserved when slightly undercooled sweet potato</td></tr>
+            <tr><td>Sweetener</td><td>Date paste only — no refined sugar</td></tr>
+            <tr><td>Overall impact</td><td><span class="check">✓</span> Low-moderate / flat curve — PGIS compatible</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="right-panel">
+        <div class="section-label" style="color:var(--gold);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:6px;">Expected postprandial rise above fasting</div>
+        <div class="cgm-card good">
+          <div class="label">These waffles</div>
+          <div class="value">~18–28</div>
+          <div class="sublabel">mg/dL</div>
+        </div>
+        <div class="cgm-card bad">
+          <div class="label">Conventional waffles</div>
+          <div class="value">~50–80</div>
+          <div class="sublabel">mg/dL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>3 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: WET BASE ══ -->
+  <div class="slide" id="s4">
+    <div class="top-band"></div>
+    <div class="slide-header">
+      <span>Ingredients · Wet Base</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label">Ingredients · Wet Base</div>
+      <h2>Wet Base</h2>
+      <div class="yield-note">Yields 6–8 waffles · batch prep for 3–4 days</div>
+
+      <ul class="ingredient-list">
+        <li>
+          <div class="qty">1.5 cups mashed</div>
+          <div class="desc"><strong>purple sweet potato</strong> — <span class="note">~2 medium Okinawan or Stokes variety, steamed + mashed</span></div>
+        </li>
+        <li>
+          <div class="qty">1 cup</div>
+          <div class="desc"><strong>unsweetened soy milk</strong> — <span class="note">higher protein than oat milk; or oat milk for creamier texture</span></div>
+        </li>
+        <li>
+          <div class="qty">2 flax eggs</div>
+          <div class="desc"><strong>ground flaxseed + water</strong> — <span class="note">2 tbsp flaxseed + 6 tbsp water, rested 5 min until gel forms</span></div>
+        </li>
+        <li>
+          <div class="qty">1.5 tbsp</div>
+          <div class="desc"><strong>date paste</strong> — <span class="note">2 medjool dates + 2 tbsp warm water, blended (less than carrot — PSP is naturally sweeter)</span></div>
+        </li>
+        <li>
+          <div class="qty">1 tsp</div>
+          <div class="desc"><strong>vanilla extract</strong> — <span class="note">pure, not artificial</span></div>
+        </li>
+        <li>
+          <div class="qty">1 tsp</div>
+          <div class="desc"><strong>apple cider vinegar</strong> — <span class="note">activates leavening; no residual taste after cooking</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>4 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: DRY BASE ══ -->
+  <div class="slide" id="s5">
+    <div class="slide-header">
+      <span>Ingredients · Dry Base</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="left-col">
+        <div class="section-label">Dry Base</div>
+        <h2>Dry Base + Optional Add-ins</h2>
+        <ul class="ing-list">
+          <li><strong>1 cup rolled oats</strong> — blended to flour <span class="note">(30–45 sec pulse)</span></li>
+          <li><strong>¾ cup chickpea flour</strong> — protein anchor, low GI</li>
+          <li><strong>2 tbsp ground flaxseed</strong></li>
+          <li><strong>1.5 tsp baking powder</strong></li>
+          <li><strong>½ tsp baking soda</strong></li>
+          <li><strong>1 tsp cinnamon</strong></li>
+          <li><strong>½ tsp cardamom</strong> — <span class="note">enhances PSP's natural sweetness</span></li>
+          <li><strong>¼ tsp nutmeg</strong> — <span class="note">warming note; pairs with purple sweet potato</span></li>
+          <li><strong>¼ tsp fine sea salt</strong></li>
+        </ul>
+      </div>
+
+      <div class="right-col">
+        <div class="addin-box">
+          <h3>Optional Add-ins</h3>
+          <ul>
+            <li><strong>2 tbsp walnuts</strong> — omega-3, fat-buffering for glucose curve</li>
+            <li><strong>1 tbsp hemp seeds</strong> — complete protein boost</li>
+            <li><strong>2 tbsp pumpkin seeds</strong> — zinc + magnesium for recovery</li>
+            <li><strong>¼ cup blueberries</strong> — rest day only; additional anthocyanins</li>
+          </ul>
+        </div>
+        <div class="note-box">
+          <div class="note-head">Chickpea flour note</div>
+          If unavailable, substitute oat flour — protein and GI benefits are reduced. Soy flour is a closer nutritional substitute.
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>5 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: METHOD ══ -->
+  <div class="slide" id="s6">
+    <div class="slide-header">
+      <span>Execution Protocol</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label">Execution Protocol</div>
+      <h2>Method — 8 Steps</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Steam PSP</div>
+          <div class="step-body">Steam purple sweet potato 20–25 min. Cool slightly. Mash smooth — do not over-thin. <strong>Slight undercooling preserves resistant starch.</strong></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Flax eggs</div>
+          <div class="step-body">2 tbsp flaxseed + 6 tbsp water. Rest <strong>5 min</strong> until gel forms. Do not skip rest time.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Date paste</div>
+          <div class="step-body">Blend 2 medjool dates + 2 tbsp warm water until completely smooth. Less required than carrot base.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Oat flour</div>
+          <div class="step-body">Pulse rolled oats <strong>30–45 sec.</strong> Do not over-blend. Coarser grind = more beta-glucan intact.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Combine dry</div>
+          <div class="step-body">Whisk all dry ingredients together in large bowl until uniform.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-title">Combine wet</div>
+          <div class="step-body">Whisk soy milk, flax eggs, date paste, mashed PSP, vanilla, ACV until smooth.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">7</div>
+          <div class="step-title">Fold + rest</div>
+          <div class="step-body">Fold wet into dry. <strong>Do not overmix.</strong> Rest batter 3–5 min — batter thickens as oats absorb moisture.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">8</div>
+          <div class="step-title">Cook + batch</div>
+          <div class="step-body">½ cup batter per waffle, <strong>5–6 min.</strong> Do not lift lid. Fridge 4 days · Freezer 6 weeks · Toaster reheat.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>6 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: SERVING ══ -->
+  <div class="slide" id="s7">
+    <div class="slide-header">
+      <span>PGIS Serving Protocol</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label">PGIS Serving Protocol</div>
+      <h2>Context-Based Serving</h2>
+      <div class="serving-grid">
+        <div class="serving-card gold-top">
+          <div class="ctx">Pre-Workout</div>
+          <div class="ctx-time">2–3 hrs before training</div>
+          <div class="meal">2 waffles + almond butter + banana slices</div>
+          <div class="intent"><strong>Glucose intent:</strong> sustained carb release; PSP's RS3 extends fuel window vs. conventional waffle</div>
+        </div>
+        <div class="serving-card teal-top">
+          <div class="ctx">Recovery</div>
+          <div class="ctx-time">within 60 min post-run</div>
+          <div class="meal">2 waffles + tahini drizzle + fresh blueberries</div>
+          <div class="intent"><strong>Glucose intent:</strong> carb replenishment + dual anthocyanin stack (PSP + blueberry) for inflammation</div>
+        </div>
+        <div class="serving-card">
+          <div class="ctx">Clinic Morning</div>
+          <div class="ctx-time">sustained focus fuel</div>
+          <div class="meal">2 waffles + peanut butter + sliced apple</div>
+          <div class="intent"><strong>Glucose intent:</strong> flat curve, 3–4 hr satiety window; fat pairing further dampens PSP response</div>
+        </div>
+        <div class="serving-card rose-top">
+          <div class="ctx">Sabbath Breakfast</div>
+          <div class="ctx-time">rest day, higher enjoyment</div>
+          <div class="meal">2 waffles + coconut yogurt + date syrup + walnuts</div>
+          <div class="intent"><strong>Glucose intent:</strong> slightly higher — acceptable for rest day; still far below conventional waffle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>7 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: MACROS ══ -->
+  <div class="slide" id="s8">
+    <div class="slide-header">
+      <span>Macronutrient Profile</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label">Macronutrient Profile</div>
+      <h2>Per 2 Waffles — Approximate</h2>
+      <div class="macro-grid">
+        <div class="macro-card highlight">
+          <div class="val">295</div>
+          <div class="unit">kcal</div>
+          <div class="label">Calories</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">12g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Protein</div>
+          <div class="range">11–13g range</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">43g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Carbohydrate</div>
+          <div class="range">41–45g range</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">9g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Fiber</div>
+          <div class="range">8–10g range</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">6g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Fat</div>
+          <div class="range">5–7g range</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">34g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Net Carbs</div>
+          <div class="range">32–36g range</div>
+        </div>
+      </div>
+      <div class="note">
+        Net carb load is moderate — well within PGIS daily targets when paired with protein/fat at serving.
+        Higher fiber profile vs. carrot base (9g vs. 8g) reflects purple sweet potato's denser fiber matrix.
+        Anthocyanin content adds ~200–350mg polyphenols per serving — a meaningful anti-inflammatory dose
+        that carrot waffles do not provide. Pair with almond or peanut butter to further dampen the curve.
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>8 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 9: NOTES + FOOTER ══ -->
+  <div class="slide" id="s9">
+    <div class="slide-header">
+      <span>PGIS Notes</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="left-col">
+        <div class="section-label">PGIS Notes</div>
+        <h2>Practitioner Notes</h2>
+        <ul class="note-list">
+          <li><strong>PSP sourcing:</strong> Okinawan (Stokes) variety preferred — deep purple flesh = highest anthocyanin density. Starchy white interior = lower polyphenol yield.</li>
+          <li><strong>Resistant starch tip:</strong> Steam, not boil. Cool to room temp before mashing. This maximizes RS3 formation and lowers effective GI.</li>
+          <li><strong>Color retention:</strong> ACV in batter stabilizes anthocyanin pigment. Waffles stay purple-violet even after cooking.</li>
+          <li><strong>No oil needed:</strong> PSP moisture + soy milk produce a dense, moist crumb without added fat. More forgiving batter than carrot base.</li>
+          <li><strong>CGM context:</strong> ~18–28 mg/dL rise vs. ~50–80 mg/dL conventional. Lower ceiling than carrot base due to anthocyanin-mediated absorption inhibition.</li>
+          <li><strong>Batch priority:</strong> Freezes exceptionally well. Purple color intensifies slightly after freeze-thaw cycle — a feature, not a bug.</li>
+        </ul>
+      </div>
+
+      <div class="right-col">
+        <div class="brand-block">
+          <div class="brand-name">PGIS Recipes</div>
+          <div class="tags">Vegan · Whole Foods Plant-Based · Oil-Free · Batch-Ready<br>Anthocyanin-Rich · Mastering Diabetes Protocol</div>
+          <div class="url">Created May 2026</div>
+          <div class="url">chukwumaonyeije.github.io/pgis-recipes</div>
+        </div>
+        <div class="related-box">
+          <div class="rel-head">Related Recipes</div>
+          <div class="links">
+            Golden Carrot Recovery Waffles
+            <span>·</span>
+            Savory Dill Chickpea Waffles
+            <span>·</span>
+            Cocoa Chickpea Waffles
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>9 / 9</span>
+    </div>
+  </div>
+
+</div><!-- end slide-viewport -->
+
+<!-- ── CONTROLS ── -->
+<div class="controls">
+  <button id="prev" onclick="navigate(-1)">&#8592;</button>
+  <span class="counter" id="counter">1 / 9</span>
+  <button id="next" onclick="navigate(1)">&#8594;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function scaleSlides() {
+    const vw = document.querySelector('.slide-viewport').clientWidth;
+    const scale = Math.min(vw / 900, 1);
+    slides.forEach(s => {
+      s.style.transform = `scale(${scale})`;
+      s.style.marginBottom = `${(506 * scale) - 506}px`;
+    });
+    document.querySelector('.slide-viewport').style.height = `${506 * scale}px`;
+  }
+
+  function navigate(dir) {
+    slides[current].classList.remove('active');
+    current = (current + dir + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+
+  window.addEventListener('resize', scaleSlides);
+  scaleSlides();
+</script>
+</body>
+</html>
