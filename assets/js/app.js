@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-05-24",
+  libraryUpdated: "2026-06-14",
 };
 
 const recipes = [
+  {
+    title: "WFPB Banana Tofu Waffles v2",
+    subtitle: "High-protein, oil-free waffles with seltzer lift for the Mastering Diabetes protocol",
+    description:
+      "Tofu and chickpea flour do the structural work, banana does all the sweetening. Seltzer folded in last for extra lift and crisp. Two scoops of plant protein push per-waffle protein to 12–14g. Freezes and reheats crispy.",
+    href: "./recipes/banana-tofu-waffles-v2/",
+    tags: ["Breakfast", "Meal Prep", "High Protein", "Oil-Free", "No Added Sugar", "Mastering Diabetes", "WFPB", "Freezer-Ready"],
+    featured: true,
+  },
   {
     title: "PGIS Meal Prep Pearl Onions",
     subtitle: "Oil-free batch-prep onions for glycemic stability and easy meal assembly",
