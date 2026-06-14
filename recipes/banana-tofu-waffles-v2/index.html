@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WFPB Banana Tofu Waffles v2 – PGIS Recipes</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --gold-deep:    #b45309;
+    --gold-mid:     #d97706;
+    --gold-warm:    #f59e0b;
+    --gold-light:   #fcd34d;
+    --gold-pale:    #fef9c3;
+    --gold-mist:    #fffbeb;
+    --teal:         #0d9488;
+    --teal-light:   #99f6e4;
+    --brown-deep:   #1c0a00;
+    --brown-mid:    #78350f;
+    --text-dark:    #1c0a00;
+    --text-mid:     #451a03;
+    --text-muted:   #92400e;
+    --white:        #ffffff;
+    --slide-w:      900px;
+    --slide-h:      506px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #1c0a00;
+    font-family: 'DM Sans', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px 80px;
+    min-height: 100vh;
+  }
+
+  /* ── CONTROLS ── */
+  .controls {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 50px;
+    padding: 10px 24px;
+    z-index: 100;
+  }
+  .controls button {
+    background: none;
+    border: none;
+    color: #fcd34d;
+    font-size: 20px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .controls button:hover { background: rgba(255,255,255,0.1); }
+  .controls .counter {
+    color: #fcd34d;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    min-width: 52px;
+    text-align: center;
+  }
+
+  /* ── SLIDE WRAPPER ── */
+  .slide-viewport {
+    width: 100%;
+    max-width: var(--slide-w);
+    position: relative;
+  }
+  .slide {
+    width: var(--slide-w);
+    height: var(--slide-h);
+    border-radius: 12px;
+    overflow: hidden;
+    display: none;
+    position: relative;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+    transform-origin: top left;
+  }
+  .slide.active { display: block; }
+
+  /* ── SHARED CHROME ── */
+  .slide-header {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 10;
+  }
+  .slide-footer {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    z-index: 10;
+  }
+
+  /* ══ SLIDE 1 — COVER ══ */
+  #s1 {
+    background: linear-gradient(145deg, #1c0a00 0%, #451a03 50%, #78350f 100%);
+  }
+  #s1 .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.35;
+  }
+  #s1 .orb-1 { width: 320px; height: 320px; background: #f59e0b; top: -100px; right: -80px; }
+  #s1 .orb-2 { width: 200px; height: 200px; background: #0d9488; bottom: -40px; left: 60px; }
+  #s1 .orb-3 { width: 140px; height: 140px; background: #fcd34d; top: 200px; right: 220px; }
+  #s1 .slide-header { color: rgba(255,255,255,0.45); }
+  #s1 .slide-footer { color: rgba(255,255,255,0.35); }
+
+  #s1 .badge-row {
+    position: absolute;
+    top: 44px; left: 28px;
+    display: flex; gap: 8px; flex-wrap: wrap;
+  }
+  #s1 .badge {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 3px 10px;
+    font-size: 10px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.04em;
+  }
+  #s1 .cover-content {
+    position: absolute;
+    top: 50%; left: 28px;
+    transform: translateY(-56%);
+    max-width: 540px;
+  }
+  #s1 .eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-light);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  #s1 h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 44px;
+    line-height: 1.08;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  #s1 h1 span { color: var(--gold-light); }
+  #s1 .subtitle {
+    font-size: 13px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    max-width: 430px;
+  }
+  #s1 .meta-pill {
+    position: absolute;
+    bottom: 40px; right: 28px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    padding: 10px 18px;
+    text-align: right;
+  }
+  #s1 .meta-pill .brand {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-light);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  #s1 .meta-pill .yield {
+    font-size: 12px;
+    color: rgba(255,255,255,0.55);
+    margin-top: 3px;
+  }
+  #s1 .v2-tag {
+    position: absolute;
+    top: 50%; right: 28px;
+    transform: translateY(-80%);
+    background: rgba(245,158,11,0.2);
+    border: 1px solid rgba(245,158,11,0.4);
+    border-radius: 8px;
+    padding: 14px 18px;
+    text-align: center;
+  }
+  #s1 .v2-tag .v2-label {
+    font-family: 'DM Serif Display', serif;
+    font-size: 36px;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  #s1 .v2-tag .v2-changes {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: rgba(255,255,255,0.55);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.7;
+  }
+
+  /* ══ SLIDE 2 — WHAT CHANGED ══ */
+  #s2 { background: #fffbeb; }
+  #s2 .slide-header { color: var(--text-muted); border-bottom: 1px solid #fde68a; }
+  #s2 .slide-footer { color: var(--text-muted); border-top: 1px solid #fde68a; }
+  #s2 .accent-bar {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 6px;
+    background: linear-gradient(to bottom, var(--gold-mid), var(--teal));
+  }
+  #s2 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 40px;
+    padding-left: 18px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  #s2 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-mid);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    grid-column: 1 / -1;
+  }
+  #s2 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--brown-deep);
+    margin-bottom: 12px;
+    grid-column: 1 / -1;
+  }
+  .change-card {
+    background: #fff;
+    border: 1px solid #fde68a;
+    border-top: 3px solid var(--gold-warm);
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+  .change-card.teal-top { border-top-color: var(--teal); }
+  .change-card .num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 32px;
+    color: rgba(245,158,11,0.2);
+    position: absolute;
+    top: 8px; right: 12px;
+    line-height: 1;
+  }
+  .change-card { position: relative; }
+  .change-card .ch-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+  }
+  .change-card.teal-top .ch-title { color: var(--teal); }
+  .change-card .ch-body {
+    font-size: 12px;
+    color: var(--text-dark);
+    line-height: 1.55;
+  }
+  .change-card .ch-body strong { color: var(--brown-deep); }
+  .change-card .ch-rule {
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-mid);
+    background: var(--gold-pale);
+    border-radius: 4px;
+    padding: 4px 8px;
+    display: inline-block;
+  }
+  .change-card.teal-top .ch-rule { color: var(--teal); background: #f0fdfa; }
+
+  /* ══ SLIDE 3 — GLUCOSE PROFILE ══ */
+  #s3 {
+    background: linear-gradient(160deg, #1c0a00 0%, #2d1500 100%);
+  }
+  #s3 .slide-header { color: rgba(255,255,255,0.4); }
+  #s3 .slide-footer { color: rgba(255,255,255,0.3); }
+  #s3 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid;
+    grid-template-columns: 1fr 200px;
+    gap: 24px;
+  }
+  #s3 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #s3 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  #s3 table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+  #s3 thead tr { background: rgba(255,255,255,0.06); }
+  #s3 th {
+    padding: 7px 10px;
+    text-align: left;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold-light);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  #s3 td {
+    padding: 7px 10px;
+    color: rgba(255,255,255,0.82);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    vertical-align: top;
+    line-height: 1.4;
+  }
+  #s3 td:first-child {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: #fcd34d;
+    white-space: nowrap;
+  }
+  #s3 tr:last-child td { border-bottom: none; }
+  #s3 .check { color: #69f0ae; }
+  #s3 .right-panel { display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+  #s3 .cgm-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  #s3 .cgm-card .label { font-size: 10px; color: rgba(255,255,255,0.5); margin-bottom: 6px; line-height: 1.3; }
+  #s3 .cgm-card .value { font-family: 'DM Serif Display', serif; font-size: 22px; }
+  #s3 .cgm-card.good .value { color: #69f0ae; }
+  #s3 .cgm-card.bad .value { color: #ff8a80; }
+  #s3 .cgm-card .sublabel { font-family: 'JetBrains Mono', monospace; font-size: 9px; margin-top: 2px; opacity: 0.5; }
+
+  /* ══ SLIDE 4 — WET BASE ══ */
+  #s4 { background: #fff; }
+  #s4 .slide-header { color: var(--text-muted); border-bottom: 1px solid #fde68a; }
+  #s4 .slide-footer { color: var(--text-muted); border-top: 1px solid #fde68a; }
+  #s4 .top-band {
+    position: absolute;
+    top: 36px; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--gold-mid), var(--teal));
+  }
+  #s4 .content {
+    position: absolute;
+    top: 52px; left: 28px; right: 28px; bottom: 38px;
+  }
+  #s4 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-mid);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s4 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: var(--brown-deep);
+    margin-bottom: 4px;
+  }
+  #s4 .yield-note {
+    font-size: 11px; color: var(--text-muted);
+    margin-bottom: 14px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  #s4 .ingredient-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  #s4 .ingredient-list li {
+    display: flex; gap: 12px; align-items: flex-start;
+    font-size: 12.5px; line-height: 1.4; color: var(--text-dark);
+  }
+  #s4 .ingredient-list li .qty {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-deep);
+    font-weight: 600;
+    min-width: 120px;
+    flex-shrink: 0;
+    padding-top: 1px;
+  }
+  #s4 .ingredient-list li .desc strong { color: var(--brown-deep); }
+  #s4 .ingredient-list li .note { color: var(--text-muted); font-size: 11px; }
+  #s4 .seltzer-note {
+    margin-top: 12px;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-left: 3px solid var(--gold-warm);
+    border-radius: 0 6px 6px 0;
+    padding: 8px 12px;
+    font-size: 11px;
+    color: var(--brown-mid);
+    font-style: italic;
+  }
+
+  /* ══ SLIDE 5 — DRY BASE ══ */
+  #s5 { background: #fffbeb; }
+  #s5 .slide-header { color: var(--text-muted); border-bottom: 1px solid #fde68a; }
+  #s5 .slide-footer { color: var(--text-muted); border-top: 1px solid #fde68a; }
+  #s5 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  #s5 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-mid);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s5 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--brown-deep);
+    margin-bottom: 12px;
+  }
+  #s5 .ing-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+  #s5 .ing-list li {
+    font-size: 12px; color: var(--text-dark); line-height: 1.4;
+    border-left: 2px solid #fde68a; padding-left: 10px;
+  }
+  #s5 .ing-list li strong { color: var(--brown-deep); }
+  #s5 .ing-list li .note { color: var(--text-muted); font-size: 10.5px; }
+  #s5 .right-col { display: flex; flex-direction: column; gap: 12px; }
+  #s5 .protein-box {
+    background: #fff;
+    border: 1px solid #fde68a;
+    border-top: 3px solid var(--gold-warm);
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  #s5 .protein-box h3 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-deep);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #s5 .protein-box p { font-size: 11.5px; color: var(--text-mid); line-height: 1.5; }
+  #s5 .note-box {
+    background: #f0fdfa;
+    border: 1px solid #99f6e4;
+    border-radius: 8px;
+    padding: 10px 12px;
+    font-size: 11px;
+    color: #134e4a;
+    line-height: 1.5;
+  }
+  #s5 .note-box .note-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--teal);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  /* ══ SLIDE 6 — METHOD (STEPS 1–5) ══ */
+  #s6 {
+    background: linear-gradient(160deg, #1c0a00 0%, #3d1600 100%);
+  }
+  #s6 .slide-header { color: rgba(255,255,255,0.4); }
+  #s6 .slide-footer { color: rgba(255,255,255,0.3); }
+  #s6 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+  }
+  #s6 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s6 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  #s6 .steps {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+  }
+  #s6 .step {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 10px 12px;
+    position: relative;
+  }
+  #s6 .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: rgba(255,255,255,0.12);
+    position: absolute;
+    top: 4px; right: 8px;
+    line-height: 1;
+  }
+  #s6 .step-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 5px;
+  }
+  #s6 .step-body {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.45;
+  }
+  #s6 .step-body strong { color: #fcd34d; }
+
+  /* ══ SLIDE 7 — STEPS 6–10 + SELTZER KEY ══ */
+  #s7 {
+    background: linear-gradient(160deg, #003d38 0%, #0d2e2b 100%);
+  }
+  #s7 .slide-header { color: rgba(255,255,255,0.4); }
+  #s7 .slide-footer { color: rgba(255,255,255,0.3); }
+  #s7 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid;
+    grid-template-columns: 1fr 220px;
+    gap: 20px;
+  }
+  #s7 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--teal-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s7 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  #s7 .steps { display: flex; flex-direction: column; gap: 9px; }
+  #s7 .step {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 7px;
+    padding: 8px 12px;
+    display: flex; gap: 10px; align-items: flex-start;
+  }
+  #s7 .step-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: rgba(255,255,255,0.2);
+    min-width: 20px;
+    line-height: 1.1;
+  }
+  #s7 .step-info { flex: 1; }
+  #s7 .step-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+  }
+  #s7 .step-body { font-size: 11px; color: rgba(255,255,255,0.72); line-height: 1.4; }
+  #s7 .step-body strong { color: #99f6e4; }
+
+  #s7 .seltzer-panel {
+    background: rgba(13,148,136,0.15);
+    border: 1px solid rgba(153,246,228,0.25);
+    border-radius: 10px;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  #s7 .seltzer-panel .sp-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+  #s7 .seltzer-panel .sp-rule {
+    font-size: 12px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  #s7 .seltzer-panel .sp-why {
+    font-size: 10.5px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    padding-top: 8px;
+  }
+
+  /* ══ SLIDE 8 — MACROS ══ */
+  #s8 {
+    background: linear-gradient(145deg, #0d1f1e 0%, #00352e 60%, #004d40 100%);
+  }
+  #s8 .slide-header { color: rgba(255,255,255,0.4); }
+  #s8 .slide-footer { color: rgba(255,255,255,0.3); }
+  #s8 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+  }
+  #s8 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--teal-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s8 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 18px;
+  }
+  #s8 .macro-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  #s8 .macro-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  #s8 .macro-card .val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: #69f0ae;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  #s8 .macro-card.highlight .val { color: #fff176; }
+  #s8 .macro-card .unit { font-size: 11px; color: rgba(255,255,255,0.5); margin-bottom: 4px; }
+  #s8 .macro-card .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    color: var(--teal-light);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  #s8 .macro-card .range { font-size: 9.5px; color: rgba(255,255,255,0.3); margin-top: 3px; }
+  #s8 .note {
+    font-size: 11.5px;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.55;
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 12px;
+  }
+
+  /* ══ SLIDE 9 — NOTES + FOOTER ══ */
+  #s9 { background: #fffbeb; }
+  #s9 .slide-header { color: var(--text-muted); border-bottom: 1px solid #fde68a; }
+  #s9 .slide-footer { color: var(--text-muted); border-top: 1px solid #fde68a; }
+  #s9 .content {
+    position: absolute;
+    top: 44px; left: 28px; right: 28px; bottom: 38px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  #s9 .section-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--gold-mid);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #s9 h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    color: var(--brown-deep);
+    margin-bottom: 14px;
+  }
+  #s9 .note-list { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  #s9 .note-list li {
+    font-size: 11.5px;
+    color: var(--text-dark);
+    line-height: 1.5;
+    padding-left: 14px;
+    border-left: 2px solid var(--gold-warm);
+  }
+  #s9 .note-list li strong { color: var(--brown-deep); }
+  #s9 .right-col { display: flex; flex-direction: column; gap: 14px; justify-content: center; }
+  #s9 .brand-block {
+    background: linear-gradient(135deg, var(--brown-deep), var(--brown-mid));
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+  }
+  #s9 .brand-block .brand-name {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gold-light);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  #s9 .brand-block .tags {
+    font-size: 11px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.8;
+  }
+  #s9 .brand-block .url {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.35);
+    margin-top: 8px;
+  }
+  #s9 .related-box {
+    background: #fff;
+    border: 1px solid #fde68a;
+    border-radius: 8px;
+    padding: 12px 14px;
+  }
+  #s9 .related-box .rel-head {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 7px;
+  }
+  #s9 .related-box .links { font-size: 11.5px; color: var(--gold-deep); line-height: 1.8; }
+  #s9 .related-box .links span { opacity: 0.4; margin: 0 4px; }
+</style>
+</head>
+<body>
+
+<div class="slide-viewport">
+
+  <!-- ══ SLIDE 1: COVER ══ -->
+  <div class="slide active" id="s1">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="slide-header">
+      <span>PGIS Recipes · Breakfast · Mastering Diabetes Protocol</span>
+      <span></span>
+    </div>
+
+    <div class="badge-row">
+      <span class="badge">WFPB</span>
+      <span class="badge">Oil-Free</span>
+      <span class="badge">High Protein</span>
+      <span class="badge">No Added Sugar</span>
+      <span class="badge">Mastering Diabetes</span>
+      <span class="badge">Meal Prep</span>
+      <span class="badge">Freezer-Ready</span>
+    </div>
+
+    <div class="cover-content">
+      <div class="eyebrow">PGIS Recipes</div>
+      <h1>Banana Tofu<br><span>Waffles v2</span></h1>
+      <div class="subtitle">
+        Oil-free, high-protein waffles for the Mastering Diabetes protocol.<br>
+        Seltzer for lift and crisp. Plant protein to push per-waffle protein higher.
+      </div>
+    </div>
+
+    <div class="v2-tag">
+      <div class="v2-label">v2</div>
+      <div class="v2-changes">+ Seltzer (folded last)<br>+ 2 scoops protein<br>↓ Plant milk to 1.5 cups</div>
+    </div>
+
+    <div class="meta-pill">
+      <div class="brand">PGIS Recipes</div>
+      <div class="yield">Yields ~10 waffles · June 2026</div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>1 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 2: WHAT CHANGED ══ -->
+  <div class="slide" id="s2">
+    <div class="accent-bar"></div>
+    <div class="slide-header">
+      <span>v2 Changes &amp; Rationale</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label" style="grid-column:1/-1;">What Changed from v1 — and Why</div>
+      <h2 style="grid-column:1/-1;margin-top:-8px;">Two deliberate upgrades</h2>
+
+      <div class="change-card">
+        <div class="num">1</div>
+        <div class="ch-title">Seltzer folded in last</div>
+        <div class="ch-body">
+          <strong>1.2 cups cold sparkling water</strong> replaces 0.5 cups of plant milk (total milk down from 2 to 1.5 cups). Seltzer is never blended — carbonation is the whole mechanism. Blend it and the bubbles die, so it folds in right before cooking and the batter goes straight onto the iron.
+        </div>
+        <div class="ch-rule">→ Batter looses and aerates. Cook promptly.</div>
+      </div>
+
+      <div class="change-card teal-top">
+        <div class="num">2</div>
+        <div class="ch-title">2 scoops protein powder</div>
+        <div class="ch-body">
+          Across 10 waffles, <strong>1 scoop barely moves the per-waffle number</strong>. Two scoops adds a meaningful ~3–4g per waffle. Use unsweetened, no-stevia-flooded plant protein to stay protocol-clean. Protein powder makes batter thirstier — the seltzer fold-in compensates if it firms up too much.
+        </div>
+        <div class="ch-rule">→ ~12–14g protein per waffle vs. ~9–11g in v1</div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>2 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 3: GLUCOSE PROFILE ══ -->
+  <div class="slide" id="s3">
+    <div class="slide-header">
+      <span>Glucose Intelligence</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div>
+        <div class="section-label">Glucose Intelligence</div>
+        <h2>Mastering Diabetes Alignment</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Factor</th>
+              <th>Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Sweetener</td><td>Ripe banana only — no added sugar, no sweeteners. Fiber-buffered fructose.</td></tr>
+            <tr><td>Fat source</td><td>No added oil. Naturally occurring fats from tofu + optional walnuts only.</td></tr>
+            <tr><td>Oat beta-glucan</td><td>Validated postprandial dampening — 3 cups oat flour provides meaningful dose.</td></tr>
+            <tr><td>Chickpea flour</td><td>Lowers net carb availability vs. wheat flour; legume protein anchor.</td></tr>
+            <tr><td>Tofu protein</td><td>Protein + fat co-presence blunts glucose absorption rate.</td></tr>
+            <tr><td>Protein powder</td><td>2 scoops pea/soy — higher protein should flatten the curve vs. v1 batch.</td></tr>
+            <tr><td>Protocol fit</td><td><span class="check">✓</span> No added sugar · No oil · Legume + whole-grain base · MD-aligned</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="right-panel">
+        <div class="section-label" style="color:var(--gold-light);margin-bottom:6px;">CGM expectation</div>
+        <div class="cgm-card good">
+          <div class="label">v2 (higher protein)</div>
+          <div class="value">~15–25</div>
+          <div class="sublabel">mg/dL rise</div>
+        </div>
+        <div class="cgm-card good" style="background:rgba(255,255,255,0.04);">
+          <div class="label">v1 (1 scoop protein)</div>
+          <div class="value">~18–28</div>
+          <div class="sublabel">mg/dL rise</div>
+        </div>
+        <div class="cgm-card bad">
+          <div class="label">Conventional waffles</div>
+          <div class="value">~50–80</div>
+          <div class="sublabel">mg/dL rise</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>3 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 4: WET BASE ══ -->
+  <div class="slide" id="s4">
+    <div class="top-band"></div>
+    <div class="slide-header">
+      <span>Ingredients · Wet Base</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label">Ingredients · Wet Base</div>
+      <h2>Wet Base</h2>
+      <div class="yield-note">Batch recipe · Yields ~10 waffles</div>
+
+      <ul class="ingredient-list">
+        <li>
+          <div class="qty">3.6 tbsp</div>
+          <div class="desc"><strong>ground flaxseed</strong> + <span class="note">10.8 tbsp water — stir together first, rest until thick and gel-like (flax eggs)</span></div>
+        </li>
+        <li>
+          <div class="qty">16.8 oz</div>
+          <div class="desc"><strong>firm tofu</strong> — <span class="note">pressed and drained firmly. Good pressing prevents watery batter without adding oil.</span></div>
+        </li>
+        <li>
+          <div class="qty">3.6 ripe</div>
+          <div class="desc"><strong>bananas</strong> — <span class="note">do all the sweetening. Ripe = more natural sweetness and smoother blend.</span></div>
+        </li>
+        <li>
+          <div class="qty">1.8 cups</div>
+          <div class="desc"><strong>unsweetened plant milk</strong> — <span class="note">soy or oat. Reduced from 2 cups in v1 to make room for seltzer.</span></div>
+        </li>
+        <li>
+          <div class="qty">2.4 tsp</div>
+          <div class="desc"><strong>vanilla extract</strong></div>
+        </li>
+      </ul>
+
+      <div class="seltzer-note">
+        Seltzer (1.2 cups cold) is NOT a wet base ingredient — it folds in last, right before cooking. Blending kills the bubbles.
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>4 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 5: DRY BASE ══ -->
+  <div class="slide" id="s5">
+    <div class="slide-header">
+      <span>Ingredients · Dry Base</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="left-col">
+        <div class="section-label">Dry Base</div>
+        <h2>Dry Base</h2>
+        <ul class="ing-list">
+          <li><strong>3 cups oat flour</strong> — <span class="note">beta-glucan, glucose dampening</span></li>
+          <li><strong>1.2 cups chickpea flour</strong> — <span class="note">legume protein anchor, low GI</span></li>
+          <li><strong>2.4 scoops plant protein</strong> — <span class="note">pea or soy, unsweetened, no stevia</span></li>
+          <li><strong>2.4 tbsp baking powder</strong> — <span class="note">break up any protein clumps when mixing</span></li>
+          <li><strong>2.4 tsp cinnamon</strong></li>
+          <li><strong>0.6 tsp salt</strong></li>
+          <li><strong>0.6 cups walnuts, chopped</strong> — <span class="note">optional; omega-3, fat-buffering for glucose curve</span></li>
+        </ul>
+      </div>
+
+      <div class="right-col">
+        <div class="protein-box">
+          <h3>Protein powder selection</h3>
+          <p>Choose <strong>unsweetened pea or soy</strong> protein — no stevia, no flavoring agents that would push the recipe out of MD protocol. Break up clumps when whisking dry ingredients. Protein powder makes batter thirstier and can dry the waffle — don't overcook past crisp.</p>
+        </div>
+        <div class="note-box">
+          <div class="note-head">Batter hydration note</div>
+          Oat + chickpea + protein flours all absorb aggressively. Rest the batter so they hydrate and thicken fully before seltzer goes in. If it firms up too much, the seltzer fold-in loosens it back.
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>5 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 6: METHOD STEPS 1–5 ══ -->
+  <div class="slide" id="s6">
+    <div class="slide-header">
+      <span>Execution Protocol · Steps 1–5</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label">Execution Protocol</div>
+      <h2>Method — Steps 1–5</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-title">Flax eggs</div>
+          <div class="step-body">Stir 3.6 tbsp flaxseed + 10.8 tbsp water. <strong>Rest until thick and gel-like.</strong> Do not skip rest time.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-title">Press tofu</div>
+          <div class="step-body">Press 16.8 oz tofu <strong>firmly</strong> while flax sets. Good pressing keeps batter from going watery — no oil needed to compensate.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-title">Blend wet base</div>
+          <div class="step-body">Blend pressed tofu, bananas, plant milk, vanilla, and flax eggs until <strong>completely smooth.</strong> No tofu lumps. No seltzer yet.</div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-title">Mix dry</div>
+          <div class="step-body">Whisk oat flour, chickpea flour, protein powder, baking powder, cinnamon, salt. <strong>Break up protein clumps now.</strong></div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-title">Combine + rest</div>
+          <div class="step-body">Fold wet into dry. Stir in walnuts if using. <strong>Let rest</strong> — flours absorb and batter thickens.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>6 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 7: STEPS 6–10 + SELTZER ══ -->
+  <div class="slide" id="s7">
+    <div class="slide-header">
+      <span>Execution Protocol · Steps 6–10</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div>
+        <div class="section-label">Steps 6–10</div>
+        <h2>Finish &amp; Cook</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="step-num">6</div>
+            <div class="step-info">
+              <div class="step-title">Preheat iron</div>
+              <div class="step-body">Heat iron fully before seltzer goes in. <strong>Get it hot first</strong> — seltzer lift must carry through to cooking immediately.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">7</div>
+            <div class="step-info">
+              <div class="step-title">Fold in seltzer</div>
+              <div class="step-body">Gently fold 1.2 cups cold seltzer into rested batter. <strong>Fold, don't whisk.</strong> Batter loosens and looks airy. Cook promptly.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">8</div>
+            <div class="step-info">
+              <div class="step-title">Cook waffles</div>
+              <div class="step-body">Scoop onto hot iron. <strong>Cook longer than standard.</strong> Oat–chickpea–protein batter needs extra time to firm and crisp. Resist opening early.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">9</div>
+            <div class="step-info">
+              <div class="step-title">Cool fully</div>
+              <div class="step-body">Cool on wire rack so steam escapes. <strong>Prevents sogginess</strong> in the freezer.</div>
+            </div>
+          </div>
+          <div class="step">
+            <div class="step-num">10</div>
+            <div class="step-info">
+              <div class="step-title">Meal prep</div>
+              <div class="step-body">Freeze flat on tray, then bag with parchment between. <strong>Reheat from frozen</strong> in toaster or oven until crisp.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="seltzer-panel">
+        <div class="sp-title">The Seltzer Rule</div>
+        <div class="sp-rule">Seltzer folds in LAST, right before cooking. Batter goes straight onto the iron.</div>
+        <div class="sp-why">Carbonation is the lift mechanism. Blend it and you knock the bubbles out. Don't let the batter sit once seltzer is in — cook promptly so the lift carries through.</div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>7 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 8: MACROS ══ -->
+  <div class="slide" id="s8">
+    <div class="slide-header">
+      <span>Macronutrient Profile</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="section-label">Macronutrient Profile</div>
+      <h2>Per Waffle — Approximate (no toppings)</h2>
+      <div class="macro-grid">
+        <div class="macro-card highlight">
+          <div class="val">~220</div>
+          <div class="unit">kcal</div>
+          <div class="label">Calories</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">13g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Protein</div>
+          <div class="range">12–14g range</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">32g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Carbohydrate</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">5.5g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Fiber</div>
+          <div class="range">5–6g range</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">4g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Fat</div>
+          <div class="range">naturally occurring</div>
+        </div>
+        <div class="macro-card">
+          <div class="val">~27g</div>
+          <div class="unit">&nbsp;</div>
+          <div class="label">Net Carbs</div>
+        </div>
+      </div>
+      <div class="note">
+        Oil-free with only naturally occurring fats from tofu and walnuts. Mastering Diabetes alignment: no added sugar, no oil, legume + whole-grain base.
+        The higher protein vs. v1 should flatten the CGM curve further — a good A/B test against your prior log. Pair with berries + nuts or a tahini drizzle.
+        Tag the first batch against v1 data to see your personal response to the protein upgrade.
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>8 / 9</span>
+    </div>
+  </div>
+
+  <!-- ══ SLIDE 9: NOTES + FOOTER ══ -->
+  <div class="slide" id="s9">
+    <div class="slide-header">
+      <span>PGIS Notes</span>
+      <span></span>
+    </div>
+
+    <div class="content">
+      <div class="left-col">
+        <div class="section-label">PGIS Notes</div>
+        <h2>Practitioner Notes</h2>
+        <ul class="note-list">
+          <li><strong>Chickpea flour cook time:</strong> Chickpea flour still needs full cook time to lose the raw-bean taste. Don't pull waffles early — the cook time is longer than a standard waffle by design.</li>
+          <li><strong>Protein powder texture:</strong> Protein powder makes batter thirstier and can dry the waffle if overcooked. Stop at crisp, not hard. The seltzer fold-in corrects batter that firmed too much while resting.</li>
+          <li><strong>Tofu pressing:</strong> The reason waffles don't need oil is pressed tofu — the structural dryness that oil usually provides. Under-pressed tofu = watery batter. Press firmly.</li>
+          <li><strong>Freezer performance:</strong> Freezes well; reheats crispy in toaster or oven from frozen. Cool fully on rack before freezing to prevent sogginess.</li>
+          <li><strong>CGM experiment:</strong> Higher protein should flatten the curve vs. v1. Tag the first batch with a note and compare against your prior log. Pair with berries + nuts or tahini.</li>
+          <li><strong>Protocol fit:</strong> No added sugar, no oil. Banana sweetens. Tofu + chickpea + oat + protein = MD-compatible macrostructure.</li>
+        </ul>
+      </div>
+
+      <div class="right-col">
+        <div class="brand-block">
+          <div class="brand-name">PGIS Recipes</div>
+          <div class="tags">WFPB · Oil-Free · No Added Sugar<br>High Protein · Mastering Diabetes Protocol<br>Meal Prep · Freezer-Ready</div>
+          <div class="url">Created June 2026</div>
+          <div class="url">chukwumaonyeije.github.io/pgis-recipes</div>
+        </div>
+        <div class="related-box">
+          <div class="rel-head">Related Recipes</div>
+          <div class="links">
+            High-Protein Tofu–Oat Recovery Waffles
+            <span>·</span>
+            Purple Sweet Potato Power Waffles
+            <span>·</span>
+            Savory Dill Chickpea Waffles
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="slide-footer">
+      <span>PGIS Recipes</span>
+      <span>9 / 9</span>
+    </div>
+  </div>
+
+</div><!-- end slide-viewport -->
+
+<!-- ── CONTROLS ── -->
+<div class="controls">
+  <button id="prev" onclick="navigate(-1)">&#8592;</button>
+  <span class="counter" id="counter">1 / 9</span>
+  <button id="next" onclick="navigate(1)">&#8594;</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let current = 0;
+
+  function scaleSlides() {
+    const vw = document.querySelector('.slide-viewport').clientWidth;
+    const scale = Math.min(vw / 900, 1);
+    slides.forEach(s => {
+      s.style.transform = `scale(${scale})`;
+      s.style.marginBottom = `${(506 * scale) - 506}px`;
+    });
+    document.querySelector('.slide-viewport').style.height = `${506 * scale}px`;
+  }
+
+  function navigate(dir) {
+    slides[current].classList.remove('active');
+    current = (current + dir + slides.length) % slides.length;
+    slides[current].classList.add('active');
+    document.getElementById('counter').textContent = `${current + 1} / ${slides.length}`;
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') navigate(1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') navigate(-1);
+  });
+
+  window.addEventListener('resize', scaleSlides);
+  scaleSlides();
+</script>
+</body>
+</html>
