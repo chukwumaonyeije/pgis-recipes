@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Oil-free red lentil and tofu savory waffles: a whole-food plant-based, fiber-forward recipe deck."
+    />
+    <title>Oil-Free Red Lentil &amp; Tofu Waffles | PGIS Recipes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Montserrat:wght@700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #15251f;
+        --muted: #587066;
+        --cream: #f7f4e9;
+        --paper: #fffdf7;
+        --lentil: #e85d3f;
+        --lentil-dark: #b83e29;
+        --leaf: #26765b;
+        --leaf-dark: #174d3c;
+        --lime: #b8d96b;
+        --line: rgba(21, 37, 31, 0.14);
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body { margin: 0; min-height: 100%; }
+
+      body {
+        background:
+          radial-gradient(circle at 12% 8%, rgba(184, 217, 107, 0.18), transparent 26rem),
+          #dfe7df;
+        color: var(--ink);
+        font-family: "DM Sans", sans-serif;
+        padding: 22px 16px 74px;
+      }
+
+      .topbar {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto 12px;
+        max-width: 900px;
+      }
+
+      .home-link {
+        color: var(--leaf-dark);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .hint { color: var(--muted); font-size: 12px; }
+
+      .slide-viewport {
+        margin: 0 auto;
+        max-width: 900px;
+        position: relative;
+        width: 100%;
+      }
+
+      .slide {
+        background: var(--paper);
+        border-radius: 18px;
+        box-shadow: 0 22px 60px rgba(20, 46, 37, 0.18);
+        display: none;
+        height: 506px;
+        left: 50%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        transform-origin: top center;
+        width: 900px;
+      }
+
+      .slide.active { display: block; }
+
+      .slide::after {
+        background: var(--leaf);
+        bottom: 0;
+        content: "";
+        height: 5px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+
+      .slide-header, .slide-footer {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        left: 42px;
+        position: absolute;
+        right: 42px;
+        z-index: 3;
+      }
+
+      .slide-header {
+        border-bottom: 1px solid var(--line);
+        color: var(--leaf-dark);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        padding-bottom: 9px;
+        text-transform: uppercase;
+        top: 22px;
+      }
+
+      .slide-footer {
+        bottom: 14px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      .content {
+        height: 100%;
+        padding: 67px 48px 42px;
+        position: relative;
+        z-index: 2;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+
+      h1, h2, h3 {
+        font-family: "Montserrat", sans-serif;
+        letter-spacing: -0.035em;
+      }
+
+      h1 { font-size: 52px; line-height: 0.98; margin-bottom: 18px; }
+      h2 { font-size: 31px; line-height: 1.08; margin-bottom: 18px; }
+      h3 { font-size: 17px; line-height: 1.15; }
+
+      .eyebrow {
+        color: var(--lentil-dark);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+
+      .accent { color: var(--lentil); }
+      .muted { color: var(--muted); }
+
+      .cover {
+        background:
+          linear-gradient(108deg, rgba(255, 253, 247, 0.98) 0 59%, rgba(255, 253, 247, 0.18) 59%),
+          linear-gradient(145deg, #e85d3f, #9b2e21);
+      }
+
+      .cover .content { align-items: center; display: flex; padding: 52px; }
+      .cover-copy { max-width: 520px; }
+
+      .cover .subtitle {
+        color: #3e554b;
+        font-size: 17px;
+        line-height: 1.45;
+        max-width: 490px;
+      }
+
+      .cover-art {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: absolute;
+        right: 56px;
+        top: 103px;
+      }
+
+      .waffle {
+        background:
+          linear-gradient(90deg, transparent 31%, rgba(120, 43, 26, 0.28) 32% 35%, transparent 36% 64%, rgba(120, 43, 26, 0.28) 65% 68%, transparent 69%),
+          linear-gradient(0deg, transparent 31%, rgba(120, 43, 26, 0.28) 32% 35%, transparent 36% 64%, rgba(120, 43, 26, 0.28) 65% 68%, transparent 69%),
+          #f18a57;
+        border: 7px solid #f7b27d;
+        border-radius: 26px;
+        box-shadow: 0 18px 25px rgba(83, 26, 19, 0.3);
+        height: 138px;
+        transform: rotate(8deg);
+        width: 178px;
+      }
+
+      .sprig { color: #d8ef9a; font-size: 31px; letter-spacing: 8px; }
+
+      .badge-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+      .badge {
+        background: rgba(38, 118, 91, 0.1);
+        border: 1px solid rgba(38, 118, 91, 0.22);
+        border-radius: 999px;
+        color: var(--leaf-dark);
+        font-size: 10px;
+        font-weight: 800;
+        padding: 6px 10px;
+        text-transform: uppercase;
+      }
+
+      .two-col { display: grid; gap: 34px; grid-template-columns: 1.05fr 0.95fr; }
+
+      .big-statement {
+        border-left: 5px solid var(--lentil);
+        font-family: "Montserrat", sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 1.25;
+        margin: 22px 0;
+        padding-left: 18px;
+      }
+
+      .principles { display: grid; gap: 12px; }
+      .principle { border-bottom: 1px solid var(--line); padding: 0 0 11px; }
+      .principle:last-child { border-bottom: 0; }
+      .principle strong { color: var(--leaf-dark); display: block; font-size: 14px; margin-bottom: 3px; }
+      .principle span { color: var(--muted); font-size: 12px; line-height: 1.38; }
+
+      .callout {
+        background: var(--leaf-dark);
+        border-radius: 16px;
+        color: white;
+        padding: 20px;
+      }
+
+      .callout h3 { color: var(--lime); margin-bottom: 8px; }
+      .callout p { font-size: 12px; line-height: 1.5; margin: 0; opacity: 0.9; }
+
+      .ingredient-grid { display: grid; gap: 13px 26px; grid-template-columns: 1fr 1fr; }
+      .ingredient {
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        gap: 11px;
+        grid-template-columns: 74px 1fr;
+        padding-bottom: 10px;
+      }
+
+      .qty { color: var(--lentil-dark); font-size: 13px; font-weight: 800; }
+      .ingredient strong { display: block; font-size: 13px; }
+      .ingredient span { color: var(--muted); font-size: 11px; }
+
+      .method-grid { display: grid; gap: 11px 26px; grid-template-columns: 1fr 1fr; }
+      .step { display: grid; gap: 12px; grid-template-columns: 34px 1fr; }
+      .step-num {
+        align-items: center;
+        background: var(--lentil);
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        font-family: "Montserrat", sans-serif;
+        font-size: 13px;
+        font-weight: 900;
+        height: 30px;
+        justify-content: center;
+        width: 30px;
+      }
+
+      .step h3 { font-size: 14px; margin: 1px 0 3px; }
+      .step p { color: var(--muted); font-size: 11.5px; line-height: 1.38; margin: 0; }
+
+      .sequence {
+        align-items: stretch;
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 25px;
+      }
+
+      .phase {
+        background: #f1f3e8;
+        border-top: 4px solid var(--leaf);
+        min-height: 176px;
+        padding: 18px 15px;
+        position: relative;
+      }
+
+      .phase::after {
+        color: var(--lentil);
+        content: "→";
+        font-size: 24px;
+        font-weight: 800;
+        position: absolute;
+        right: -19px;
+        top: 71px;
+        z-index: 4;
+      }
+
+      .phase:last-child::after { content: ""; }
+      .phase .time { color: var(--lentil-dark); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+      .phase h3 { font-size: 15px; margin: 8px 0; }
+      .phase p { color: var(--muted); font-size: 11px; line-height: 1.42; margin: 0; }
+
+      .cook-layout { display: grid; gap: 34px; grid-template-columns: 1.1fr 0.9fr; }
+      .cook-rule { display: flex; gap: 14px; margin-bottom: 15px; }
+      .cook-rule .icon { color: var(--lentil); font-size: 25px; font-weight: 900; line-height: 1; }
+      .cook-rule h3 { font-size: 14px; margin-bottom: 4px; }
+      .cook-rule p { color: var(--muted); font-size: 11.5px; line-height: 1.4; margin: 0; }
+
+      .doneness {
+        background: #f5d6c8;
+        border-radius: 18px;
+        padding: 21px;
+      }
+      .doneness h3 { color: var(--lentil-dark); }
+      .doneness ul { margin: 0; padding-left: 18px; }
+      .doneness li { font-size: 12px; line-height: 1.5; margin-bottom: 6px; }
+
+      .serving-layout { display: grid; gap: 32px; grid-template-columns: 0.95fr 1.05fr; }
+      .serving-list { list-style: none; margin: 4px 0 0; padding: 0; }
+      .serving-list li { border-bottom: 1px solid var(--line); padding: 11px 0; }
+      .serving-list strong { color: var(--leaf-dark); display: block; font-size: 13px; }
+      .serving-list span { color: var(--muted); font-size: 11.5px; }
+
+      .plate {
+        align-items: center;
+        background: #f0efe2;
+        border: 18px solid white;
+        border-radius: 50%;
+        box-shadow: 0 12px 30px rgba(21, 37, 31, 0.12);
+        display: flex;
+        height: 250px;
+        justify-content: center;
+        margin: 0 auto;
+        position: relative;
+        width: 250px;
+      }
+
+      .plate .waffle { height: 105px; width: 132px; }
+      .plate-label {
+        background: var(--leaf-dark);
+        border-radius: 999px;
+        bottom: 2px;
+        color: white;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 7px 11px;
+        position: absolute;
+      }
+
+      .notes-layout { display: grid; gap: 30px; grid-template-columns: 1.1fr 0.9fr; }
+      .note-list { margin: 0; padding-left: 19px; }
+      .note-list li { color: var(--muted); font-size: 11.5px; line-height: 1.42; margin-bottom: 9px; }
+      .note-list strong { color: var(--ink); }
+
+      .finish {
+        background: var(--leaf-dark);
+        border-radius: 18px;
+        color: white;
+        padding: 23px;
+      }
+      .finish .eyebrow { color: var(--lime); }
+      .finish h3 { font-size: 22px; margin-bottom: 10px; }
+      .finish p { font-size: 12px; line-height: 1.5; opacity: 0.86; }
+      .finish a { color: var(--lime); font-size: 11px; font-weight: 700; }
+
+      .controls {
+        align-items: center;
+        bottom: 16px;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        left: 0;
+        position: fixed;
+        right: 0;
+        z-index: 10;
+      }
+
+      .controls button {
+        background: var(--leaf-dark);
+        border: 0;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        font-size: 18px;
+        height: 38px;
+        width: 38px;
+      }
+
+      .controls button:hover, .controls button:focus-visible { background: var(--lentil-dark); outline: 3px solid rgba(232, 93, 63, 0.25); }
+      .counter { color: var(--leaf-dark); font-size: 12px; font-weight: 800; min-width: 45px; text-align: center; }
+
+      @media (max-width: 620px) {
+        body { padding-left: 8px; padding-right: 8px; }
+        .hint { display: none; }
+      }
+
+      @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <a class="home-link" href="../../">← PGIS Recipes</a>
+      <span class="hint">Use arrow keys or controls to navigate</span>
+    </div>
+
+    <main class="slide-viewport" aria-live="polite">
+      <section class="slide cover active" aria-label="Slide 1 of 8">
+        <div class="content">
+          <div class="cover-copy">
+            <div class="eyebrow">PGIS Recipes · Savory Breakfast</div>
+            <h1>Oil-Free Red Lentil<br /><span class="accent">&amp; Tofu Waffles</span></h1>
+            <p class="subtitle">Savory, fiber-forward waffles built from soaked lentils, firm tofu, and flax—with no added oil.</p>
+            <div class="badge-row">
+              <span class="badge">WFPB</span><span class="badge">Oil-Free</span><span class="badge">Savory</span><span class="badge">Meal Prep</span><span class="badge">Mastering Diabetes Style</span>
+            </div>
+          </div>
+          <div class="cover-art" aria-hidden="true"><div class="waffle"></div><div class="sprig">⌇❧⌇</div></div>
+        </div>
+        <div class="slide-footer"><span>PGIS Recipes</span><span>1 / 8</span></div>
+      </section>
+
+      <section class="slide" aria-label="Slide 2 of 8">
+        <div class="slide-header"><span>Recipe Design</span><span>Why this formula works</span></div>
+        <div class="content two-col">
+          <div>
+            <div class="eyebrow">The design logic</div>
+            <h2>The backbone is <span class="accent">legume + tofu</span></h2>
+            <div class="big-statement">Structure, fiber, and plant protein—without eggs or extracted oil.</div>
+            <p class="muted" style="font-size:12px;line-height:1.5;">Red lentils create the batter body. Tofu adds protein and tenderness. Hydrated flax provides binding, while a fully heated nonstick iron replaces oil spray.</p>
+          </div>
+          <div>
+            <div class="principles">
+              <div class="principle"><strong>Whole-food carbohydrate source</strong><span>Soaked red lentils replace refined flour as the primary starch.</span></div>
+              <div class="principle"><strong>No added extracted fat</strong><span>No oil in the batter and no cooking spray; naturally occurring fat remains in tofu and flax.</span></div>
+              <div class="principle"><strong>Fiber-forward pattern</strong><span>Lentils and flax help make the meal more substantial than a conventional refined-flour waffle.</span></div>
+            </div>
+            <div class="callout" style="margin-top:14px;"><h3>Mastering Diabetes style</h3><p>Designed around a low-fat, whole-food plant-based pattern. Personal glucose response still varies with portion, toppings, activity, and individual physiology.</p></div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>PGIS Recipes</span><span>2 / 8</span></div>
+      </section>
+
+      <section class="slide" aria-label="Slide 3 of 8">
+        <div class="slide-header"><span>Ingredients</span><span>One blender batch</span></div>
+        <div class="content">
+          <div class="eyebrow">Mise en place</div>
+          <h2>Ten ingredients, one savory batter</h2>
+          <div class="ingredient-grid">
+            <div class="ingredient"><div class="qty">1 cup</div><div><strong>Red lentils</strong><span>Rinsed; soak in 1½ cups water</span></div></div>
+            <div class="ingredient"><div class="qty">200 g</div><div><strong>Firm tofu</strong><span>Water-packed and drained</span></div></div>
+            <div class="ingredient"><div class="qty">3 tbsp</div><div><strong>Ground flaxseed</strong><span>Mix with 6 tbsp water</span></div></div>
+            <div class="ingredient"><div class="qty">2 cloves</div><div><strong>Garlic</strong><span>Peeled</span></div></div>
+            <div class="ingredient"><div class="qty">2</div><div><strong>Green onions</strong><span>Chopped; fold in after blending</span></div></div>
+            <div class="ingredient"><div class="qty">1 tsp</div><div><strong>Baking powder</strong><span>For lift</span></div></div>
+            <div class="ingredient"><div class="qty">1 tsp</div><div><strong>Ground cumin</strong><span>Warm, savory backbone</span></div></div>
+            <div class="ingredient"><div class="qty">½ tsp</div><div><strong>Salt, optional</strong><span>Adjust to taste or omit</span></div></div>
+            <div class="ingredient"><div class="qty">⅓ tsp</div><div><strong>Black pepper</strong><span>Freshly ground if possible</span></div></div>
+            <div class="ingredient"><div class="qty">Up to 2 tbsp</div><div><strong>Water or plant milk</strong><span>Unsweetened; only if batter needs thinning</span></div></div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>PGIS Recipes</span><span>3 / 8</span></div>
+      </section>
+
+      <section class="slide" aria-label="Slide 4 of 8">
+        <div class="slide-header"><span>Preparation</span><span>Build the batter</span></div>
+        <div class="content">
+          <div class="eyebrow">Prepare the base</div>
+          <h2>Soak first; blend only when softened</h2>
+          <div class="sequence">
+            <div class="phase"><div class="time">2 hours+</div><h3>Soak lentils</h3><p>Cover rinsed lentils with 1½ cups water. Soak at least 2 hours, or refrigerate overnight.</p></div>
+            <div class="phase"><div class="time">5–10 min</div><h3>Gel the flax</h3><p>Whisk ground flax with 6 tbsp water. Rest until thick and cohesive.</p></div>
+            <div class="phase"><div class="time">Drain well</div><h3>Remove soak water</h3><p>Drain the softened lentils thoroughly so the batter does not become loose.</p></div>
+            <div class="phase"><div class="time">1–2 min</div><h3>Blend smooth</h3><p>Blend lentils, tofu, flax gel, garlic, baking powder, cumin, salt, and pepper.</p></div>
+          </div>
+        </div>
+        <div class="slide-footer"><span>PGIS Recipes</span><span>4 / 8</span></div>
+      </section>
+
+      <section class="slide" aria-label="Slide 5 of 8">
+        <div class="slide-header"><span>Batter Check</span><span>Texture before cooking</span></div>
+        <div class="content two-col">
+          <div>
+            <div class="eyebrow">The texture target</div>
+            <h2>Thick, smooth, and <span class="accent">pourable</span></h2>
+            <div class="big-statement">It should spread slowly—not run like a crêpe batter.</div>
+            <div class="method-grid" style="grid-template-columns:1fr;">
+              <div class="step"><div class="step-num">1</div><div><h3>Scrape and reblend</h3><p>Pause once or twice so no lentil or tofu pieces remain.</p></div></div>
+              <div class="step"><div class="step-num">2</div><div><h3>Thin only if needed</h3><p>Add water or unsweetened plant milk a tablespoon at a time, up to 2 tablespoons.</p></div></div>
+              <div class="step"><div class="step-num">3</div><div><h3>Fold in green onion</h3><p>Transfer to a bowl and stir in the chopped onions by hand.</p></div></div>
+            </div>
+          </div>
+          <div class="callout" style="align-self:center;padding:28px;">
+            <div class="eyebrow" style="color:var(--lime);">Troubleshooting</div>
+            <h3 style="font-size:22px;">Let the batter tell you what it needs.</h3>
+            <p><strong>Too thick?</strong> Add liquid gradually.<br /><br /><strong>Too loose?</strong> Rest 5 minutes so flax can continue hydrating.<br /><br /><strong>Visible pieces?</strong> Blend longer before folding in the onions.</p>
+          </div>
+        </div>
+        <div class="slide-footer"><span>PGIS Recipes</span><span>5 / 8</span></div>
+      </section>
+
+      <section class="slide" aria-label="Slide 6 of 8">
+        <div class="slide-header"><span>Cooking</span><span>No oil spray required</span></div>
+        <div class="content cook-layout">
+          <div>
+            <div class="eyebrow">The nonstick protocol</div>
+            <h2>Heat, fill, wait, release</h2>
+            <div class="cook-rule"><div class="icon">01</div><div><h3>Preheat completely</h3><p>Use a clean nonstick waffle iron at medium-high heat. A fully heated surface is essential when no oil is used.</p></div></div>
+            <div class="cook-rule"><div class="icon">02</div><div><h3>Add about ½ cup batter</h3><p>Spread it gently toward the edges, leaving room for expansion.</p></div></div>
+            <div class="cook-rule"><div class="icon">03</div><div><h3>Cook 6–8 minutes</h3><p>Do not open early. Oil-free batter needs time to set, brown, and release cleanly.</p></div></div>
+            <div class="cook-rule"><div class="icon">04</div><div><h3>Rest on a rack</h3><p>Give each waffle 1–2 minutes so steam escapes and the exterior firms.</p></div></div>
+          </div>
+          <aside class="doneness">
+            <div class="eyebrow">Doneness cues</div>
+            <h3>Look beyond the timer</h3>
+            <ul>
+              <li>Steam has slowed substantially.</li>
+              <li>The lid opens without resistance.</li>
+              <li>Edges appear dry and golden.</li>
+              <li>The center feels set, not soft or gummy.</li>
+            </ul>
+            <p style="font-size:10.5px;line-height:1.4;margin:12px 0 0;">If your iron tends to stick, confirm the coating is intact. A light water mist may help between waffles, but worn nonstick surfaces may not release reliably without oil.</p>
+          </aside>
+        </div>
+        <div class="slide-footer"><span>PGIS Recipes</span><span>6 / 8</span></div>
+      </section>
+
+      <section class="slide" aria-label="Slide 7 of 8">
+        <div class="slide-header"><span>Serving</span><span>Keep the savory profile bright</span></div>
+        <div class="content serving-layout">
+          <div>
+            <div class="eyebrow">Serving ideas</div>
+            <h2>Finish with acid, herbs, and crunch</h2>
+            <ul class="serving-list">
+              <li><strong>Fresh salsa + lime</strong><span>Bright, juicy, and naturally oil-free.</span></li>
+              <li><strong>Tomato, cucumber + cilantro</strong><span>A cool contrast to the warm cumin-garlic waffle.</span></li>
+              <li><strong>Wilted greens + hot sauce</strong><span>A savory breakfast or quick lunch plate.</span></li>
+              <li><strong>Avocado, if desired</strong><span>Use a modest portion when keeping the meal lower in fat.</span></li>
+            </ul>
+          </div>
+          <div class="plate" aria-label="Stylized serving suggestion"><div class="waffle" aria-hidden="true"></div><div class="plate-label">Salsa · herbs · lime</div></div>
+        </div>
+        <div class="slide-footer"><span>PGIS Recipes</span><span>7 / 8</span></div>
+      </section>
+
+      <section class="slide" aria-label="Slide 8 of 8">
+        <div class="slide-header"><span>Practical Notes</span><span>Batch, store, personalize</span></div>
+        <div class="content notes-layout">
+          <div>
+            <div class="eyebrow">Before you cook</div>
+            <h2>Small details make the oil-free version work</h2>
+            <ul class="note-list">
+              <li><strong>Use the right iron.</strong> An intact, genuinely nonstick surface matters more when there is no oil spray.</li>
+              <li><strong>Expect a longer cook.</strong> The waffle may need more time than an oiled batter to brown and release.</li>
+              <li><strong>Cool before storing.</strong> Let waffles cool fully on a rack, then refrigerate or freeze with parchment between layers.</li>
+              <li><strong>Reheat for crispness.</strong> A toaster or dry waffle iron restores the exterior better than a microwave.</li>
+              <li><strong>Salt is optional.</strong> Omit it for a lower-sodium version and build flavor with lime, herbs, garlic, or chile.</li>
+              <li><strong>Measure your own response.</strong> Portion size and toppings can change satiety and glucose response; use your own data when that matters.</li>
+            </ul>
+          </div>
+          <aside class="finish">
+            <div class="eyebrow">The takeaway</div>
+            <h3>Keep the legume-tofu backbone.</h3>
+            <p>Flax handles binding. A hot nonstick iron handles release. The result stays fully plant-based, savory, fiber-forward, and free of added oil.</p>
+            <p style="color:var(--lime);font-weight:700;">Yields approximately 4–6 waffles, depending on the iron.</p>
+            <a href="../../">Browse more PGIS recipe decks →</a>
+          </aside>
+        </div>
+        <div class="slide-footer"><span>PGIS Recipes · August 2026</span><span>8 / 8</span></div>
+      </section>
+    </main>
+
+    <nav class="controls" aria-label="Slide controls">
+      <button id="prev" type="button" aria-label="Previous slide">←</button>
+      <span class="counter" id="counter">1 / 8</span>
+      <button id="next" type="button" aria-label="Next slide">→</button>
+    </nav>
+
+    <script>
+      const slides = [...document.querySelectorAll(".slide")];
+      const viewport = document.querySelector(".slide-viewport");
+      const counter = document.querySelector("#counter");
+      let current = 0;
+
+      function scaleSlides() {
+        const scale = Math.min(viewport.clientWidth / 900, 1);
+        slides.forEach((slide) => {
+          slide.style.transform = `translateX(-50%) scale(${scale})`;
+        });
+        viewport.style.height = `${506 * scale}px`;
+      }
+
+      function showSlide(index) {
+        slides[current].classList.remove("active");
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add("active");
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        document.title = `Oil-Free Red Lentil & Tofu Waffles · ${current + 1}/${slides.length}`;
+      }
+
+      document.querySelector("#prev").addEventListener("click", () => showSlide(current - 1));
+      document.querySelector("#next").addEventListener("click", () => showSlide(current + 1));
+      document.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key)) showSlide(current + 1);
+        if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) showSlide(current - 1);
+      });
+      window.addEventListener("resize", scaleSlides);
+      scaleSlides();
+    </script>
+  </body>
+</html>

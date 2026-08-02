@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-06-14",
+  libraryUpdated: "2026-08-02",
 };
 
 const recipes = [
+  {
+    title: "Oil-Free Red Lentil & Tofu Waffles",
+    subtitle: "Savory whole-food plant-based waffles with a lentil, tofu, and flax backbone",
+    description:
+      "Soaked red lentils and firm tofu create a fiber- and protein-forward savory waffle, with flax for binding and a nonstick iron for oil-free cooking.",
+    href: "./recipes/oil-free-red-lentil-tofu-waffles/",
+    tags: ["Breakfast", "Savory", "High Fiber", "Oil-Free", "WFPB", "Mastering Diabetes", "Meal Prep"],
+    featured: true,
+  },
   {
     title: "WFPB Banana Tofu Waffles v2",
     subtitle: "High-protein, oil-free waffles with seltzer lift for the Mastering Diabetes protocol",
