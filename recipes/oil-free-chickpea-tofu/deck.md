@@ -286,7 +286,7 @@ Per **¼ batch**, using **120 g flour per batch**, including lemon and spices:
 | Total fat | 2.1 g |
 | Sodium, without / with optional salt | About 1 / 150 mg |
 
-Excludes sauce and sides. [Calculation and sources](./wiki.md#approximate-nutrition).
+Excludes sauce and sides. [Calculation and sources](./wiki.html#approximate-nutrition).
 
 ---
 
@@ -314,7 +314,7 @@ The tofu contains carbohydrate. Follow your individualized glucose-monitoring an
 
 ## Sources and Full Recipe
 
-- [Full recipe and nutrition notes](./wiki.md)
+- [Full recipe and nutrition notes](./wiki.html)
 - [Original Facebook reel reference](https://www.facebook.com/share/r/1DskdUG2u9/)
 - [Mastering Diabetes Nutrition Guidelines](https://www.masteringdiabetes.org/diabetes-nutrition-guidelines/)
 - [Recipe guide from the supplied note](https://www.masteringdiabetes.org/wp-content/uploads/2024/01/MD-Foolproof-Recipe-Guide-Jan-2023.pdf)
