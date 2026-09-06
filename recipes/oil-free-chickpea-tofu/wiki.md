@@ -50,7 +50,7 @@ This firm, sliceable chickpea tofu is an oil-free alternative to soy tofu. It is
 
 ## Ingredients
 
-- 1 cup chickpea flour
+- 1 cup chickpea flour (nutrition estimate assumes 120 g; actual cup weight varies)
 - 3 cups water, divided
 - 1 teaspoon onion powder
 - 1 teaspoon garlic powder
@@ -122,17 +122,36 @@ To keep the meal low in fat, avoid frying the tofu in oil or pairing it with coc
 
 ## Approximate Nutrition
 
-Per one-fourth of the recipe, before sauces or accompaniments:
+**Serving size: one-fourth of the finished tofu batch. Makes 4 servings.**
 
-| Nutrient | Approximate amount |
-|---|---:|
-| Energy | 90 kcal |
-| Carbohydrate | 13–14 g |
-| Protein | 5 g |
-| Fat | 1.5 g |
-| Fiber | 2–3 g |
+These estimates assume **120 g chickpea flour for the 1 cup used in the recipe**, based on Bob’s Red Mill’s label (¼ cup = 30 g). They include the lemon juice and measured spices, but exclude optional cayenne, sauce, broth used for crisping, and meal-bowl accompaniments.
 
-Values are estimates and will vary according to the brand of chickpea flour and the final serving size.
+| Nutrient | Per serving (¼ batch) | Whole batch |
+|---|---:|---:|
+| Energy | 127 kcal | 508 kcal |
+| Total carbohydrate | 22.6 g | 90.6 g |
+| Dietary fiber | 5.3 g | 21.2 g |
+| Total sugars | 1.5 g | 6.0 g |
+| Added sugars | 0 g | 0 g |
+| Protein | 5.3 g | 21.1 g |
+| Total fat | 2.1 g | 8.3 g |
+| Sodium, without optional salt | About 1 mg | About 3 mg |
+| Sodium, with ¼ tsp table salt | About 150 mg | About 590 mg |
+
+### Calculation notes
+
+- **Flour basis:** Four 30 g label servings supply 480 kcal, 84 g carbohydrate, 20 g fiber, 20 g protein, and 8 g fat to the batch. The lemon and measured spices add approximately 28 kcal and 7 g carbohydrate.
+- **Measurement matters:** A cup is a volume measure, and flour weight varies with brand and packing. This is a 120 g calculation example, not a universal cup-to-gram conversion. Weigh your flour and use your package label for a more accurate estimate. The earlier 90 kcal estimate had no documented flour-weight basis.
+- **Salt:** The salted estimate assumes approximately 1.5 g table salt in the whole batch. Crystal size and brand can change the weight of ¼ teaspoon. Water mineral content is not included.
+- **Portions:** Divide the finished batch into four equal portions by weight. Cooking and crisping change water content, so a reliable per-100-g value requires weighing the finished tofu.
+- **Sauce and sides:** Log these separately. Oil-free crisping adds no calories unless additional ingredients are used.
+- These are calculated estimates from rounded label and reference values, not laboratory results. Whole-batch and per-serving numbers are rounded independently.
+
+### Nutrition sources
+
+- [Bob’s Red Mill Chickpea Flour nutrition label](https://www.bobsredmill.com/product/garbanzo-bean-flour): 120 kcal, 21 g carbohydrate, 5 g fiber, 5 g protein, and 2 g fat per 30 g.
+- University Hospitals nutrition reference portions: [onion powder](https://www.uhhospitals.org/health-information/health-and-wellness-library/article/nutritionfacts-v1/spices-onion-powder-1-tbsp) (⅓ tbsp), [garlic powder](https://www.uhhospitals.org/health-information/health-and-wellness-library/article/nutritionfacts-v1/spices-garlic-powder-1-tsp) (1 tsp), [paprika](https://www.uhhospitals.org/health-information/health-and-wellness-library/article/nutritionfacts-v1/spices-paprika-1-tsp) (½ tsp, used as a proxy for smoked paprika), [turmeric](https://www.uhhospitals.org/health-information/health-and-wellness-library/article/nutritionfacts-v1/spices-turmeric-ground-1-tsp) (½ tsp), and [black pepper](https://www.uhhospitals.org/health-information/health-and-wellness-library/article/nutritionfacts-v1/spices-pepper-black-1-tsp) (¼ tsp).
+- [USDA raw lemon juice data via MyFoodData](https://tools.myfooddata.com/recipe-nutrition-calculator/167747/wt4/1), scaled from the displayed 6 g portion to an assumed 15 g tablespoon.
 
 ## Storage
 

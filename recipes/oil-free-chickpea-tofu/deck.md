@@ -275,17 +275,18 @@ For the low-fat version in the supplied recipe, use these toppings in place of o
 
 ## Approximate Nutrition
 
-Per **one-fourth of the tofu**, before sauce or accompaniments:
+Per **¼ batch**, using **120 g flour per batch**, including lemon and spices:
 
-| Nutrient | Estimate |
+| Nutrient | Per serving |
 |---|---:|
-| Energy | 90 kcal |
-| Carbohydrate | 13–14 g |
-| Protein | 5 g |
-| Fat | 1.5 g |
-| Fiber | 2–3 g |
+| Energy | 127 kcal |
+| Total carbohydrate | 22.6 g |
+| Dietary fiber | 5.3 g |
+| Protein | 5.3 g |
+| Total fat | 2.1 g |
+| Sodium, without / with optional salt | About 1 / 150 mg |
 
-Estimates from the supplied recipe. Flour brand and serving size affect values.
+Excludes sauce and sides. [Calculation and sources](./wiki.md#approximate-nutrition).
 
 ---
 
