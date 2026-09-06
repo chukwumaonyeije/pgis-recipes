@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-08-02",
+  libraryUpdated: "2026-09-06",
 };
 
 const recipes = [
+  {
+    title: "Mastering Diabetes-Friendly Chickpea Tofu",
+    subtitle: "Oil-free Burmese-inspired chickpea tofu with roasted red-pepper sauce",
+    description:
+      "Firm, sliceable chickpea tofu made from chickpea flour, lemon, and spices, with air-fryer, oven, and stovetop finishing options for meal prep.",
+    href: "./recipes/oil-free-chickpea-tofu/",
+    tags: ["Main Dish", "Meal Prep", "Vegan", "Oil-Free", "Gluten-Free", "Mastering Diabetes"],
+    featured: true,
+  },
   {
     title: "Oil-Free Red Lentil & Tofu Waffles",
     subtitle: "Savory whole-food plant-based waffles with a lentil, tofu, and flax backbone",
