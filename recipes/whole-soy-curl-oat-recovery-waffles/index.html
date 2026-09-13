@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Vegan oat waffles with ground Butler Soy Curls, banana, flax, and chia. Includes batter adjustment and freezer notes."
+    />
+    <title>Whole-Soy Curl–Oat Recovery Waffles | PGIS Recipes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Montserrat:wght@700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #15251f;
+        --muted: #587066;
+        --cream: #f7f4e9;
+        --paper: #fffdf7;
+        --lentil: #e85d3f;
+        --lentil-dark: #b83e29;
+        --leaf: #26765b;
+        --leaf-dark: #174d3c;
+        --lime: #b8d96b;
+        --line: rgba(21, 37, 31, 0.14);
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body { margin: 0; min-height: 100%; }
+
+      body {
+        background:
+          radial-gradient(circle at 12% 8%, rgba(184, 217, 107, 0.18), transparent 26rem),
+          #dfe7df;
+        color: var(--ink);
+        font-family: "DM Sans", sans-serif;
+        padding: 22px 16px 74px;
+      }
+
+      .topbar {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        margin: 0 auto 12px;
+        max-width: 900px;
+      }
+
+      .home-link {
+        color: var(--leaf-dark);
+        font-size: 13px;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .hint { color: var(--muted); font-size: 12px; }
+
+      .slide-viewport {
+        margin: 0 auto;
+        max-width: 900px;
+        position: relative;
+        width: 100%;
+      }
+
+      .slide {
+        background: var(--paper);
+        border-radius: 18px;
+        box-shadow: 0 22px 60px rgba(20, 46, 37, 0.18);
+        display: none;
+        height: 506px;
+        left: 50%;
+        overflow: hidden;
+        position: absolute;
+        top: 0;
+        transform-origin: top center;
+        width: 900px;
+      }
+
+      .slide.active { display: block; }
+
+      .slide::after {
+        background: var(--leaf);
+        bottom: 0;
+        content: "";
+        height: 5px;
+        left: 0;
+        position: absolute;
+        width: 100%;
+      }
+
+      .slide-header, .slide-footer {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        left: 42px;
+        position: absolute;
+        right: 42px;
+        z-index: 3;
+      }
+
+      .slide-header {
+        border-bottom: 1px solid var(--line);
+        color: var(--leaf-dark);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        padding-bottom: 9px;
+        text-transform: uppercase;
+        top: 22px;
+      }
+
+      .slide-footer {
+        bottom: 14px;
+        color: var(--muted);
+        font-size: 10px;
+        font-weight: 700;
+      }
+
+      .content {
+        height: 100%;
+        padding: 67px 48px 42px;
+        position: relative;
+        z-index: 2;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+
+      h1, h2, h3 {
+        font-family: "Montserrat", sans-serif;
+        letter-spacing: -0.035em;
+      }
+
+      h1 { font-size: 52px; line-height: 0.98; margin-bottom: 18px; }
+      h2 { font-size: 31px; line-height: 1.08; margin-bottom: 18px; }
+      h3 { font-size: 17px; line-height: 1.15; }
+
+      .eyebrow {
+        color: var(--lentil-dark);
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        margin-bottom: 12px;
+        text-transform: uppercase;
+      }
+
+      .accent { color: var(--lentil); }
+      .muted { color: var(--muted); }
+
+      .cover {
+        background:
+          linear-gradient(108deg, rgba(255, 253, 247, 0.98) 0 59%, rgba(255, 253, 247, 0.18) 59%),
+          linear-gradient(145deg, #e85d3f, #9b2e21);
+      }
+
+      .cover .content { align-items: center; display: flex; padding: 52px; }
+      .cover-copy { max-width: 520px; }
+
+      .cover .subtitle {
+        color: #3e554b;
+        font-size: 17px;
+        line-height: 1.45;
+        max-width: 490px;
+      }
+
+      .cover-art {
+        align-items: center;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        position: absolute;
+        right: 56px;
+        top: 103px;
+      }
+
+      .waffle {
+        background:
+          linear-gradient(90deg, transparent 31%, rgba(120, 43, 26, 0.28) 32% 35%, transparent 36% 64%, rgba(120, 43, 26, 0.28) 65% 68%, transparent 69%),
+          linear-gradient(0deg, transparent 31%, rgba(120, 43, 26, 0.28) 32% 35%, transparent 36% 64%, rgba(120, 43, 26, 0.28) 65% 68%, transparent 69%),
+          #f18a57;
+        border: 7px solid #f7b27d;
+        border-radius: 26px;
+        box-shadow: 0 18px 25px rgba(83, 26, 19, 0.3);
+        height: 138px;
+        transform: rotate(8deg);
+        width: 178px;
+      }
+
+      .sprig { color: #d8ef9a; font-size: 31px; letter-spacing: 8px; }
+
+      .badge-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 24px; }
+      .badge {
+        background: rgba(38, 118, 91, 0.1);
+        border: 1px solid rgba(38, 118, 91, 0.22);
+        border-radius: 999px;
+        color: var(--leaf-dark);
+        font-size: 10px;
+        font-weight: 800;
+        padding: 6px 10px;
+        text-transform: uppercase;
+      }
+
+      .two-col { display: grid; gap: 34px; grid-template-columns: 1.05fr 0.95fr; }
+
+      .big-statement {
+        border-left: 5px solid var(--lentil);
+        font-family: "Montserrat", sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        line-height: 1.25;
+        margin: 22px 0;
+        padding-left: 18px;
+      }
+
+      .principles { display: grid; gap: 12px; }
+      .principle { border-bottom: 1px solid var(--line); padding: 0 0 11px; }
+      .principle:last-child { border-bottom: 0; }
+      .principle strong { color: var(--leaf-dark); display: block; font-size: 14px; margin-bottom: 3px; }
+      .principle span { color: var(--muted); font-size: 12px; line-height: 1.38; }
+
+      .callout {
+        background: var(--leaf-dark);
+        border-radius: 16px;
+        color: white;
+        padding: 20px;
+      }
+
+      .callout h3 { color: var(--lime); margin-bottom: 8px; }
+      .callout p { font-size: 12px; line-height: 1.5; margin: 0; opacity: 0.9; }
+
+      .ingredient-grid { display: grid; gap: 13px 26px; grid-template-columns: 1fr 1fr; }
+      .ingredient {
+        border-bottom: 1px solid var(--line);
+        display: grid;
+        gap: 11px;
+        grid-template-columns: 74px 1fr;
+        padding-bottom: 10px;
+      }
+
+      .qty { color: var(--lentil-dark); font-size: 13px; font-weight: 800; }
+      .ingredient strong { display: block; font-size: 13px; }
+      .ingredient span { color: var(--muted); font-size: 11px; }
+
+      .method-grid { display: grid; gap: 11px 26px; grid-template-columns: 1fr 1fr; }
+      .step { display: grid; gap: 12px; grid-template-columns: 34px 1fr; }
+      .step-num {
+        align-items: center;
+        background: var(--lentil);
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        font-family: "Montserrat", sans-serif;
+        font-size: 13px;
+        font-weight: 900;
+        height: 30px;
+        justify-content: center;
+        width: 30px;
+      }
+
+      .step h3 { font-size: 14px; margin: 1px 0 3px; }
+      .step p { color: var(--muted); font-size: 11.5px; line-height: 1.38; margin: 0; }
+
+      .sequence {
+        align-items: stretch;
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(4, 1fr);
+        margin-top: 25px;
+      }
+
+      .phase {
+        background: #f1f3e8;
+        border-top: 4px solid var(--leaf);
+        min-height: 176px;
+        padding: 18px 15px;
+        position: relative;
+      }
+
+      .phase::after {
+        color: var(--lentil);
+        content: "→";
+        font-size: 24px;
+        font-weight: 800;
+        position: absolute;
+        right: -19px;
+        top: 71px;
+        z-index: 4;
+      }
+
+      .phase:last-child::after { content: ""; }
+      .phase .time { color: var(--lentil-dark); font-size: 11px; font-weight: 800; text-transform: uppercase; }
+      .phase h3 { font-size: 15px; margin: 8px 0; }
+      .phase p { color: var(--muted); font-size: 11px; line-height: 1.42; margin: 0; }
+
+      .cook-layout { display: grid; gap: 34px; grid-template-columns: 1.1fr 0.9fr; }
+      .cook-rule { display: flex; gap: 14px; margin-bottom: 15px; }
+      .cook-rule .icon { color: var(--lentil); font-size: 25px; font-weight: 900; line-height: 1; }
+      .cook-rule h3 { font-size: 14px; margin-bottom: 4px; }
+      .cook-rule p { color: var(--muted); font-size: 11.5px; line-height: 1.4; margin: 0; }
+
+      .doneness {
+        background: #f5d6c8;
+        border-radius: 18px;
+        padding: 21px;
+      }
+      .doneness h3 { color: var(--lentil-dark); }
+      .doneness ul { margin: 0; padding-left: 18px; }
+      .doneness li { font-size: 12px; line-height: 1.5; margin-bottom: 6px; }
+
+      .serving-layout { display: grid; gap: 32px; grid-template-columns: 0.95fr 1.05fr; }
+      .serving-list { list-style: none; margin: 4px 0 0; padding: 0; }
+      .serving-list li { border-bottom: 1px solid var(--line); padding: 11px 0; }
+      .serving-list strong { color: var(--leaf-dark); display: block; font-size: 13px; }
+      .serving-list span { color: var(--muted); font-size: 11.5px; }
+
+      .plate {
+        align-items: center;
+        background: #f0efe2;
+        border: 18px solid white;
+        border-radius: 50%;
+        box-shadow: 0 12px 30px rgba(21, 37, 31, 0.12);
+        display: flex;
+        height: 250px;
+        justify-content: center;
+        margin: 0 auto;
+        position: relative;
+        width: 250px;
+      }
+
+      .plate .waffle { height: 105px; width: 132px; }
+      .plate-label {
+        background: var(--leaf-dark);
+        border-radius: 999px;
+        bottom: 2px;
+        color: white;
+        font-size: 10px;
+        font-weight: 800;
+        padding: 7px 11px;
+        position: absolute;
+      }
+
+      .notes-layout { display: grid; gap: 30px; grid-template-columns: 1.1fr 0.9fr; }
+      .note-list { margin: 0; padding-left: 19px; }
+      .note-list li { color: var(--muted); font-size: 11.5px; line-height: 1.42; margin-bottom: 9px; }
+      .note-list strong { color: var(--ink); }
+
+      .finish {
+        background: var(--leaf-dark);
+        border-radius: 18px;
+        color: white;
+        padding: 23px;
+      }
+      .finish .eyebrow { color: var(--lime); }
+      .finish h3 { font-size: 22px; margin-bottom: 10px; }
+      .finish p { font-size: 12px; line-height: 1.5; opacity: 0.86; }
+      .finish a { color: var(--lime); font-size: 11px; font-weight: 700; }
+
+      .controls {
+        align-items: center;
+        bottom: 16px;
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        left: 0;
+        position: fixed;
+        right: 0;
+        z-index: 10;
+      }
+
+      .controls button {
+        background: var(--leaf-dark);
+        border: 0;
+        border-radius: 50%;
+        color: white;
+        cursor: pointer;
+        font-size: 18px;
+        height: 38px;
+        width: 38px;
+      }
+
+      .controls button:hover, .controls button:focus-visible { background: var(--lentil-dark); outline: 3px solid rgba(232, 93, 63, 0.25); }
+      .counter { color: var(--leaf-dark); font-size: 12px; font-weight: 800; min-width: 45px; text-align: center; }
+
+      @media (max-width: 620px) {
+        body { padding-left: 8px; padding-right: 8px; }
+        .hint { display: none; }
+      }
+
+      @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+    
+      .recipe-text { font-size: 17px; line-height: 1.5; }
+      .recipe-text li { margin-bottom: 12px; }
+      .ingredient strong, .qty { font-size: 15px; }
+      .ingredient span { font-size: 12px; }
+      .ingredient { padding-bottom: 12px; }
+      @media print {
+        body { background: white; padding: 0; }
+        .topbar, .controls { display: none; }
+        .slide-viewport { height: auto !important; max-width: none; }
+        .slide { display: block; position: relative; left: 0; transform: none !important; width: 100%; height: auto; min-height: 480px; break-after: page; box-shadow: none; }
+      }
+      @media (max-width: 620px) {
+        .slide { width: 100%; height: auto; min-height: 600px; left: 0; transform: none !important; position: relative; }
+        .slide-viewport { height: auto !important; }
+        .content { padding: 66px 24px 50px; }
+        .ingredient-grid { grid-template-columns: 1fr; }
+        h1 { font-size: 38px; } h2 { font-size: 28px; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <a class="home-link" href="../../">← PGIS Recipes</a>
+      <span class="hint">Use arrow keys or controls to navigate</span>
+    </div>
+
+<main class="slide-viewport" aria-live="polite"><section class="slide active" aria-label="Slide 1 of 7"><div class="slide-header"><span>PGIS Recipes</span><span>Breakfast · Recovery</span></div><div class="content"><p class="eyebrow">Whole soy + oats</p><h1>Whole-Soy Curl–Oat<br><span class="accent">Recovery Waffles</span></h1><p class="recipe-text">A cinnamon-vanilla waffle with banana, ground Soy Curls, flax, and chia. An adaptation of the tofu–oat original.</p><div class="badge-row"><span class="badge">Vegan</span><span class="badge">No added oil in batter</span><span class="badge">Meal prep</span></div><p class="recipe-text" style="margin-top:24px"><strong>Yield:</strong> 1 large batch; waffle count depends on your iron.<br><strong>Rest:</strong> 10–15 minutes. Cooking time varies by machine.</p></div><div class="slide-footer"><span>Whole-Soy Curl–Oat Recovery Waffles</span><span>1 / 7</span></div></section>
+<section class="slide" aria-label="Slide 2 of 7"><div class="slide-header"><span>PGIS Recipes</span><span>Ingredients</span></div><div class="content"><h2>Measure the whole batch</h2><div class="ingredient-grid"><div class="ingredient"><div class="qty">4 cups</div><div><strong>Rolled oats</strong><span>Grind to flour; see measurement note below</span></div></div><div class="ingredient"><div class="qty">80 g</div><div><strong>Dry Butler Soy Curls</strong><span>About 2 cups loosely packed; weight is preferred</span></div></div><div class="ingredient"><div class="qty">1½ cups</div><div><strong>Warm water</strong><span>Plus extra liquid as needed</span></div></div><div class="ingredient"><div class="qty">2 cups</div><div><strong>Unsweetened soy milk</strong><span>Plus extra liquid as needed</span></div></div><div class="ingredient"><div class="qty">4 Tbsp</div><div><strong>Ground flaxseed</strong><span></span></div></div><div class="ingredient"><div class="qty">4 Tbsp</div><div><strong>Ground chia seed</strong><span></span></div></div><div class="ingredient"><div class="qty">6 tsp</div><div><strong>Baking powder</strong><span>Equivalent to 2 Tbsp</span></div></div><div class="ingredient"><div class="qty">2 tsp</div><div><strong>Cinnamon</strong><span></span></div></div><div class="ingredient"><div class="qty">4 tsp</div><div><strong>Vanilla extract</strong><span></span></div></div><div class="ingredient"><div class="qty">1 tsp</div><div><strong>Salt</strong><span></span></div></div><div class="ingredient"><div class="qty">1</div><div><strong>Ripe banana</strong><span>Peeled</span></div></div></div></div><div class="slide-footer"><span>Whole-Soy Curl–Oat Recovery Waffles</span><span>2 / 7</span></div></section>
+<section class="slide" aria-label="Slide 3 of 7"><div class="slide-header"><span>PGIS Recipes</span><span>Preparation</span></div><div class="content"><h2>Grind dry, then blend creamy</h2><ol class="recipe-text"><li><strong>Prepare the oats.</strong> Measure 4 cups rolled oats, grind into flour, and set aside. The source also allows oat flour; use the weight of your measured oats when substituting, since cup weights differ.</li><li><strong>Grind the Soy Curls.</strong> Pulverize 80 g dry Soy Curls in a high-speed blender until fine.</li><li><strong>Make the wet base.</strong> Add 1½ cups warm water, 2 cups soy milk, banana, and vanilla. Blend until completely smooth.</li><li><strong>Combine.</strong> Incorporate oats, flax, chia, baking powder, cinnamon, and salt until uniform. Work in smaller batches or mix in a large bowl if needed; respect your blender’s capacity.</li></ol></div><div class="slide-footer"><span>Whole-Soy Curl–Oat Recovery Waffles</span><span>3 / 7</span></div></section>
+<section class="slide" aria-label="Slide 4 of 7"><div class="slide-header"><span>PGIS Recipes</span><span>Rest · Adjust</span></div><div class="content"><h2>Thick, but still pourable</h2><p class="big-statement">Rest the batter for 10–15 minutes before judging its thickness.</p><ul class="recipe-text"><li>Look for thick pancake batter that pours slowly from a spoon. It should not hold together like dough.</li><li>If too thick, add water or unsweetened soy milk a few tablespoons at a time. Expect roughly <strong>¼–½ cup additional liquid</strong> if needed.</li><li>Stir between additions. Recheck as the batch sits: the oats, flax, chia, and Soy Curls continue absorbing liquid.</li></ul><p class="recipe-text"><strong>First batch:</strong> keep the oats, flax, chia, and banana unchanged; adjust only the liquid.</p></div><div class="slide-footer"><span>Whole-Soy Curl–Oat Recovery Waffles</span><span>4 / 7</span></div></section>
+<section class="slide" aria-label="Slide 5 of 7"><div class="slide-header"><span>PGIS Recipes</span><span>Cook</span></div><div class="content"><h2>Preheat, cook, cool on a rack</h2><ol class="recipe-text"><li><strong>Preheat the waffle iron fully.</strong> Follow its manufacturer’s heat and surface-preparation instructions.</li><li><strong>Portion for your iron.</strong> Leave space for expansion. Begin with one test waffle to find the right fill and cooking time.</li><li><strong>Cook until browned and crisp.</strong> Let steam slow and the waffle release easily before opening fully. The center should be set, without wet batter.</li><li><strong>Transfer to a wire rack.</strong> Let steam escape instead of stacking hot waffles. Stir and check the batter before each refill.</li></ol><p class="recipe-text">Serve with berries, sliced fruit, or unsweetened plant yogurt.</p></div><div class="slide-footer"><span>Whole-Soy Curl–Oat Recovery Waffles</span><span>5 / 7</span></div></section>
+<section class="slide" aria-label="Slide 6 of 7"><div class="slide-header"><span>PGIS Recipes</span><span>Batch · Reheat</span></div><div class="content"><h2>Save the extras for another morning</h2><ul class="recipe-text"><li><strong>Cool completely</strong> on a wire rack before packing.</li><li><strong>Refrigerate or freeze</strong> in a closed container, with parchment between waffles for easy separation.</li><li><strong>Reheat in a toaster or air fryer</strong> until hot throughout and crisp at the edges. Timing depends on thickness and whether the waffle is frozen.</li><li><strong>Keep a batch note:</strong> record added liquid, number of waffles, iron setting, cooking time, and texture after reheating.</li></ul></div><div class="slide-footer"><span>Whole-Soy Curl–Oat Recovery Waffles</span><span>6 / 7</span></div></section>
+<section class="slide" aria-label="Slide 7 of 7"><div class="slide-header"><span>PGIS Recipes</span><span>Adaptation notes</span></div><div class="content"><h2>A starting formula to test</h2><p class="recipe-text">The proposed replacement for <strong>2 cups soft or silken tofu</strong> is <strong>80 g dry Soy Curls + 1½ cups warm water</strong>. It is not a cup-for-cup swap.</p><p class="recipe-text">This version has not been kitchen-tested here. If the first batch is dense or chewy despite a pourable batter and a thorough cook, try <strong>3 Tbsp chia</strong> in the next batch, keeping the other ingredients fixed.</p><p class="recipe-text"><strong>Contains soy.</strong> Per-waffle nutrition depends on ingredient brands, actual oat weight, and final yield; no precise nutrition values are assigned.</p><p class="recipe-text">Adapted from your supplied recipe card and substitution notes.<br><a href="./recipe-card.pdf">Download the original recipe card (PDF)</a><br><a href="../tofu-oat-waffles/">View the original tofu–oat waffle deck</a></p></div><div class="slide-footer"><span>Whole-Soy Curl–Oat Recovery Waffles</span><span>7 / 7</span></div></section></main>
+    <nav class="controls" aria-label="Slide controls">
+      <button id="prev" type="button" aria-label="Previous slide">←</button>
+      <span class="counter" id="counter">1 / 7</span>
+      <button id="next" type="button" aria-label="Next slide">→</button>
+    </nav>
+
+    <script>
+      const slides = [...document.querySelectorAll(".slide")];
+      const viewport = document.querySelector(".slide-viewport");
+      const counter = document.querySelector("#counter");
+      let current = 0;
+
+      function scaleSlides() {
+        if (window.innerWidth <= 620) { viewport.style.height = "auto"; return; }
+        const scale = Math.min(viewport.clientWidth / 900, 1);
+        slides.forEach((slide) => {
+          slide.style.transform = `translateX(-50%) scale(${scale})`;
+        });
+        viewport.style.height = `${506 * scale}px`;
+      }
+
+      function showSlide(index) {
+        slides[current].classList.remove("active");
+        current = (index + slides.length) % slides.length;
+        slides[current].classList.add("active");
+        counter.textContent = `${current + 1} / ${slides.length}`;
+        document.title = `Whole-Soy Curl–Oat Recovery Waffles · ${current + 1}/${slides.length}`;
+      }
+
+      document.querySelector("#prev").addEventListener("click", () => showSlide(current - 1));
+      document.querySelector("#next").addEventListener("click", () => showSlide(current + 1));
+      document.addEventListener("keydown", (event) => {
+        if (["ArrowRight", "ArrowDown", "PageDown", " ", "ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) event.preventDefault();
+        if (["ArrowRight", "ArrowDown", "PageDown", " "].includes(event.key)) showSlide(current + 1);
+        if (["ArrowLeft", "ArrowUp", "PageUp"].includes(event.key)) showSlide(current - 1);
+      });
+      window.addEventListener("resize", scaleSlides);
+      scaleSlides();
+    </script>
+  </body>
+</html>

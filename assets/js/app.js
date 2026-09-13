@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-09-06",
+  libraryUpdated: "2026-09-13",
 };
 
 const recipes = [
+  {
+    title: "Whole-Soy Curl–Oat Recovery Waffles",
+    subtitle: "Cinnamon-vanilla oat waffles with ground whole soy, banana, flax, and chia",
+    description:
+      "A tofu-free adaptation using 80 g dry Butler Soy Curls, with a 10–15-minute batter rest, gradual liquid adjustment, and freezer/reheat notes.",
+    href: "./recipes/whole-soy-curl-oat-recovery-waffles/",
+    tags: ["Breakfast", "Recovery Meal", "Vegan", "Soy Curls", "Meal Prep", "Freezer-Ready"],
+    featured: true,
+  },
   {
     title: "Mastering Diabetes-Friendly Chickpea Tofu",
     subtitle: "Oil-free Burmese-inspired chickpea tofu with roasted red-pepper sauce",
