@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-09-13",
+  libraryUpdated: "2026-11-07",
 };
 
 const recipes = [
+  {
+    title: "Vegan, Oil-Free Asurasu Oka",
+    subtitle: "Savory Igbo steamed corn pudding with Scotch bonnet and mushroom powder",
+    description:
+      "Fresh corn, onion, and dried shiitake make four tender oil-free puddings. Includes batter adjustments, 60–90-minute steaming guidance, and a black-eyed pea and greens meal pairing.",
+    href: "./recipes/asurasu-oka/",
+    tags: ["Side Dish", "Vegan", "Oil-Free", "Igbo", "Corn", "Mastering Diabetes"],
+    featured: false,
+  },
   {
     title: "Whole-Soy Curl–Oat Recovery Waffles",
     subtitle: "Cinnamon-vanilla oat waffles with ground whole soy, banana, flax, and chia",

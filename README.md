@@ -8,7 +8,7 @@ It is designed as a calm, presentation-oriented front door for recipe experiment
 
 - Repository: [chukwumaonyeije/pgis-recipes](https://github.com/chukwumaonyeije/pgis-recipes)
 - Expected GitHub Pages URL: [https://chukwumaonyeije.github.io/pgis-recipes/](https://chukwumaonyeije.github.io/pgis-recipes/)
-- Current library status as of September 13, 2026: 39 recipe decks, including 14 featured on the homepage
+- Current library status as of November 7, 2026: 40 recipe decks, including 14 featured on the homepage
 
 ## What is PGIS?
 
