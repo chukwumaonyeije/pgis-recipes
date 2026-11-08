@@ -8,7 +8,9 @@ It is designed as a calm, presentation-oriented front door for recipe experiment
 
 - Repository: [chukwumaonyeije/pgis-recipes](https://github.com/chukwumaonyeije/pgis-recipes)
 - Expected GitHub Pages URL: [https://chukwumaonyeije.github.io/pgis-recipes/](https://chukwumaonyeije.github.io/pgis-recipes/)
-- Current library status as of November 7, 2026: 40 recipe decks, including 14 featured on the homepage
+- Current library status as of November 8, 2026: 41 recipe decks, including 15 featured on the homepage
+
+The newest featured recipe is [Cinnamon Sweet Potato Crunch Cereal](https://chukwumaonyeije.github.io/pgis-recipes/recipes/cinnamon-sweet-potato-crunch-cereal/), an oil-free, six-serving oat cereal with sweet potato, banana, cinnamon, and vanilla. [Read the full recipe](recipes/cinnamon-sweet-potato-crunch-cereal/wiki.md).
 
 ## What is PGIS?
 

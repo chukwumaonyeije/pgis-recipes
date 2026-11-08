@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-11-07",
+  libraryUpdated: "2026-11-08",
 };
 
 const recipes = [
+  {
+    title: "Cinnamon Sweet Potato Crunch Cereal",
+    subtitle: "Crisp cinnamon-vanilla oat clusters with sweet potato and banana",
+    description:
+      "Five ingredients, no butter, oil, or syrup. Bake a thin sheet, break it into small clusters, and dry the centers for a crunchy six-serving breakfast batch.",
+    href: "./recipes/cinnamon-sweet-potato-crunch-cereal/",
+    tags: ["Breakfast", "Vegan", "Oil-Free", "No Added Sugar", "Whole Grain", "Mastering Diabetes"],
+    featured: true,
+  },
   {
     title: "Vegan, Oil-Free Asurasu Oka",
     subtitle: "Savory Igbo steamed corn pudding with Scotch bonnet and mushroom powder",
