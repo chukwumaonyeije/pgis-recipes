@@ -276,6 +276,6 @@ Milk, fruit, and overnight oats are separate from the cereal nutrition estimate.
 
 For consistent portions when logging breakfast, **weigh the cooled batch and divide its weight by six**.
 
-- [Full recipe (Markdown)](./wiki.md)
-- [Editable Marp deck (Markdown)](./deck.md)
+- [Full recipe (Markdown)](https://github.com/chukwumaonyeije/pgis-recipes/blob/main/recipes/cinnamon-sweet-potato-crunch-cereal/wiki.md)
+- [Editable Marp deck (Markdown)](https://github.com/chukwumaonyeije/pgis-recipes/blob/main/recipes/cinnamon-sweet-potato-crunch-cereal/deck.md)
 - [Back to the PGIS recipe library](../../)

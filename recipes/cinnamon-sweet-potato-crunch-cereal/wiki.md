@@ -62,4 +62,4 @@ Per serving (**⅙ of the batch, before milk or fruit**):
 
 For consistent portions when logging breakfast, weigh the cooled batch and divide its weight by six.
 
-[Open the recipe slideshow](./index.html) · [Editable Marp deck](./deck.md) · [Return to the PGIS recipe library](../../)
+[Open the recipe slideshow](./index.html) · [Editable Marp deck](https://github.com/chukwumaonyeije/pgis-recipes/blob/main/recipes/cinnamon-sweet-potato-crunch-cereal/deck.md) · [Return to the PGIS recipe library](../../)
