@@ -1,8 +1,17 @@
 const siteMetadata = {
-  libraryUpdated: "2026-11-08",
+  libraryUpdated: "2026-11-25",
 };
 
 const recipes = [
+  {
+    title: "Cinnamon Navy Bean Pie",
+    subtitle: "Banana-sweetened custard with a cinnamon oat crust",
+    description:
+      "This oil-free, whole-food plant-based dessert has about 8 g protein per slice and no added sugar.",
+    href: "./recipes/cinnamon-navy-bean-pie/",
+    tags: ["Dessert", "Vegan", "Oil-Free", "No Added Sugar", "WFPB", "Mastering Diabetes"],
+    featured: true,
+  },
   {
     title: "Cinnamon Sweet Potato Crunch Cereal",
     subtitle: "Crisp cinnamon-vanilla oat clusters with sweet potato and banana",
